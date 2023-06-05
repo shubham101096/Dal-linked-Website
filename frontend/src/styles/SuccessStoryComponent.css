@@ -1,0 +1,28 @@
+.storyCard {
+  background-color: #2c74b3;
+  padding: 1.2em;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  border-radius: 30px;
+}
+.person {
+  text-align: end;
+}
+
+.storyList {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.02em;
+}
+
+.successStoriesHeader {
+  padding-top: 1.5em;
+  color: #205295;
+  text-shadow: 2px 2px 4px #607eaa;
+  font-size: 3em;
+}
+
+.successStoriesSection {
+  background-color: #eae3d2;
+}
