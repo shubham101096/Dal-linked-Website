@@ -1,10 +1,15 @@
 import './App.css';
-
+import ContactUs from "./components/ContactUs";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 function App() {
   return (
-    <div className="App">
-    It works
-    </div>
+    <Router>
+        <Routes>
+            <Route path="/ContactUs" element={<ContactUs />} />
+        </Routes>
+    </Router>
   );
 }
 
