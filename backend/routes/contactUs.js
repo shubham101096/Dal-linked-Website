@@ -14,13 +14,13 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post("/", function (req, res, next) {
-  const { from, text } = req.body;
+  const { name, email, message } = req.body;
 
   const mailOptions = {
     from: emailId,
     to: emailId,
-    subject: "Hi",
-    text: "text",
+    subject: 'DalLinked ContactUs: Name: ${name}, Email: ${email}',
+    text: 'Name: ${name}\n Email: ${email}\n Message:\n ${message}'
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
