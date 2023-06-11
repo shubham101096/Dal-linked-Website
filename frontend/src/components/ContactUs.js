@@ -50,16 +50,29 @@ function ContactUs() {
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="textarea" value={name} placeholder="John Doe" />
-                  </Form.Group>
+                    <Form.Control
+                        type="textarea"
+                        value={name}
+                        placeholder="John Doe"
+                        onChange={(e) => setName(e.target.value)}
+                    />                  </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" value={email} placeholder="john.doe@example.com" />
-                  </Form.Group>
+                    <Form.Control
+                        type="email"
+                        value={email}
+                        placeholder="john.doe@example.com"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />                  </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Message</Form.Label>
-                    <Form.Control as="textarea" value={message} rows={3} placeholder="Enter your message here" />
-                  </Form.Group>
+                    <Form.Control
+                        as="textarea"
+                        value={message}
+                        rows={3}
+                        placeholder="Enter your message here"
+                        onChange={(e) => setMessage(e.target.value)}
+                    />                  </Form.Group>
                   <div className="d-flex justify-content-center">
                     <Button type="submit" style={{ backgroundColor: '#607EAA', color: 'white', border: 'none' }}>Submit</Button>{' '}
                   </div>
