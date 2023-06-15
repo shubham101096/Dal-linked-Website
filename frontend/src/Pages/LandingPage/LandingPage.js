@@ -1,11 +1,13 @@
 import React from "react";
 import HeroComponent from "./HeroComponent.js";
 import SuccessStoryComponent from "./SuccessStoryComponent.js";
+import TopCompaniesComponent from "./TopCompaniesComponent";
 function LandingPage() {
   return (
     <div className="landingPage">
-      <HeroComponent />
-      <SuccessStoryComponent />
+        <HeroComponent />
+        <TopCompaniesComponent />
+        <SuccessStoryComponent />
     </div>
   );
 }
