@@ -2,28 +2,45 @@ var nodemailer = require("nodemailer");
 var express = require("express");
 var router = express.Router();
 
-const emailId = process.env.EMAIL_ID;
+const adminEmailId = process.env.EMAIL_ID;
 const emailPass = process.env.EMAIL_PASSWORD;
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: emailId,
+    user: adminEmailId,
     pass: emailPass,
   },
 });
 
 router.post("/", function (req, res, next) {
-  const { name, email, message } = req.body;
+  const { name: userName, email: userEmailId, message: userMessage } = req.body;
 
-  const mailOptions = {
-    from: emailId,
-    to: emailId,
-    subject: 'DalLinked ContactUs: Name: ${name}, Email: ${email}',
-    text: 'Name: ${name}\n Email: ${email}\n Message:\n ${message}'
+  const mailAdmin = {
+    from: adminEmailId,
+    to: adminEmailId,
+    subject: `DalLinked ContactUs: Name: ${userName}, Email: ${userEmailId}`,
+    text: `Name: ${userName}\n Email: ${userEmailId}\n Message:\n ${userMessage}`
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailAdmin, (error, info) => {
+    if (error) {
+      res.status(500).send("Error sending email");
+    } else {
+      res.status(200).send("Email sent");
+    }
+  });
+
+  const mailUser = {
+    from: adminEmailId,
+    to: userEmailId,
+    subject: `[Auto-Reply] DalLinked Helpdesk: Query Received`,
+    text: `Thanks for getting in touch with DalLinked. We have received your query:\n
+    ${userMessage}\n
+    . It will be process within 10 business days.\n Regards \nHelpdesk\nDalLinked`
+  };
+
+  transporter.sendMail(mailUser, (error, info) => {
     if (error) {
       res.status(500).send("Error sending email");
     } else {
