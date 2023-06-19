@@ -22,7 +22,7 @@ function ContactUs() {
       message: message
     };
 
-    axios.post('http://localhost:3003/contactUs', formData)
+    axios.post('https://backend-5x1b.onrender.com/contactUs', formData)
       .then(response => {
         console.log('Email sent: ', response.data);
       })
