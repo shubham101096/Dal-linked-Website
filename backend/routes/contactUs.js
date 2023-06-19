@@ -19,8 +19,8 @@ router.post("/", function (req, res, next) {
   const mailAdmin = {
     from: adminEmailId,
     to: adminEmailId,
-    subject: `DalLinked ContactUs: Name: ${userName}, Email: ${userEmailId}`,
-    text: `Name: ${userName}\n Email: ${userEmailId}\n Message:\n ${userMessage}`
+    subject: `DalLinked Helpdesk: Name: ${userName}, Email: ${userEmailId}`,
+    text: `Name: ${userName}\nEmail: ${userEmailId}\n Message:\n ${userMessage}`
   };
 
   transporter.sendMail(mailAdmin, (error, info) => {
@@ -35,9 +35,10 @@ router.post("/", function (req, res, next) {
     from: adminEmailId,
     to: userEmailId,
     subject: `[Auto-Reply] DalLinked Helpdesk: Query Received`,
-    text: `Thanks for getting in touch with DalLinked. We have received your query:\n
-    ${userMessage}\n
-    . It will be process within 10 business days.\n Regards \nHelpdesk\nDalLinked`
+    text: `Thanks for getting in touch with DalLinked. We have received your following query:\n
+    "${userMessage}"\n\n
+
+    It will be process within 10 business days.\n Regards \nHelpdesk\nDalLinked`
   };
 
   transporter.sendMail(mailUser, (error, info) => {
