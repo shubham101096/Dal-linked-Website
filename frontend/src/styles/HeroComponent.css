@@ -1,0 +1,23 @@
+.heroComponent {
+  background-image: url("../images/HeroComponentBg3.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-attachment: fixed; */
+  height: 33em;
+  display: flex;
+  flex-direction: column;
+  padding-top: 15em;
+}
+
+.hero-title {
+  font-size: 5em;
+  color: #205295;
+  text-shadow: 2px 2px 4px #607eaa;
+}
+
+.hero-tagline {
+  font-size: 1.5em;
+  color: #205295;
+  text-shadow: 2px 2px 4px #607eaa;
+}

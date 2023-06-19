@@ -1,9 +1,13 @@
-import './App.css';
-
+import "./styles/App.css";
+import LandingPage from "./Pages/LandingPage/LandingPage.js";
+import NavigationBar from "./components/NavigationBar.js";
+import Footer from "./components/Footer.js";
 function App() {
   return (
     <div className="App">
-    It works
+      <NavigationBar />
+      <LandingPage />
+      <Footer />
     </div>
   );
 }
