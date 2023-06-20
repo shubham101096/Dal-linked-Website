@@ -9,11 +9,11 @@ Dal Linked is a Web application for the students of Dalhousie and the recruiters
 
 ## Authors
 
-- [Adriana Sanchez Gomez](ad897964@dal.ca)
-- [Mayank Pandey](my880578@dal.ca)
-- [Mayankkumar Patel](my619715@dal.ca)
-- [Piyush Akoliya](piyush.akoliya@dal.ca)
-- [Shubham Mishra](shubham.mishra@dal.ca)
+- [Adriana Sanchez Gomez](ad897964@dal.ca)- _(Developer)_
+- [Mayank Pandey](my880578@dal.ca)- _(Developer)_
+- [Mayankkumar Patel](my619715@dal.ca) - _(Developer)_
+- [Piyush Akoliya](piyush.akoliya@dal.ca) - _(Developer)_
+- [Shubham Mishra](shubham.mishra@dal.ca) - _(Developer)_
 
 ## Testing
 
