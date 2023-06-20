@@ -1,6 +1,9 @@
 import React from "react";
+import Nav from "react-bootstrap/Nav";
 import "../styles/Footer.css";
+
 function Footer() {
+
   return (
     <div className="footer">
       <div className="footer-content">
@@ -18,7 +21,9 @@ function Footer() {
             <p className="office-contact-title">Contact Us</p>
           </div>
           <div className="footer-address">
+            <Nav.Link href="/faq" className="navigationBar">
             <p className="office-faq-title">FAQ</p>
+            </Nav.Link>
           </div>
         </div>
       </div>

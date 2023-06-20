@@ -1,0 +1,97 @@
+.job-detail {
+    background-color: #F0F0F0;
+    border-radius: 25px;
+    height: 620px;
+    text-align: left;
+    overflow-y: scroll;
+    position: fixed;
+    top: 11%;
+    margin-right: 4%;
+    margin-bottom: 4%;
+    padding: 1.5rem;
+}
+
+.job-detail .job-title p {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+.job-title {
+    padding-left: 0px;
+}
+
+.job-detail img {
+    height: 60px;
+    width: 84px;
+}
+
+.save-badge img {
+    height: 30px;
+    width: 30px;
+}
+
+.blue-badge {
+    height: 38px;
+    width: 106px;
+    background-color: #007AFF;
+    border-radius: 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.blue-badge p {
+    font-size: 15px;
+    color: white;
+}
+
+.save-badge {
+    height: 38px;
+    width: 50px;
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.detail-badge {
+    height: 53px;
+    width: 140px;
+    background-color: white;
+    /* border: 0.3rem solid #B6A2E1; */
+    background-color: #B6A2E1;
+    border-radius: 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.detail-badge-2 {
+    /* border: 0.3rem solid #FEBE8C; */
+    background-color: #FEBE8C;
+}
+
+.detail-badge-3 {
+    /* border: 0.3rem solid #F7A4A4; */
+    background-color: #F7A4A4;
+}
+
+.detail-badge-4 {
+    /* border: 0.3rem solid #62FF62; */
+    background-color: #62FF62;
+}
+
+.description {
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.requirements {
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.6);
+}

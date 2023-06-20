@@ -9,7 +9,7 @@ import "../styles/NavigationBar.css";
 
 function NavigationBar() {
   return (
-    <Navbar className="navigationBar" bg="#2C74B3" expand="lg">
+      <Navbar className="navigationBar" bg="#2C74B3" expand="lg">
       <Container fluid>
         <Navbar.Brand href="#" className="navigationBar">
           Dal Linked
@@ -29,7 +29,7 @@ function NavigationBar() {
             <Nav.Link href="#action2" className="navigationBar">
               Contact Us
             </Nav.Link>
-            <Nav.Link href="#action2" className="navigationBar">
+            <Nav.Link href="/faq" className="navigationBar">
               FAQ
             </Nav.Link>
           </Nav>
