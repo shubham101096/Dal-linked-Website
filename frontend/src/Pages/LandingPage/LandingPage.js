@@ -1,15 +1,15 @@
 import React from "react";
-import HeroComponent from "./HeroComponent.js";
-import SuccessStoryComponent from "./SuccessStoryComponent.js";
-import TopCompaniesComponent from "./TopCompaniesComponent";
-import CustomAlertsComponent from "./CustomAlertsComponent";
+import HeroComponent from "./HeroSection.js";
+import SuccessStoryComponent from "./SuccessStorySection.js";
+import TopCompaniesComponent from "./TopCompaniesSection.js";
+import CustomAlertsComponent from "./CustomAlertsSection.js";
 function LandingPage() {
   return (
     <div className="landingPage">
-        <HeroComponent />
-        <TopCompaniesComponent />
-        <CustomAlertsComponent />
-        <SuccessStoryComponent />
+      <HeroComponent />
+      <SuccessStoryComponent />
+      <CustomAlertsComponent />
+      <TopCompaniesComponent />
     </div>
   );
 }
