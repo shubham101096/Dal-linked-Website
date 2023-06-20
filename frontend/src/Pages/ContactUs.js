@@ -1,8 +1,6 @@
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
+import { Form, Button, Card, Spinner } from "react-bootstrap";
 import "../styles/ContactUs.css";
 
 function ContactUs() {
@@ -10,6 +8,7 @@ function ContactUs() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,24 +19,29 @@ function ContactUs() {
       message: message,
     };
 
+    setIsLoading(true);
+
     axios
-      .post("https://backend-5x1b.onrender.com/contactUs", formData)
-      .then((response) => {
-        console.log("Email sent: ", response.data);
-        setIsSubmitted(true);
+        .post("https://backend-5x1b.onrender.com/contactUs", formData)
+        .then((response) => {
+          console.log("Email sent:", response.data);
+          setIsSubmitted(true);
 
-        setName("");
-        setEmail("");
-        setMessage("");
+          setName("");
+          setEmail("");
+          setMessage("");
 
-        // Hide success alert after 10 seconds
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 10000);
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      });
+          // Hide success alert after 10 seconds
+          setTimeout(() => {
+            setIsSubmitted(false);
+          }, 10000);
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
   };
 
   return (
@@ -48,16 +52,16 @@ function ContactUs() {
               <p>Your message has been sent! Our team will be in contact with you soon.</p>
             </div>
         )}
-      <div className="container my-5 mx-auto">
-        <div className="d-flex justify-content-center">
-          <Card style={{ width: "30rem" }}>
-            <div className="contact-body1">
-              <Card.Body>
-                <div className="d-flex justify-content-center">
-                  <h1 style={{ color: "#EAE3D2" }}>CONTACT US</h1>
-                </div>
-              </Card.Body>
-            </div>
+        <div className="container my-5 mx-auto">
+          <div className="d-flex justify-content-center">
+            <Card style={{ width: "30rem" }}>
+              <div className="contact-body1">
+                <Card.Body>
+                  <div className="d-flex justify-content-center">
+                    <h1 style={{ color: "#EAE3D2" }}>CONTACT US</h1>
+                  </div>
+                </Card.Body>
+              </div>
               <Card.Body>
                 <Card.Text>
                   <Form onSubmit={handleSubmit}>
@@ -85,8 +89,9 @@ function ContactUs() {
                           required
                       />
                       <div className="d-flex justify-content-left">
-                      <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone
-                        else.</small>
+                        <small id="emailHelp" className="form-text text-muted">
+                          We'll never share your email with anyone else.
+                        </small>
                       </div>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="messageInput">
@@ -110,18 +115,25 @@ function ContactUs() {
                             color: "white",
                             border: "none",
                           }}
+                          disabled={isLoading}
                       >
-                        Submit
+                        {isLoading ? (
+                            <>
+                              <Spinner animation="border" size="sm" role="status" />{" "}
+                              Submitting...
+                            </>
+                        ) : (
+                            "Submit"
+                        )}
                       </Button>{" "}
                     </div>
                   </Form>
                 </Card.Text>
               </Card.Body>
-          </Card>
+            </Card>
+          </div>
         </div>
-      </div>
       </div>
   );
 }
-
 export default ContactUs;
