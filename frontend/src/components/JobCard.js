@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/JobCard.css";
 import appleLogo from "../resources/Apple Music.png";
 
+// Job card
 function JobCard(props) {
     const { job } = props;
     return (
