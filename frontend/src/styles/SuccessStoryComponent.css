@@ -7,6 +7,7 @@
   font-size: 1.02em;
   box-shadow: 2px 4px 4px #144272;
   margin-bottom: 1em;
+  color: white;
 }
 .person {
   text-align: end;
@@ -26,7 +27,7 @@
 }
 
 .successStoriesSection {
-  background-color: #eae3d2;
+  background-color: white;
 }
 .swiper {
   width: 100%;
@@ -36,7 +37,7 @@
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #2c74b3;
+  background-color: #2c74b3;
   display: flex;
   justify-content: center;
   align-items: center;

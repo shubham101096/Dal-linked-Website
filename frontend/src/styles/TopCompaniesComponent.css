@@ -1,21 +1,27 @@
-.topCompanies-background{
-    background-color: #F9F5EB;
-    height: 33em;
-    display: flex;
-    flex-direction: column;
+.topCompanies-background {
+  background-color: #f9f5eb;
+  height: 33em;
+  display: flex;
+  flex-direction: column;
 }
 
-.topCompanies-logos{
-    margin-top: 7.5%;
+.topCompanies-logos {
+  margin-top: 7.5%;
 }
 
-.topCompanies-logos img{
-    width: 200px;
-    margin: 50px;
-    filter: opacity(0.7) drop-shadow(0 0 0 #EAE3D2);
+.topCompanies-logos img {
+  width: 17%;
+  margin: 50px;
+  filter: opacity(0.7) drop-shadow(0 0 0 #eae3d2);
 }
 
-.topCompanies-legend{
-    margin-top: 1%;
-    font-size: 19px;
+.topCompanies-legend {
+  margin-top: 1%;
+  font-size: 2em;
+}
+
+@media only screen and (max-width: 600px) {
+  .topCompanies-legend {
+    font-size: 1.2em;
+  }
 }

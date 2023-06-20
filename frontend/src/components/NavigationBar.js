@@ -9,9 +9,9 @@ import "../styles/NavigationBar.css";
 
 function NavigationBar() {
   return (
-      <Navbar className="navigationBar" bg="#2C74B3" expand="lg">
+    <Navbar className="navigationBar" bg="#2C74B3" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#" className="navigationBar">
+        <Navbar.Brand href="/" className="navigationBar">
           Dal Linked
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -23,10 +23,10 @@ function NavigationBar() {
             }}
             navbarScroll
           >
-            <Nav.Link href="#action1" className="navigationBar">
+            <Nav.Link href="/" className="navigationBar">
               Home
             </Nav.Link>
-            <Nav.Link href="#action2" className="navigationBar">
+            <Nav.Link href="/contactUs" className="navigationBar">
               Contact Us
             </Nav.Link>
             <Nav.Link href="/faq" className="navigationBar">

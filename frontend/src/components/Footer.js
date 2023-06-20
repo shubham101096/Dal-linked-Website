@@ -3,7 +3,6 @@ import Nav from "react-bootstrap/Nav";
 import "../styles/Footer.css";
 
 function Footer() {
-
   return (
     <div className="footer">
       <div className="footer-content">
@@ -18,11 +17,13 @@ function Footer() {
         </div>
         <div className="footer-links">
           <div className="footer-address">
-            <p className="office-contact-title">Contact Us</p>
+            <Nav.Link href="/contactUs">
+              <p className="office-contact-title">Contact Us</p>
+            </Nav.Link>
           </div>
           <div className="footer-address">
-            <Nav.Link href="/faq" className="navigationBar">
-            <p className="office-faq-title">FAQ</p>
+            <Nav.Link href="/faq">
+              <p className="office-faq-title">FAQ</p>
             </Nav.Link>
           </div>
         </div>
