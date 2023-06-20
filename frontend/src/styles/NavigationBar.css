@@ -1,4 +1,10 @@
 .navigationBar {
-  background-color: #2c74b3;
   color: #f9f5eb;
+}
+
+.navBarDiv,
+#offcanvasNavbar-expand-sm {
+  background: #005c97;
+  background: -webkit-linear-gradient(to right, #363795, #005c97);
+  background: linear-gradient(to right, #363795, #005c97);
 }
