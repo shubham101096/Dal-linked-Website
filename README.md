@@ -44,3 +44,4 @@ After deploying the application to Netlify, the URL was checked on different bro
 - [Bootstrap](https://getbootstrap.com/) - CSS Framework
 - [Sweet-alert](https://sweetalert2.github.io/) - Custom alert library
 - [Swiper](https://swiperjs.com/) - Custom swipping cards
+- [react-toastify](https://www.npmjs.com/package/react-toastify) - Toast messages
