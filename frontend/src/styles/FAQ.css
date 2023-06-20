@@ -1,0 +1,19 @@
+.q-number {
+    color: #205295;
+    font-weight: bolder;
+    font-size: 1.8rem;
+}
+
+.question {
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+.answer {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.3rem;
+}
+
+hr {
+    margin-bottom: 0;
+}
