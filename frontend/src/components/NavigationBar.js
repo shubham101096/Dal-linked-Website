@@ -9,19 +9,19 @@ import "../styles/NavigationBar.css";
 function NavigationBar() {
   return (
     <div className="navBarDiv">
-      <Navbar key="sm" className="navigationBar" expand="sm">
+      <Navbar key="md" className="navigationBar" expand="md">
         <Container fluid>
           <Navbar.Brand href="/" className="navigationBar">
             Dal Linked
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
           <Navbar.Offcanvas
-            id={`offcanvasNavbar-expand-sm`}
-            aria-labelledby={`offcanvasNavbarLabel-expand-sm`}
+            id={`offcanvasNavbar-expand-md`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-sm`}>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
                 Options
               </Offcanvas.Title>
             </Offcanvas.Header>

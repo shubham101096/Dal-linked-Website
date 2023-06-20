@@ -3,7 +3,7 @@
 }
 
 .navBarDiv,
-#offcanvasNavbar-expand-sm {
+#offcanvasNavbar-expand-md {
   background: #005c97;
   background: -webkit-linear-gradient(to right, #363795, #005c97);
   background: linear-gradient(to right, #363795, #005c97);
