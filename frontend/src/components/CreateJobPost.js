@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/CreateJobPost.css';
+
 const CreateJobPost = () => {
     const [step, setStep] = useState(1);
     const [companyName, setCompanyName] = useState('');
@@ -110,11 +111,11 @@ const CreateJobPost = () => {
             case 1:
                 return (
                     <div>
-                        <h2 className="step-heading">Step 1: Enter Basic Details</h2>
+                        <div className="step-heading">Section 1</div>
                         <div className="mb-4">
                             <div className="mb-4">
                                 <label htmlFor="companyName" className="block font-medium mb-1">
-                                    Company Name
+                                    Company Name: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -127,7 +128,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="openPos" className="block font-medium mb-1">
-                                    Open Positions
+                                    Open Positions: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -140,7 +141,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="jobSector" className="block font-medium mb-1">
-                                    Job Sector
+                                    Job Sector: <span className="red-star">*</span>
                                 </label>
                                 <select
                                     id="jobSector"
@@ -158,7 +159,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="jobTitle" className="block font-medium mb-1">
-                                    Job Title
+                                    Job Title: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -175,11 +176,11 @@ const CreateJobPost = () => {
             case 2:
                 return (
                     <div>
-                        <h2 className="step-heading">Step 2: Enter Additional Details</h2>
+                        <div className="step-heading">Section 2</div>
                         <div className="mb-4">
                             <div className="mb-4">
                                 <label htmlFor="jobLoc" className="block font-medium mb-1">
-                                    Job Location
+                                    Job Location: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -192,7 +193,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="jobType" className="block font-medium mb-1">
-                                    Job Type
+                                    Job Type: <span className="red-star">*</span>
                                 </label>
                                 <select
                                     id="jobType"
@@ -209,7 +210,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="startDate" className="block font-medium mb-1">
-                                    Start Date
+                                    Start Date: <span className="red-star">*</span>
                                 </label>
                                 <DatePicker
                                     id="startDate"
@@ -221,7 +222,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="ctc" className="block font-medium mb-1">
-                                    Cost to Company
+                                    Cost to Company: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -238,11 +239,11 @@ const CreateJobPost = () => {
             case 3:
                 return (
                     <div>
-                        <h2 className="step-heading">Step 3: Specify Job Requirements</h2>
+                        <div className="step-heading">Section 3</div>
                         <div className="mb-4">
                             <div className="mb-4">
                                 <label htmlFor="requirements" className="block font-medium mb-1">
-                                    Requirements
+                                    Requirements: <span className="red-star">*</span>
                                 </label>
                                 <textarea
                                     id="requirements"
@@ -254,7 +255,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="skill1" className="block font-medium mb-1">
-                                    Skill 1
+                                    Skill 1: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -267,7 +268,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="skill2" className="block font-medium mb-1">
-                                    skill2
+                                    Skill 2: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -280,7 +281,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="skill3" className="block font-medium mb-1">
-                                    skill3
+                                    Skill 3: <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -297,11 +298,11 @@ const CreateJobPost = () => {
             case 4:
                 return (
                     <div>
-                        <h2 className="step-heading">Step 4: Job Requirements</h2>
+                        <div className="step-heading">Section 4</div>
                         <div className="mb-4">
                             <div className="mb-4">
                                 <label htmlFor="jobDesc" className="block font-medium mb-1">
-                                    Job Description
+                                    Job Description <span className="red-star">*</span>
                                 </label>
                                 <textarea
                                     id="jobDesc"
@@ -313,7 +314,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="benefits" className="block font-medium mb-1">
-                                    Benefits
+                                    Benefits <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -326,7 +327,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="deadline" className="block font-medium mb-1">
-                                    Last date to apply
+                                    Last date to apply <span className="red-star">*</span>
                                 </label>
                                 <DatePicker
                                     id="deadline"
@@ -338,7 +339,7 @@ const CreateJobPost = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="hrEmail" className="block font-medium mb-1">
-                                    HR Email
+                                    HR Email <span className="red-star">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -352,27 +353,17 @@ const CreateJobPost = () => {
                         </div>
                     </div>
                 );
-            case 5:
-                return (
-                    <div>
-                        <h2 className="step-heading">Step 5: Review and Submit</h2>
-                        <div>
-                            <h3>Company Name: {companyName}</h3>
-                            {/* Render other form fields for review */}
-                            {/* ... */}
-                        </div>
-                    </div>
-            );
             default:
                 return null;
         }
     };
 
-    return ( <div className="bg-gray-100 text-gray-900 h-screen tracking-wider leading-normal">
+    return (
+    <div className="bg-gray-100 text-gray-900 h-screen tracking-wider leading-normal">
             <ToastContainer />
             <div className="container my-4">
                 <div className="p-8 job-card">
-                    <h1 className="main-heading">Create Job Post</h1>
+                    <div className="main-heading">Create Job Post</div>
                     {validationError && (
                         <div className="alert alert-danger mb-4">{validationError}</div>
                     )}
@@ -398,8 +389,8 @@ const CreateJobPost = () => {
                 </div>
 
             </div>
-
-        </div>
+    </div>
+        /*</div>*/
     );
     return (
         <div className="bg-gray-100 text-gray-900 h-screen tracking-wider leading-normal">
