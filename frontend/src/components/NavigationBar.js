@@ -30,6 +30,9 @@ function NavigationBar() {
                 <Nav.Link href="/" className="navigationBar">
                   Home
                 </Nav.Link>
+                <Nav.Link href="/joblistings" className="navigationBar">
+                  Job Listings
+                </Nav.Link>
                 <Nav.Link href="/contactUs" className="navigationBar">
                   Contact Us
                 </Nav.Link>

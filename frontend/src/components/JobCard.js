@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/JobCard.css";
-import appleLogo from "../resources/Apple Music.png";
+import appleLogo from "../images/Apple Music.png";
 
 // Job card
 function JobCard(props) {
