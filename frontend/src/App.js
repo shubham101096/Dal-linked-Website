@@ -7,6 +7,7 @@ import FAQPage from "./Pages/FAQPage";
 import ContactUs from "./Pages/ContactUs";
 import JobSectorsPage from "./Pages/JobSectorsPage";
 import PendingEmpReqPage from "./Pages/PendingEmpReqPage";
+import AnnouncementPage from "./Pages/Announcements";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/jobSectors" element={<JobSectorsPage />} />
           <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
+          <Route path="/announcements" element={<AnnouncementPage />} />
         </Routes>
       </Router>
       <Footer />
