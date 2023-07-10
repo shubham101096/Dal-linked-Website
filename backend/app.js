@@ -17,6 +17,7 @@ var logger = require('morgan');
 var indexRouter = require('./api/routes/index');
 var contactUsRouter = require('./api/routes/contactUs');
 const jobsRouter = require('./api/routes/jobs');
+const announcementsRouter = require('./api/routes/announcements');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/contactUs', contactUsRouter);
 app.use('/jobs', jobsRouter);
+app.use('/announcements', announcementsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
