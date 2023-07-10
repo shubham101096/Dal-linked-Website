@@ -1,6 +1,13 @@
 require('dotenv').config();
 cors = require("cors");
 
+const mongoURL = process.env.DATABASE_URL;
+
+const mongoose = require("mongoose");
+mongoose.connect(mongoURL).then(() => {
+  console.log("mongodb connected!");
+})
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
