@@ -1,7 +1,6 @@
 import '../styles/App.css';
 import JobCard from '../components/JobCard.js';
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Container, Dropdown } from 'react-bootstrap';
 import JobDetail from '../components/JobDetail.js';
 import { useState } from 'react';
 // import FAQ from './components/FAQ';
@@ -199,6 +198,14 @@ function JobListingsPage() {
     setSelectedJob(job);
   };
 
+  const dropdownStyle = {
+    backgroundColor: '#F0F0F0',
+    color: "black",
+    border: "none",
+    borderRadius: "20px",
+    padding: "0.7rem"
+  };
+
   return (
     <div>
       {/* <Navbar bg="light" expand="md" sticky="top">
@@ -225,6 +232,28 @@ function JobListingsPage() {
         </Container>
       </Navbar> */}
       <Container>
+        <div className="row m-2">
+          <div className="col-1 pl-1">
+            <Dropdown className="text-start">
+              <Dropdown.Toggle style={dropdownStyle}>
+                Filter
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Job sector</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          <div className="col-1 pl-1 drop-downs">
+            <Dropdown className="text-start">
+              <Dropdown.Toggle style={dropdownStyle}>
+                Sort by
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Job sector</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </div>
         <div className="row">
           <div className="col-5 col-xl-4 col-lg-4 col-md-5">
             {jobs.length === 0 ? (<div><h3>No jobs available currently.</h3></div>) : (jobs.map((job) => (<div key={job.id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
