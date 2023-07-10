@@ -11,9 +11,12 @@ function AnnouncementPage() {
     fetchAnnouncements();
   }, []);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const announcementsUrl = `${backendUrl}/announcements`
+
   const fetchAnnouncements = async () => {
     try {
-      const response = await fetch('http://localhost:3003/announcements'); // Replace with your backend API endpoint
+      const response = await fetch(announcementsUrl);
       const data = await response.json();
       setAnnouncements(data);
     } catch (error) {
@@ -21,16 +24,31 @@ function AnnouncementPage() {
     }
   };
 
-  const handleDelete = (id) => {
-    const announcement = announcements.find((announcement) => announcement.id === id);
+  const deleteAnnouncement = async (_id) => {
+    try {
+      const response = await fetch(`${announcementsUrl}/${_id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        const updatedAnnouncements = announcements.filter((announcement) => announcement._id !== _id);
+        setAnnouncements(updatedAnnouncements);
+        setShowDeleteModal(false);
+      } else {
+        console.error('Error deleting announcement:', response.status);
+      }
+    } catch (error) {
+      console.error('Error deleting announcement:', error);
+    }
+  };
+
+  const handleDelete = (_id) => {
+    const announcement = announcements.find((announcement) => announcement._id === _id);
     setAnnouncementToDelete(announcement);
     setShowDeleteModal(true);
   };
 
   const handleDeleteConfirmation = () => {
-    const updatedAnnouncements = announcements.filter((announcement) => announcement.id !== announcementToDelete.id);
-    setAnnouncements(updatedAnnouncements);
-    setShowDeleteModal(false);
+    deleteAnnouncement(announcementToDelete._id);
   };
 
   const announcementsPerPage = 5;
@@ -52,11 +70,11 @@ function AnnouncementPage() {
         <Col sm={12} md={10} lg={8}>
           <ListGroup className="text-left md-8">
             {currentAnnouncements.map((announcement) => (
-              <ListGroup.Item key={announcement.id} className="p-0 mb-3 border-0">
+              <ListGroup.Item key={announcement._id} className="p-0 mb-3 border-0">
                 <Card>
                   <Card.Header className="d-flex justify-content-between align-items-center">
                     <h5>{announcement.title}</h5>
-                    <Button variant="danger" size="sm" onClick={() => handleDelete(announcement.id)}>
+                    <Button variant="danger" size="sm" onClick={() => handleDelete(announcement._id)}>
                       Delete
                     </Button>
                   </Card.Header>
