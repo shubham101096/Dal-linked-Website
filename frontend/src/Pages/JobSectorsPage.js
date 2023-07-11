@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { ListGroup, Button, Col, Row, Form, Container, Modal } from 'react-bootstrap';
+import { ListGroup, Button, Col, Row, Form, Container, Modal, Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 function JobSectorsPage() {
-
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [newSector, setNewSector] = useState('');
@@ -13,10 +12,11 @@ function JobSectorsPage() {
   const [sectorToEdit, setSectorToEdit] = useState(null);
   const [editedSectorName, setEditedSectorName] = useState('');
   const [jobSectors, setJobSectors] = useState([]);
+  const [error, setError] = useState('');
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const jobSectorsUrl = `${backendUrl}/jobSectors`;
-  
+
   useEffect(() => {
     fetchJobSectors();
   }, []);
@@ -26,10 +26,10 @@ function JobSectorsPage() {
       const response = await axios.get(jobSectorsUrl);
       setJobSectors(response.data);
     } catch (error) {
-      console.error('Error fetching announcements:', error);
+      console.error('Error fetching job sectors:', error);
     }
   };
-  
+
   const deleteJobSector = async (_id) => {
     try {
       const response = await axios.delete(`${jobSectorsUrl}/${_id}`);
@@ -56,23 +56,32 @@ function JobSectorsPage() {
         setSectorToEdit(null);
         setEditedSectorName('');
       } else {
-        console.error('Error deleting sector:', response.status);
+        console.error('Error updating sector:', response.status);
       }
     } catch (error) {
-      console.error('Error deleting sector:', error);
+      console.error('Error updating sector:', error);
     }
   };
 
-
   const handleNewJobSectorSubmit = async (name) => {
     try {
+      const existingSector = jobSectors.find((sector) => sector.name.toLowerCase() === name.toLowerCase());
+      if (name.trim() === '') {
+        setError('Job Sector name is required.');
+        return;
+      } else if (existingSector) {
+        setError('Job Sector already exists.');
+        return;
+      }
+
       const response = await axios.post(jobSectorsUrl, {
-        name
+        name,
       });
       if (response.status === 200) {
         fetchJobSectors();
         setShowAddModal(false);
         setNewSector('');
+        setError('');
       } else {
         console.error('Error creating job sector:', response.status);
       }
@@ -109,23 +118,25 @@ function JobSectorsPage() {
   };
 
   const handleEditSave = () => {
-    // if (editedSector.name.trim() !== '') {
-    //   const updatedJobSectors = jobSectors.map((sector) =>
-    //     sector.name === sectorToEdit.name ? editedSector.name.trim() : sector.name
-    //   );
-    //   setJobSectors(updatedJobSectors);
-    // }
     updateJobSector(sectorToEdit._id, editedSectorName);
   };
-
-  // const filteredJobSectors = jobSectors.filter((sector) =>
-  //   sector.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
 
   const filteredJobSectors = () => {
     return jobSectors.filter((sector) => {
       return sector.name.toUpperCase().includes(searchTerm.toUpperCase());
     });
+  };
+
+  const handleAddModalClose = () => {
+    setShowAddModal(false);
+    setNewSector('');
+    setError('');
+  };
+
+  const handleAddModalCancel = () => {
+    setShowAddModal(false);
+    setNewSector('');
+    setError('');
   };
 
   return (
@@ -174,7 +185,7 @@ function JobSectorsPage() {
           </ListGroup>
         </Col>
       </Row>
-      <Modal show={showAddModal} onHide={() => setShowAddModal(false)} centered>
+      <Modal show={showAddModal} onHide={handleAddModalClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Add New Job Sector</Modal.Title>
         </Modal.Header>
@@ -185,9 +196,10 @@ function JobSectorsPage() {
             value={newSector}
             onChange={(e) => setNewSector(e.target.value)}
           />
+          {error && <Alert variant="danger" className="mt-2">{error}</Alert>}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+          <Button variant="secondary" onClick={handleAddModalCancel}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSaveClick}>
