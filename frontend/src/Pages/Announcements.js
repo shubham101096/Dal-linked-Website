@@ -3,6 +3,7 @@ import { Container, ListGroup, Pagination, Modal, Row, Col, Button } from 'react
 import NewAnnouncementForm from '../components/NewAnnouncementForm';
 import AnnouncementsList from '../components/AnnouncementsList';
 import '../styles/Announcements.css';
+import axios from 'axios';
 
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
@@ -16,23 +17,20 @@ function AnnouncementPage() {
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const announcementsUrl = `${backendUrl}/announcements`;
-
+  
   const fetchAnnouncements = async () => {
     try {
-      const response = await fetch(announcementsUrl);
-      const data = await response.json();
-      setAnnouncements(data);
+      const response = await axios.get(announcementsUrl);
+      setAnnouncements(response.data);
     } catch (error) {
       console.error('Error fetching announcements:', error);
     }
   };
-
+  
   const deleteAnnouncement = async (_id) => {
     try {
-      const response = await fetch(`${announcementsUrl}/${_id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
+      const response = await axios.delete(`${announcementsUrl}/${_id}`);
+      if (response.status === 200) {
         const updatedAnnouncements = announcements.filter((announcement) => announcement._id !== _id);
         setAnnouncements(updatedAnnouncements);
         setShowDeleteModal(false);
@@ -43,6 +41,7 @@ function AnnouncementPage() {
       console.error('Error deleting announcement:', error);
     }
   };
+  
 
   const handleDelete = (_id) => {
     const announcement = announcements.find((announcement) => announcement._id === _id);
@@ -60,17 +59,11 @@ function AnnouncementPage() {
 
   const handleNewAnnouncementSubmit = async (title, body) => {
     try {
-      const response = await fetch(announcementsUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title,
-          body,
-        }),
+      const response = await axios.post(announcementsUrl, {
+        title,
+        body,
       });
-      if (response.ok) {
+      if (response.status === 200) {
         fetchAnnouncements();
         setShowNewAnnouncementModal(false);
       } else {

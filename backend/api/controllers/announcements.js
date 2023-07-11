@@ -15,7 +15,7 @@ const createAnnouncement = async (req, res) => {
     const { title, body } = req.body;
     const newAnnouncement = new Announcement({ title, body });
     const createdAnnouncement = await newAnnouncement.save();
-    res.status(201).json(createdAnnouncement);
+    res.json(createdAnnouncement);
   } catch (error) {
     console.error("Error creating announcement:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -50,4 +50,9 @@ const deleteAnnouncement = async (req, res) => {
   }
 };
 
-module.exports = { getAllAnnouncements, getAnnouncementById, createAnnouncement, deleteAnnouncement };
+module.exports = { 
+  getAllAnnouncements, 
+  getAnnouncementById, 
+  createAnnouncement, 
+  deleteAnnouncement 
+};
