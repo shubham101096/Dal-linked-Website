@@ -1,39 +1,85 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ListGroup, Button, Col, Row, Form, Container, Modal } from 'react-bootstrap';
+import axios from 'axios';
 
 function JobSectorsPage() {
-  const initialJobSectors = [
-    'Education and Teaching',
-    'Administration and Management',
-    'Research and Development',
-    'Information Technology',
-    'Career Services',
-    'Student Services',
-    'Finance and Accounting',
-    'Marketing and Communications',
-    'Library and Information Services',
-    'Health and Wellness',
-    'Engineering and Manufacturing',
-    'Consulting and Professional Services',
-    'Healthcare and Pharmaceuticals',
-    'Hospitality and Tourism',
-    'Media and Entertainment',
-    'Non-profit and Social Services',
-    'Public Relations and Communications',
-    'Sales and Business Development',
-    'Supply Chain and Logistics',
-    'Government and Public Administration',
-  ];
 
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [newSector, setNewSector] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [sectorToDelete, setSectorToDelete] = useState('');
+  const [sectorToDelete, setSectorToDelete] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [sectorToEdit, setSectorToEdit] = useState('');
-  const [editedSector, setEditedSector] = useState('');
-  const [jobSectors, setJobSectors] = useState(initialJobSectors);
+  const [sectorToEdit, setSectorToEdit] = useState(null);
+  const [editedSectorName, setEditedSectorName] = useState('');
+  const [jobSectors, setJobSectors] = useState([]);
+
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const jobSectorsUrl = `${backendUrl}/jobSectors`;
+  
+  useEffect(() => {
+    fetchJobSectors();
+  }, []);
+
+  const fetchJobSectors = async () => {
+    try {
+      const response = await axios.get(jobSectorsUrl);
+      setJobSectors(response.data);
+    } catch (error) {
+      console.error('Error fetching announcements:', error);
+    }
+  };
+  
+  const deleteJobSector = async (_id) => {
+    try {
+      const response = await axios.delete(`${jobSectorsUrl}/${_id}`);
+      if (response.status === 200) {
+        fetchJobSectors();
+        setShowDeleteModal(false);
+      } else {
+        console.error('Error deleting sector:', response.status);
+      }
+    } catch (error) {
+      console.error('Error deleting sector:', error);
+    }
+  };
+
+  const updateJobSector = async (_id, name) => {
+    try {
+      const response = await axios.put(`${jobSectorsUrl}/${_id}`, {
+        name,
+      });
+
+      if (response.status === 200) {
+        fetchJobSectors();
+        setShowEditModal(false);
+        setSectorToEdit(null);
+        setEditedSectorName('');
+      } else {
+        console.error('Error deleting sector:', response.status);
+      }
+    } catch (error) {
+      console.error('Error deleting sector:', error);
+    }
+  };
+
+
+  const handleNewJobSectorSubmit = async (name) => {
+    try {
+      const response = await axios.post(jobSectorsUrl, {
+        name
+      });
+      if (response.status === 200) {
+        fetchJobSectors();
+        setShowAddModal(false);
+        setNewSector('');
+      } else {
+        console.error('Error creating job sector:', response.status);
+      }
+    } catch (error) {
+      console.error('Error creating job sector:', error);
+    }
+  };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -44,11 +90,7 @@ function JobSectorsPage() {
   };
 
   const handleSaveClick = () => {
-    if (newSector.trim() !== '') {
-      setJobSectors([...jobSectors, newSector.trim()]);
-    }
-    setShowAddModal(false);
-    setNewSector('');
+    handleNewJobSectorSubmit(newSector);
   };
 
   const handleRemoveClick = (sector) => {
@@ -57,38 +99,40 @@ function JobSectorsPage() {
   };
 
   const handleDeleteConfirm = () => {
-    const updatedJobSectors = jobSectors.filter((sector) => sector !== sectorToDelete);
-    setJobSectors(updatedJobSectors);
-    setShowDeleteModal(false);
+    deleteJobSector(sectorToDelete._id);
   };
 
   const handleEditClick = (sector) => {
     setSectorToEdit(sector);
-    setEditedSector(sector);
+    setEditedSectorName(sector.name);
     setShowEditModal(true);
   };
 
   const handleEditSave = () => {
-    if (editedSector.trim() !== '') {
-      const updatedJobSectors = jobSectors.map((sector) =>
-        sector === sectorToEdit ? editedSector.trim() : sector
-      );
-      setJobSectors(updatedJobSectors);
-    }
-    setShowEditModal(false);
-    setSectorToEdit('');
-    setEditedSector('');
+    // if (editedSector.name.trim() !== '') {
+    //   const updatedJobSectors = jobSectors.map((sector) =>
+    //     sector.name === sectorToEdit.name ? editedSector.name.trim() : sector.name
+    //   );
+    //   setJobSectors(updatedJobSectors);
+    // }
+    updateJobSector(sectorToEdit._id, editedSectorName);
   };
 
-  const filteredJobSectors = jobSectors.filter((sector) =>
-    sector.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredJobSectors = jobSectors.filter((sector) =>
+  //   sector.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  const filteredJobSectors = () => {
+    return jobSectors.filter((sector) => {
+      return sector.name.toUpperCase().includes(searchTerm.toUpperCase());
+    });
+  };
 
   return (
-    <Container>
+    <Container className="mb-3">
       <h1 className="text-center">Job Sectors</h1>
       <Row className="justify-content-center">
-        <Col md={6} lg={6}>
+        <Col md={8} lg={6}>
           <Form className="mb-3">
             <Row className="align-items-center">
               <Col xs={8} sm={8}>
@@ -107,9 +151,9 @@ function JobSectorsPage() {
             </Row>
           </Form>
           <ListGroup>
-            {filteredJobSectors.map((sector, index) => (
+            {filteredJobSectors().map((sector, index) => (
               <ListGroup.Item key={index} className="d-flex align-items-center">
-                <span className="me-auto">{sector}</span>
+                <span className="me-auto">{sector.name}</span>
                 <Button
                   variant="outline-primary"
                   size="sm"
@@ -151,11 +195,11 @@ function JobSectorsPage() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+      {<Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Deletion</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete the job sector "{sectorToDelete}"?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete the job sector "{sectorToDelete?.name}"?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
             Cancel
@@ -164,7 +208,7 @@ function JobSectorsPage() {
             Delete
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal>}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit Job Sector</Modal.Title>
@@ -173,8 +217,8 @@ function JobSectorsPage() {
           <Form.Control
             type="text"
             placeholder="Enter edited job sector"
-            value={editedSector}
-            onChange={(e) => setEditedSector(e.target.value)}
+            value={editedSectorName}
+            onChange={(e) => setEditedSectorName(e.target.value)}
           />
         </Modal.Body>
         <Modal.Footer>
