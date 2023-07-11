@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react';
-import { Container, Card, Button, ListGroup, Pagination, Modal, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, ListGroup, Pagination, Modal, Row, Col, Button } from 'react-bootstrap';
+import NewAnnouncementForm from '../components/NewAnnouncementForm';
+import AnnouncementsList from '../components/AnnouncementsList';
 import '../styles/Announcements.css';
 
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [announcementToDelete, setAnnouncementToDelete] = useState(null);
+  const [showNewAnnouncementModal, setShowNewAnnouncementModal] = useState(false);
 
   useEffect(() => {
     fetchAnnouncements();
   }, []);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  const announcementsUrl = `${backendUrl}/announcements`
+  const announcementsUrl = `${backendUrl}/announcements`;
 
   const fetchAnnouncements = async () => {
     try {
@@ -51,6 +54,33 @@ function AnnouncementPage() {
     deleteAnnouncement(announcementToDelete._id);
   };
 
+  const handleNewAnnouncement = () => {
+    setShowNewAnnouncementModal(true);
+  };
+
+  const handleNewAnnouncementSubmit = async (title, body) => {
+    try {
+      const response = await fetch(announcementsUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          body,
+        }),
+      });
+      if (response.ok) {
+        fetchAnnouncements();
+        setShowNewAnnouncementModal(false);
+      } else {
+        console.error('Error creating announcement:', response.status);
+      }
+    } catch (error) {
+      console.error('Error creating announcement:', error);
+    }
+  };
+
   const announcementsPerPage = 5;
   const totalPages = Math.ceil(announcements.length / announcementsPerPage);
   const [activePage, setActivePage] = useState(1);
@@ -69,21 +99,15 @@ function AnnouncementPage() {
       <Row className="justify-content-center">
         <Col sm={12} md={10} lg={8}>
           <ListGroup className="text-left md-8">
-            {currentAnnouncements.map((announcement) => (
-              <ListGroup.Item key={announcement._id} className="p-0 mb-3 border-0">
-                <Card>
-                  <Card.Header className="d-flex justify-content-between align-items-center">
-                    <h5>{announcement.title}</h5>
-                    <Button variant="danger" size="sm" onClick={() => handleDelete(announcement._id)}>
-                      Delete
-                    </Button>
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Text>{announcement.body}</Card.Text>
-                  </Card.Body>
-                </Card>
-              </ListGroup.Item>
-            ))}
+            <ListGroup.Item className="p-0 mb-3 border-0">
+              <Button variant="primary" onClick={handleNewAnnouncement}>
+                New
+              </Button>
+            </ListGroup.Item>
+            <AnnouncementsList
+              announcements={currentAnnouncements}
+              onDelete={handleDelete}
+            />
           </ListGroup>
         </Col>
       </Row>
@@ -102,12 +126,17 @@ function AnnouncementPage() {
           </Pagination>
         </div>
       )}
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+      <Modal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Confirm Deletion</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete "{announcementToDelete?.title}" announcement?
+          Are you sure you want to delete "{announcementToDelete?.title}"
+          announcement?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
@@ -117,6 +146,18 @@ function AnnouncementPage() {
             Delete
           </Button>
         </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showNewAnnouncementModal}
+        onHide={() => setShowNewAnnouncementModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>New Announcement</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <NewAnnouncementForm onSubmit={handleNewAnnouncementSubmit} />
+        </Modal.Body>
       </Modal>
     </Container>
   );
