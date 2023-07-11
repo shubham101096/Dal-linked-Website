@@ -1,6 +1,21 @@
 import React from 'react';
 import { Card, Button, ListGroup } from 'react-bootstrap';
 
+function formatDateString(dateStr) {
+  const date = new Date(dateStr);
+
+  const options = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+
+  return date.toLocaleString('en-US', options);
+}
+
 function AnnouncementsList({ announcements, onDelete }) {
   return (
     <ListGroup className="text-left md-8">
@@ -18,6 +33,9 @@ function AnnouncementsList({ announcements, onDelete }) {
               </Button>
             </Card.Header>
             <Card.Body>
+              <Card.Subtitle className="mb-2 text-muted">
+                Posted on: {formatDateString(announcement.datePosted)}
+              </Card.Subtitle>
               <Card.Text>{announcement.body}</Card.Text>
             </Card.Body>
           </Card>
