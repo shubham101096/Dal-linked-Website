@@ -25,7 +25,7 @@ function AnnouncementsList({ announcements, onDelete }) {
             <Card.Header className="d-flex justify-content-between align-items-center">
               <h5>{announcement.title}</h5>
               <Button
-                variant="danger"
+                variant="outline-danger"
                 size="sm"
                 onClick={() => onDelete(announcement._id)}
               >
