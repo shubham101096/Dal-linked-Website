@@ -34,7 +34,7 @@ function AnnouncementsList({ announcements, onDelete }) {
             </Card.Header>
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
-                Posted on: {formatDateString(announcement.datePosted)}
+                Posted on: {formatDateString(announcement.date)}
               </Card.Subtitle>
               <Card.Text>{announcement.body}</Card.Text>
             </Card.Body>
