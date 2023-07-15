@@ -1,5 +1,5 @@
 import React from "react";
-import "../sstyles/JobDetail.css";
+import "../styles/JobDetail.css";
 import "../styles/JobCard.css";
 import appleLogo from "../images/Apple Music.png";
 import bookmark from "../images/bookmark.png";
@@ -16,7 +16,7 @@ function JobDetail(props) {
 
     return (
         <div className="my-4">
-            <div className="job-detail">
+            <div className="job-detail mt-5">
                 <div className="row">
                     <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-2">
                         <img src={appleLogo} alt="" />

@@ -6,6 +6,7 @@ import CreateJobPost from "./components/CreateJobPost";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FAQPage from "./Pages/FAQPage";
 import ContactUs from "./Pages/ContactUs";
+import JobListingsPage from "./Pages/JobListingsPage";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/CreateJobPost" element={<CreateJobPost />} />
+          <Route path="/joblistings" element={<JobListingsPage />} />
         </Routes>
       </Router>
       <Footer />
