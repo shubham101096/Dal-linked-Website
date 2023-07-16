@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/CreateJobPost.css';
-import { FaTrash } from 'react-icons/fa';
 
 const CreateJobPost = () => {
     const [step, setStep] = useState(1);
@@ -26,7 +25,8 @@ const CreateJobPost = () => {
     const [hrEmail, setHrEmail] = useState('');
     const [deadline, setDeadline] = useState('');
     const [validationError, setValidationError] = useState('');
-    const [jobPostData, setJobPostData]= useState(null);
+    const [jobPostData, setJobPostData] = useState(null);
+
     const handleNext = (e) => {
         e.preventDefault();
         setStep(step + 1);
@@ -35,6 +35,7 @@ const CreateJobPost = () => {
     const handlePrevious = () => {
         setStep(step - 1);
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -56,7 +57,6 @@ const CreateJobPost = () => {
             hrEmail.trim() === '' ||
             deadline === ''
         ) {
-            // Handle validation error
             setValidationError('Please fill in all fields');
             return;
         }
@@ -66,27 +66,47 @@ const CreateJobPost = () => {
 
         const formData = {
             companyName,
-            openPos,
+            noOfPositions: parseInt(openPos),
             jobSector,
-            jobTitle,
-            jobLoc,
-            jobType,
+            title: jobTitle,
+            location: jobLoc,
+            type: jobType,
             startDate,
-            ctc,
-            requirements,
-            skill1,
-            skill2,
-            skill3,
-            benefits,
-            jobDesc,
+            salary: parseInt(ctc),
+            requirement: requirements,
+            skills: [
+                { skillName: skill1 },
+                { skillName: skill2 },
+                { skillName: skill3 }
+            ],
             hrEmail,
-            deadline,
+            description: jobDesc,
+            benefits: benefits,
+            postedDate: new Date(),
+            endDate: deadline,
+            employeeId: "01" //it will be fetched from the logged in employee
         };
-        toast.success('Form submitted successfully!');
-        // Perform form submission logic
-        const jobPostData = formData;
 
-        // Reset form fields
+        fetch('http://localhost:3003/jobs/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            toast.success('Form submitted successfully!');
+            setJobPostData(data.job);
+            resetFormFields();
+        })
+        .catch((error) => {
+            toast.error('Error submitting form');
+            console.error('Error:', error);
+        });
+    };
+
+    const resetFormFields = () => {
         setCompanyName('');
         setOpenPos('');
         setJobSector('');
@@ -105,29 +125,8 @@ const CreateJobPost = () => {
         setDeadline('');
 
         setStep(1);
-
-        setJobPostData(jobPostData);
-
     };
 
-    const renderJobPostCard = () => {
-        if (jobPostData) {
-            return (<div className="card job-display">
-                    <div className="card-body">
-                        <h5 className="card-title">{jobPostData.companyName}</h5>
-                        <p>Open Positions: {jobPostData.openPos}</p>
-                        <p>Job Sector: {jobPostData.jobSector}</p>
-                        <p>Job Title: {jobPostData.jobTitle}</p>
-                        <div className="button-container">
-                            <button className="btn btn-view">View</button>
-                            <button className="btn btn-delete"><FaTrash /></button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-        return null;
-    };
     const renderStepContent = () => {
         switch (step) {
             case 1:
@@ -384,45 +383,30 @@ const CreateJobPost = () => {
         <div className="bg-gray-100 text-gray-900 h-screen tracking-wider leading-normal">
             <ToastContainer />
             <div className="container my-4">
-                <div className="row">
-                    <div className="col-lg-6">
-                        {renderJobPostCard()}
-                    </div>
-                    <div className="col-lg-6">
-                        <div className="p-8 job-card">
-                            <div className="main-heading">Create Job Post</div>
-                            {validationError && (
-                                <div className="alert alert-danger mb-4">{validationError}</div>
+                <div className="p-8 job-card">
+                    <div className="main-heading">Create Job Post</div>
+                    {validationError && <div className="alert alert-danger mb-4">{validationError}</div>}
+                    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+                        {renderStepContent()}
+                        <div className="mt-8 d-flex justify-content-between">
+                            {step > 1 && (
+                                <button type="button" onClick={handlePrevious} className="btn btn-secondary">
+                                    Previous
+                                </button>
                             )}
-                            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                                {renderStepContent()}
-                                <div className="mt-8 d-flex justify-content-between">
-                                    {step > 1 && (
-                                        <button type="button" onClick={handlePrevious} className="btn btn-secondary">
-                                            Previous
-                                        </button>
-                                    )}
-                                    {step < 4 ? (
-                                        <button type="submit" onClick={handleNext} className="btn btn-primary">
-                                            Next
-                                        </button>
-                                    ) : (
-                                        <button type="submit" className="btn btn-primary">
-                                            Submit
-                                        </button>
-                                    )}
-                                </div>
-                            </form>
+                            {step < 4 ? (
+                                <button type="submit" onClick={handleNext} className="btn btn-primary">
+                                    Next
+                                </button>
+                            ) : (
+                                <button type="submit" className="btn btn-primary">
+                                    Submit
+                                </button>
+                            )}
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    );
-    return (
-        <div className="bg-gray-100 text-gray-900 h-screen tracking-wider leading-normal">
-            <ToastContainer />
-            {/* ... */}
         </div>
     );
 };

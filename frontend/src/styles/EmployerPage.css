@@ -1,0 +1,90 @@
+.employer-page {
+    padding: 20px;
+}
+
+.job-card {
+    width: 100%;
+    background-color: #F0F0F0;
+    border-radius: 25px;
+    font-size: 20px;
+    text-align: left;
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.job-card .job-title p {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.job-card img {
+    height: 60px;
+    width: 84px;
+}
+
+.white-badge {
+    height: 38px;
+    width: 106px;
+    background-color: white;
+    border-radius: 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.white-badge p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.job-desc {
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.delete-account-btn {
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.delete-account-btn:hover {
+    background-color: #CC0000;
+}
+.employer-page {
+    padding: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.toggle-button {
+    margin-right: 10px;
+}
+
+.create-job-post-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.create-job-post-button:hover {
+    background-color: #0069d9;
+}

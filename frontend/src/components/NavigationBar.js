@@ -39,6 +39,12 @@ function NavigationBar() {
                 <Nav.Link href="/faq" className="navigationBar">
                   FAQ
                 </Nav.Link>
+                <Nav.Link href="/CreateJobPost" className="CreateJobPost">
+                  CreateJobPost
+                </Nav.Link>
+                <Nav.Link href="/EmployerPage" className="EmployerPage">
+                  EmployerPage
+                </Nav.Link>
               </Nav>
               <Nav>
                 <Nav.Link href="/" className="navigationBar">
