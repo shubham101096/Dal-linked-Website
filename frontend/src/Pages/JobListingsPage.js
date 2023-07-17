@@ -1,8 +1,9 @@
 import '../styles/App.css';
 import JobCard from '../components/JobCard.js';
-import { Container, Dropdown } from 'react-bootstrap';
+import { Container, Dropdown, Spinner } from 'react-bootstrap';
 import JobDetail from '../components/JobDetail.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from "axios";
 // import FAQ from './components/FAQ';
 
 function JobListingsPage() {
@@ -192,7 +193,9 @@ function JobListingsPage() {
     ]
   },
   ];
-  const [selectedJob, setSelectedJob] = useState(jobs[0]);
+  const [jobList, setJobList] = useState([]);
+  const [selectedJob, setSelectedJob] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleJob = (job) => {
     setSelectedJob(job);
@@ -205,6 +208,30 @@ function JobListingsPage() {
     borderRadius: "20px",
     padding: "0.7rem"
   };
+
+  const fetchJobList = () => {
+    setIsLoading(true);
+    axios
+      .get("http://localhost:3003/jobs/")
+      .then((response) => {
+        setJobList(response.data.jobs);
+      })
+      .catch((err) => {
+        console.log("Error getting job list", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        console.log(jobList.length);
+      })
+  }
+
+  useEffect(() => {
+    fetchJobList();
+  }, []);
+
+  useEffect(() => {
+    setSelectedJob(jobList.length > 0 ? jobList[0] : {});
+  }, [jobList]);  
 
   return (
     <div>
@@ -254,11 +281,14 @@ function JobListingsPage() {
             </Dropdown>
           </div>
         </div>
+        {
+          isLoading && <Spinner />
+        }
         <div className="row">
           <div className="col-5 col-xl-4 col-lg-4 col-md-5">
-            {jobs.length === 0 ? (<div><h3>No jobs available currently.</h3></div>) : (jobs.map((job) => (<div key={job.id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
+            {jobList.length === 0 ? (<div><h3>No jobs are available currently.</h3></div>) : (jobList.map((job) => (<div key={job._id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
           </div>
-          {(!isMobile && jobs.length !== 0) && <div className="col-7 col-xl-6 col-lg-6 col-md-6">
+          {(!isMobile && jobList.length !== 0 && Object.keys(selectedJob).length !== 0) && <div className="col-7 col-xl-6 col-lg-6 col-md-6">
             <JobDetail job={selectedJob} />
           </div>}
         </div>

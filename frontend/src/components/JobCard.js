@@ -13,7 +13,7 @@ function JobCard(props) {
                 </div>
                 <div className="col m-2 col-lg-6 col-md-4 job-title">
                     {/* <div className="col"> */}
-                    <p>{job.jobTitle}</p>
+                    <p>{job.title}</p>
                     {/* </div> */}
                     {/* <div className="col"> */}
                     <p>{job.companyName}</p>
@@ -24,7 +24,7 @@ function JobCard(props) {
                 <div className="col-4 col-xl-3 col-lg-6 col-md-6 col-sm-12 me-lg-3 m-sm-2">
                     <div className="white-badge">
                         <p className="my-auto">
-                            {job.jobType}
+                            {job.type}
                         </p>
                     </div>
                 </div>
@@ -38,7 +38,7 @@ function JobCard(props) {
                 <div className="col-4 col-xl-3 col-lg-6 col-md-6 col-sm-12 me-lg-3 m-sm-2">
                     <div className="white-badge mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0">
                         <p className="my-auto">
-                            {job.salary}
+                            {`$${job.salary}`}
                         </p>
                     </div>
                 </div>
