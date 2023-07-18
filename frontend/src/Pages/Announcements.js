@@ -90,10 +90,12 @@ function AnnouncementPage() {
   );
 
   const sortedAnnouncements = filteredAnnouncements.sort((a, b) => {
+    const date1 = new Date(a.datePosted);
+    const date2 = new Date(b.datePosted);
     if (sortOrder === 'asc') {
-      return a.date.localeCompare(b.date);
+      return date1.getTime() - date2.getTime();
     } else {
-      return b.date.localeCompare(a.date);
+      return date2.getTime() - date1.getTime();
     }
   });
 
