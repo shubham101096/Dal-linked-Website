@@ -1,0 +1,54 @@
+postProfileImage {
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 5em;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+.content {
+  padding: 1em;
+  background-color: aliceblue;
+  margin: 0em 1em 0em 1em;
+  border-radius: 1em;
+}
+
+.jobSector {
+  background-color: forestgreen;
+  padding: 0.4em;
+  border-radius: 1em;
+  box-shadow: 1px 1px 3px #164103;
+}
+
+.datePosted {
+  background-color: orange;
+  padding: 0.4em;
+  border-radius: 1em;
+  box-shadow: 1px 1px 3px #966702;
+}
+
+.bottomline {
+  padding: 0.5em;
+  display: flex;
+  justify-content: end;
+}
+
+.post {
+  display: flex;
+}
+
+.counter {
+  padding: 0.5em;
+}
+
+.storyCard {
+  background-color: silver;
+  width: 80%;
+  border-radius: 2em;
+  margin: 1em auto;
+  color: black;
+}

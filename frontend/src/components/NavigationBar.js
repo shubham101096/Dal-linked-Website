@@ -36,6 +36,9 @@ function NavigationBar() {
                 <Nav.Link href="/faq" className="navigationBar">
                   FAQ
                 </Nav.Link>
+                <Nav.Link href="/mainStoryPage" className="navigationBar">
+                  SuccessStories
+                </Nav.Link>
               </Nav>
               <Nav>
                 <Nav.Link href="/" className="navigationBar">

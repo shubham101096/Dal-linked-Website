@@ -1,0 +1,9 @@
+.mainStory {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  width: 70%;
+  margin: 2em auto;
+  border: solid #005c97;
+  border-radius: 0.3em;
+}

@@ -1,0 +1,24 @@
+.postProfileImage {
+  padding: 1.2em;
+  border-radius: 10em;
+  width: 100px;
+  height: 100px;
+}
+
+.storyDetails {
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sendIcon {
+  width: 4vh;
+  height: 4vh;
+}
+
+.postBottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.2em;
+}
