@@ -1,28 +1,9 @@
 const Announcement = require("../models/announcement");
 
-function formatDateString(dateStr) {
-  const date = new Date(dateStr);
-
-  const options = {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  };
-
-  return date.toLocaleString('en-US', options);
-}
-
 const getAllAnnouncements = async (req, res) => {
   try {
     const announcements = await Announcement.find({});
-    const formattedAnnouncements = announcements.map((announcement) => ({
-      ...announcement.toObject(),
-      datePosted: formatDateString(announcement.datePosted),
-    }));
-    res.json(formattedAnnouncements);
+    res.json(announcements);
   } catch (error) {
     console.error("Error retrieving announcements:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -48,11 +29,7 @@ const getAnnouncementById = async (req, res) => {
     if (!announcement) {
       return res.status(404).json({ error: "Announcement not found" });
     }
-    const formattedAnnouncement = {
-      ...announcement.toObject(),
-      datePosted: formatDateString(announcement.datePosted),
-    };
-    res.json(formattedAnnouncement);
+    res.json(announcement);
   } catch (error) {
     console.error("Error retrieving announcement:", error);
     res.status(500).json({ error: "Internal Server Error" });
