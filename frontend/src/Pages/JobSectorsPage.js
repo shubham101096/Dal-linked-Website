@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ListGroup, Button, Col, Row, Form, Container, Modal, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import '../styles/JobSectors.css'
 
 function JobSectorsPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -163,8 +164,8 @@ function JobSectorsPage() {
           </Form>
           <ListGroup>
             {filteredJobSectors().map((sector, index) => (
-              <ListGroup.Item key={index} className="d-flex align-items-center">
-                <span className="me-auto">{sector.name}</span>
+              <ListGroup.Item key={index} className="d-flex align-items-left">
+                <span className="me-auto text-left">{sector.name}</span>
                 <Button
                   variant="outline-primary"
                   size="sm"
