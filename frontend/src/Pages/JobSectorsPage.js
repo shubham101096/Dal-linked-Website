@@ -145,21 +145,21 @@ function JobSectorsPage() {
       <Row className="justify-content-center">
         <Col md={8} lg={6}>
           <Form className="mb-3">
-            <Row className="align-items-center">
-              <Col xs={8} sm={8}>
+            <div className="d-flex justify-content-between align-items-center p-0 mb-3">
+              <div className="d-flex flex-grow-1 me-2">
                 <Form.Control
                   type="text"
                   placeholder="Search job sectors"
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-              </Col>
-              <Col xs={4} sm={4} className="text-end">
+              </div>
+              <div className="text-end">
                 <Button variant="outline-success" onClick={handleAddClick}>
                   Add
                 </Button>
-              </Col>
-            </Row>
+              </div>
+            </div>
           </Form>
           <ListGroup>
             {filteredJobSectors().map((sector, index) => (
