@@ -11,7 +11,8 @@ const employerRegSchema = new mongoose.Schema({
     },
     email: {
         required: true,
-        type: String
+        type: String,
+        unique: true
     },
     contactNumber: {
         required: true,
