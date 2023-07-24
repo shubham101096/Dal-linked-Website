@@ -145,7 +145,7 @@ function JobDetail(props) {
                 </div>
                 <div className="row mx-5">
                     <ul className="requirements">
-                    {job.benefits.map((benefit, index) => <li key={index}>{benefit}</li>)}
+                        {job.benefits.map((benefit, index) => <li key={index}>{benefit}</li>)}
                     </ul>
                 </div>
             </div>

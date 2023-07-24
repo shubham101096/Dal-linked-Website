@@ -55,16 +55,16 @@ const jobSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    benifits: {
+    benefits: {
         required: true,
         type: String
     },
     postedDate: {
-        reuired: true,
+        required: true,
         type: Date
     },
     endDate: {
-        reuired: true,
+        required: true,
         type: Date
     },
     employeeId: {

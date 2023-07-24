@@ -1,4 +1,5 @@
 import "./styles/App.css";
+//import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage/LandingPage.js";
 import NavigationBar from "./components/NavigationBar.js";
 import Footer from "./components/Footer.js";
@@ -8,6 +9,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import CreateJobPost from "./components/CreateJobPost";
+import EmployerPage from "./Pages/EmployerPage";
 import FAQPage from "./Pages/FAQPage";
 import ContactUs from "./Pages/ContactUs";
 import MainStoryPage from "./Pages/MainStoryPage";
@@ -27,6 +30,7 @@ import LogInAdmin from "./Pages/Login/AdminLogin";
 
 import TestStudent from "./Pages/testStudentOnlyPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
+import StudentListingsPage from "./Pages/StudentListingsPage";
 
 function App() {
   const { user } = useAuthContext();
@@ -44,7 +48,9 @@ function App() {
           <Route path="/jobSectors" element={<JobSectorsPage />} />
           <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
           <Route path="/announcements" element={<AnnouncementPage />} />
-
+            <Route path="/EmployerPage" element={<EmployerPage />} />
+            <Route path="/CreateJobPost" element={<CreateJobPost />} />
+            <Route path="/StudentListingsPage" element={<StudentListingsPage />} />
           {/* LOGIN / SIGNUP */}
           <Route
             path="/login-signup"
@@ -92,6 +98,7 @@ function App() {
       <Footer />
     </div>
   );
+
 }
 
 export default App;
