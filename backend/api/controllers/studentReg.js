@@ -3,11 +3,11 @@ const validator = require('validator')
 const StudentReg = require('../models/studentReg');
 const jwt = require('jsonwebtoken')
 
-const createToken = (_id, email) => {
-     return jwt.sign({_id: _id, email: email },
-         process.env.SECRET,
+const createToken = (_id, email, userType) => {
+    return jwt.sign({_id: _id, email: email, userType: userType },
+        process.env.SECRET,
         {expiresIn: '30d'} // User is logged in for 30 days
-        )
+    )
 }
 
 const getAllStudents = async (req, res) => {
@@ -128,7 +128,7 @@ const loginStudent = async (req, res)=>{
         if (!passwordMatch) {
             return res.status(401).json({ error: 'Invalid password' });
         }
-        const token = createToken(student._id, email);
+        const token = createToken(student._id, email, 'student');
         res.status(200).json({ email: email, token: token, userType: 'student'  });
     } catch (error) {
         console.log('Error logging in student', error);

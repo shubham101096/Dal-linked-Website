@@ -4,8 +4,8 @@ const EmployerReg = require('../models/employerReg');
 const jwt = require("jsonwebtoken");
 const {application} = require("express");
 
-const createToken = (_id, email) => {
-    return jwt.sign({_id: _id, email: email, status:"pending"},
+const createToken = (_id, email, userType) => {
+    return jwt.sign({_id: _id, email: email, userType:userType},
         process.env.SECRET,
         {expiresIn: '30d'} // User is logged in for 30 days
     )
@@ -130,8 +130,8 @@ const loginEmployer = async (req, res)=>{
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid password' });
         }
-        const token = createToken(employer._id, email, employer.status);
-        res.status(200).json({ email: email, token: token, userType: 'employer', status: 'pending' });
+        const token = createToken(employer._id, email, 'employer');
+        res.status(200).json({ email: email, token: token, userType: 'employer', status: employer.status });
     } catch (error) {
         console.log('Error logging in employer', error);
         res.status(500).json({ message: 'Internal server error' });

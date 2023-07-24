@@ -3,8 +3,8 @@ const validator = require('validator')
 const AdminReg = require('../models/adminReg');
 const jwt = require("jsonwebtoken");
 
-const createToken = (_id, email) => {
-    return jwt.sign({_id: _id, email: email},
+const createToken = (_id, email, userType) => {
+    return jwt.sign({_id: _id, email: email, userType: userType},
         process.env.SECRET,
         {expiresIn: '30d'} // User is logged in for 30 days
     )
@@ -116,7 +116,7 @@ const loginAdmin = async (req, res)=>{
             return res.status(401).json({ error: 'Invalid password' });
         }
 
-        const token = createToken(admin._id, email);
+        const token = createToken(admin._id, email, 'admin');
 
         res.status(200).json({ email: email, token: token, userType: 'admin' });
     } catch (error) {

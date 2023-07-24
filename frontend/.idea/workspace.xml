@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/api/controllers/announcements.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/controllers/jobSectors.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/models/announcement.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/models/jobSector.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/routes/announcements.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/routes/jobSectors.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Announcements.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/JobSectorsPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/PendingEmpReqPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AnnouncementsList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NewAnnouncementForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/Announcements.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/JobSectors.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/api/controllers/adminReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/adminReg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/api/controllers/studentReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/studentReg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/api/models/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/models/employerReg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/middleware/requireAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/middleware/requireAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Login/AdminLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Login/AdminLogin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Login/EmployerLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Login/EmployerLogin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +31,12 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging Adriana__Sanchez",
+    "git-widget-placeholder": "Adriana__Sanchez",
     "last_opened_file_path": "C:/Users/adris/Desktop/Web_Project_2/csci4177-5709-grp-4/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -50,7 +49,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1690211535300</updated>
-      <workItem from="1690211536356" duration="253000" />
+      <workItem from="1690211536356" duration="2017000" />
     </task>
     <servers />
   </component>
