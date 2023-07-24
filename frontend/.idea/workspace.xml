@@ -5,20 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/models/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/models/employerReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/routes/userAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/routes/userAuth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Registration/RegistrationEmployer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Registration/RegistrationEmployer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useEmployerSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useEmployerSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/LoginSignUpPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/LoginSignUpPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
