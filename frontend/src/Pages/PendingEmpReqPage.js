@@ -111,7 +111,7 @@ function PendingEmployerList() {
             {employerRequests.map((request) => (
               <ListGroup.Item key={request.id} style={{ border: 'none' }}>
                 <Card>
-                  <div className="d-flex justify-content-center">
+                  <div className="d-flex justify-content-center mt-2">
                     <Card.Img
                       variant="top"
                       src={request.companyLogo}
