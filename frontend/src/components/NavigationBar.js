@@ -1,12 +1,24 @@
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
+
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "../styles/NavigationBar.css";
+
+import { useLogout} from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
+
+
 function NavigationBar() {
+
+  const { logout } = useLogout()
+  const { user } = useAuthContext()
+
+  const handleClick = () => {
+    logout()
+  }
+
   return (
     <div className="navBarDiv">
       <Navbar key="md" className="navigationBar" expand="md">
@@ -39,17 +51,22 @@ function NavigationBar() {
                 <Nav.Link href="/faq" className="navigationBar">
                   FAQ
                 </Nav.Link>
-                <Nav.Link href="/CreateJobPost" className="CreateJobPost">
-                  CreateJobPost
-                </Nav.Link>
-                <Nav.Link href="/EmployerPage" className="EmployerPage">
-                  EmployerPage
+                <Nav.Link href="/mainStoryPage" className="navigationBar">
+                  SuccessStories
                 </Nav.Link>
               </Nav>
               <Nav>
-                <Nav.Link href="/" className="navigationBar">
+                {!user && (
+                <Nav.Link href="/login-signup" className="navigationBar">
                   SignIn / SignUp
                 </Nav.Link>
+                )}
+                {user && (
+                <Nav.Link onClick={handleClick} className="navigationBar">
+                  Logout
+                </Nav.Link>
+                )}
+
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

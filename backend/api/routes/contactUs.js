@@ -20,7 +20,7 @@ router.post("/", function (req, res, next) {
     from: adminEmailId,
     to: adminEmailId,
     subject: `DalLinked Helpdesk: Name: ${userName}, Email: ${userEmailId}`,
-    text: `Name: ${userName}\nEmail: ${userEmailId}\nMessage:\n${userMessage}`
+    text: `Name: ${userName}\nEmail: ${userEmailId}\nMessage:\n${userMessage}`,
   };
 
   transporter.sendMail(mailAdmin, (error, info) => {
@@ -38,7 +38,7 @@ router.post("/", function (req, res, next) {
     text: `Thanks for getting in touch with DalLinked. We have received your following query:\n
     "${userMessage}" \n
 
-    It will be process within 10 business days.\n Regards \nHelpdesk\nDalLinked`
+    It will be process within 10 business days.\n Regards \nHelpdesk\nDalLinked`,
   };
 
   transporter.sendMail(mailUser, (error, info) => {
