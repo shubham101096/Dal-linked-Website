@@ -1,90 +1,56 @@
 .employer-page {
-    padding: 20px;
-}
-
-.job-card {
-    width: 100%;
-    background-color: #F0F0F0;
-    border-radius: 25px;
-    font-size: 20px;
-    text-align: left;
-    cursor: pointer;
-    margin-bottom: 20px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.job-card .job-title p {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 0;
-}
-
-.job-card img {
-    height: 60px;
-    width: 84px;
-}
-
-.white-badge {
-    height: 38px;
-    width: 106px;
-    background-color: white;
-    border-radius: 25px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    margin-top: 10px;
-}
-
-.white-badge p {
-    font-size: 15px;
-    margin: 0;
-}
-
-.job-desc {
-    font-size: 15px;
-    color: rgba(0, 0, 0, 0.6);
-}
-
-.delete-account-btn {
-    background-color: #FF0000;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.delete-account-btn:hover {
-    background-color: #CC0000;
-}
-.employer-page {
-    padding: 20px;
+    background-color: #fafafa;
+    padding: 2rem;
+    border-radius: 1rem;
 }
 
 .button-container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-top: 2rem;
 }
 
 .toggle-button {
-    margin-right: 10px;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease-in-out;
 }
 
-.create-job-post-button {
+.toggle-button:hover {
     background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+    color: #fff;
 }
 
-.create-job-post-button:hover {
-    background-color: #0069d9;
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.student-card {
+    border: 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.student-card:hover {
+    box-shadow: 0 0.8rem 1.5rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.student-card img {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+}
+
+.student-card .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.student-card .card-text {
+    font-size: 1rem;
+}
+
+.student-card button {
+    border-radius: 0.5rem;
 }

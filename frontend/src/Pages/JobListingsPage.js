@@ -238,29 +238,6 @@ function JobListingsPage() {
 
   return (
       <div>
-        {/* <Navbar bg="light" expand="md" sticky="top">
-        <Container>
-          <Navbar.Brand className="b" href="home">DalLinked</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto mx-auto">
-              <Nav.Link className="mx-2">Home</Nav.Link>
-              <Nav.Link className="mx-2">Job Listings</Nav.Link>
-              <Nav.Link className="mx-2">Applied Jobs</Nav.Link>
-              <Nav.Link className="mx-2">Saved Jobs</Nav.Link>
-            </Nav>
-            <Nav>
-              <NavDropdown className="mx-2" title="Sarah" id="basic-nav-dropdown">
-                <NavDropdown.Item>Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item>
-                  Sign Out
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar> */}
         <Container>
           <div className="row m-2">
             <div className="col-1 pl-1">
@@ -288,12 +265,15 @@ function JobListingsPage() {
             <div className="col-5 col-xl-4 col-lg-4 col-md-5">
               {jobs.length === 0 ? (<div><h3>No jobs available currently.</h3></div>) : (jobs.map((job) => (<div key={job.id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
             </div>
-            {(!isMobile && jobs.length !== 0) && <div className="col-7 col-xl-6 col-lg-6 col-md-6">
+            {
+              (!isMobile && jobs.length !== 0)
+                &&
+            <div className="col-7 col-xl-6 col-lg-6 col-md-6">
               <JobDetail job={selectedJob} />
-            </div>}
+            </div>
+            }
           </div>
         </Container>
-        {/* <FAQ /> */}
       </div>
   );
 }

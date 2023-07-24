@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
+import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import '../styles/StudentListingsPage.css';
 
 function StudentListingsPage() {
@@ -38,58 +38,34 @@ function StudentListingsPage() {
     ];
 
     return (
-        <MDBContainer className="student-listings-container">
-            {students.length === 0 ? (
-                <div>
-                    <h3>No students available currently.</h3>
-                </div>
-            ) : (
-                students.map((student) => (
-                    <MDBCard key={student.id} className="student-card">
-                        <MDBCardBody className="p-4">
-                            <MDBRow>
-                                <MDBCol md="4" className="text-center">
-                                    <MDBCardImage
-                                        src={student.profilePhoto}
-                                        alt="Profile"
-                                        style={{ width: '180px', borderRadius: '10px' }}
-                                    />
-                                </MDBCol>
-                                <MDBCol md="8">
-                                    <div className="d-flex flex-column">
-                                        <MDBCardTitle>{student.name}</MDBCardTitle>
-                                        <MDBCardText>{student.jobPreference}</MDBCardText>
-
-                                        <div className="d-flex justify-content-start rounded-3 p-2 mb-2">
-                                            <div>
-                                                <p className="small text-muted mb-1">Skills</p>
-                                                <p className="mb-0">{student.skills.join(', ')}</p>
-                                            </div>
-                                            <div className="px-3">
-                                                <p className="small text-muted mb-1">Work Experience</p>
-                                                <p className="mb-0">{student.workExperience}</p>
-                                            </div>
-                                            <div>
-                                                <p className="small text-muted mb-1">Education</p>
-                                                <p className="mb-0">{student.education}</p>
-                                            </div>
-                                            <div>
-                                                <p className="small text-muted mb-1">Applied for:</p>
-                                                <p className="mb-0">{student.appliedFor}</p>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex pt-1">
-                                            <MDBBtn outline className="me-1 flex-grow-1">Actions</MDBBtn>
-                                            <MDBBtn className="flex-grow-1">Resume</MDBBtn>
-                                        </div>
-                                    </div>
-                                </MDBCol>
-                            </MDBRow>
-                        </MDBCardBody>
-                    </MDBCard>
-                ))
-            )}
-        </MDBContainer>
+        <Container>
+            {students.map((student, idx) => (
+                <Card key={idx} className="mb-4">
+                    <Card.Body>
+                        <Row>
+                            <Col md={4}>
+                                <Card.Img
+                                    variant="top"
+                                    src={student.profilePhoto}
+                                    style={{ maxWidth: '100%', height: 'auto' }}
+                                />
+                            </Col>
+                            <Col md={8}>
+                                <Card.Title>{student.name}</Card.Title>
+                                <Card.Text>
+                                    <strong>Skills:</strong> {student.skills.join(', ')}<br />
+                                    <strong>Work Experience:</strong> {student.workExperience}<br />
+                                    <strong>Education:</strong> {student.education}<br />
+                                    <strong>Applied For:</strong> {student.appliedFor}
+                                </Card.Text>
+                                <Button variant="primary" className="me-2">Actions</Button>
+                                <Button variant="secondary">Resume</Button>
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                </Card>
+            ))}
+        </Container>
     );
 }
 

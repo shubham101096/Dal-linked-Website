@@ -1,26 +1,56 @@
+.employer-page {
+    background-color: #fafafa;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.toggle-button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.toggle-button:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
 .student-card {
-    background-color: #F0F0F0;
-    border-radius: 25px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    border: 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
 }
 
-.student-card h4 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 0;
+.student-card:hover {
+    box-shadow: 0 0.8rem 1.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
-.student-card p {
-    font-size: 15px;
-    margin-bottom: 0.5rem;
+.student-card img {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
 }
 
-.student-card a {
-    color: blue;
-    text-decoration: underline;
+.student-card .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-.student-info {
-    text-align: left;
+.student-card .card-text {
+    font-size: 1rem;
+}
+
+.student-card button {
+    border-radius: 0.5rem;
 }
