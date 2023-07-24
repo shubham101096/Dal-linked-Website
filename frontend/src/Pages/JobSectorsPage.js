@@ -150,7 +150,7 @@ function JobSectorsPage() {
   }, [user]);
 
   if (!user) {
-      return <p>Loading...</p>;
+      return <p>Please signin to access this page.</p>;
   }
 
   return (
