@@ -22,7 +22,9 @@ export const useEmployerSignup = () => {
             websiteURL: websiteURL
         }
 
-        axios.post('http://localhost:4001/user/registerEmployer', requestData)
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+        axios.post(`${backendUrl}//user/registerEmployer`, requestData)
             .then((response) => {
                 setSuccess(true)
                 setIsLoading(false)

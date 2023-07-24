@@ -4,6 +4,7 @@ import NewAnnouncementForm from '../components/NewAnnouncementForm';
 import AnnouncementsList from '../components/AnnouncementsList';
 import '../styles/Announcements.css';
 import axios from 'axios';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
@@ -12,17 +13,18 @@ function AnnouncementPage() {
   const [showNewAnnouncementModal, setShowNewAnnouncementModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('desc');
-
-  useEffect(() => {
-    fetchAnnouncements();
-  }, []);
+  const { user } = useAuthContext();
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const announcementsUrl = `${backendUrl}/announcements`;
 
-  const fetchAnnouncements = async () => {
+  const fetchAnnouncements = async (userToken) => {
     try {
-      const response = await axios.get(announcementsUrl);
+      const response = await axios.get(announcementsUrl, {
+        headers: {
+            Authorization: "Bearer " + userToken
+        }
+    });
       setAnnouncements(response.data);
     } catch (error) {
       console.error('Error fetching announcements:', error);
@@ -65,7 +67,7 @@ function AnnouncementPage() {
         body,
       });
       if (response.status === 200) {
-        fetchAnnouncements();
+        fetchAnnouncements(user.token);
         setShowNewAnnouncementModal(false);
       } else {
         console.error('Error creating announcement:', response.status);
@@ -109,11 +111,22 @@ function AnnouncementPage() {
 
   useEffect(() => {
     setActivePage(1);
-}, [totalPages]);
+  }, [totalPages]);
 
   const indexOfLastAnnouncement = activePage * announcementsPerPage;
   const indexOfFirstAnnouncement = indexOfLastAnnouncement - announcementsPerPage;
   const currentAnnouncements = sortedAnnouncements.slice(indexOfFirstAnnouncement, indexOfLastAnnouncement);
+
+  useEffect(() => {
+    if (user) {
+      fetchAnnouncements(user.token);
+
+    }
+  }, [user]);
+
+  if (!user) {
+      return <p>Loading...</p>;
+  }
 
   return (
     <Container>

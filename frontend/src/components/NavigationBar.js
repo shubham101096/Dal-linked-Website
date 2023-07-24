@@ -16,7 +16,36 @@ function NavigationBar() {
   const { user } = useAuthContext()
 
   const handleClick = () => {
-    logout()
+    logout();
+  };
+
+  const adminNavLinks = [
+    { text: "Announcements", href: "/announcements" },
+    { text: "Employers", href: "/employers" },
+    { text: "Job Sectors", href: "/jobSectors" },
+    { text: "Requests", href: "/pendingEmpReq" },
+  ];
+
+  const studentNavLinks = [
+    { text: "Announcements", href: "/announcements" },
+    { text: "Jobs", href: "/joblistings" },
+    { text: "Contact Us", href: "/contactUs" },
+    { text: "FAQ", href: "/faq" },
+  ];
+
+  const employerNavLinks = [
+    { text: "Create Job Post", href: "/CreateJobPost" },
+  ];
+
+  const userType = user ? user.userType : null;
+  let navLinks = [];
+
+  if (userType === 'admin') {
+    navLinks = adminNavLinks;
+  } else if (userType === 'student') {
+    navLinks = studentNavLinks;
+  } else if (userType === 'employer') {
+    navLinks = [...studentNavLinks, ...employerNavLinks];
   }
 
   return (
@@ -39,18 +68,11 @@ function NavigationBar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-center flex-grow-1 pe-3">
-                <Nav.Link href="/" className="navigationBar">
-                  Home
-                </Nav.Link>
-                <Nav.Link href="/joblistings" className="navigationBar">
-                  Job Listings
-                </Nav.Link>
-                <Nav.Link href="/contactUs" className="navigationBar">
-                  Contact Us
-                </Nav.Link>
-                <Nav.Link href="/faq" className="navigationBar">
-                  FAQ
-                </Nav.Link>
+                {navLinks.map((link) => (
+                  <Nav.Link key={link.href} href={link.href} className="navigationBar">
+                    {link.text}
+                  </Nav.Link>
+                ))}
               </Nav>
               <Nav>
                 {!user && (
@@ -63,7 +85,6 @@ function NavigationBar() {
                   Logout
                 </Nav.Link>
                 )}
-
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

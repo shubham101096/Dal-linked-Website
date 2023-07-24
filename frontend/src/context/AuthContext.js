@@ -21,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
     })
     // Check when the application starts, once, to find if there is a user
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('student')) // user key
+        const user = JSON.parse(localStorage.getItem('user')) // user key
 
         if(user){
             dispatch({ type: 'LOGIN', payload: user })
