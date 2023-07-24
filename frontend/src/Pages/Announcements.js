@@ -107,6 +107,10 @@ function AnnouncementPage() {
     setActivePage(pageNumber);
   };
 
+  useEffect(() => {
+    setActivePage(1);
+}, [totalPages]);
+
   const indexOfLastAnnouncement = activePage * announcementsPerPage;
   const indexOfFirstAnnouncement = indexOfLastAnnouncement - announcementsPerPage;
   const currentAnnouncements = sortedAnnouncements.slice(indexOfFirstAnnouncement, indexOfLastAnnouncement);
