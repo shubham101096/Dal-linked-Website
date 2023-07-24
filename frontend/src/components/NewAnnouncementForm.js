@@ -66,7 +66,7 @@ function NewAnnouncementForm({ onSubmit }) {
           </Button>
         )}
         {confirmPost && (
-          <Button variant="primary" onClick={handlePostConfirmation}>
+          <Button variant="danger" onClick={handlePostConfirmation}>
             Confirm
           </Button>
         )}
