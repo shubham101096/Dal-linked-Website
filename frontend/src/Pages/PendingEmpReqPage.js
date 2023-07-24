@@ -1,84 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ListGroup, Button, Container, Row, Col, Card, Modal } from 'react-bootstrap';
+import { useAuthContext } from "../hooks/useAuthContext";
+import axios from 'axios';
 
 function PendingEmployerList() {
-  const [employerRequests, setEmployerRequests] = useState([
-    {
-      id: 1,
-      companyName: 'Google',
-      companyLogo: 'https://img.icons8.com/color/48/google-logo.png',
-      employerName: 'John Doe',
-      employerEmail: 'johndoe@example.com',
-    },
-    {
-      id: 2,
-      companyName: 'Mitsubishi',
-      companyLogo: 'https://img.icons8.com/color/48/mitsubishi.png',
-      employerName: 'Jane Smith',
-      employerEmail: 'janesmith@example.com',
-    },
-    {
-      id: 3,
-      companyName: 'Netflix',
-      companyLogo: 'https://img.icons8.com/color/48/netflix.png',
-      employerName: 'David Johnson',
-      employerEmail: 'davidjohnson@example.com',
-    },
-    {
-      id: 4,
-      companyName: 'Spotify',
-      companyLogo: 'https://img.icons8.com/color/48/spotify--v1.png',
-      employerName: 'Sarah Wilson',
-      employerEmail: 'sarahwilson@example.com',
-    },
-    {
-      id: 5,
-      companyName: 'Coca Cola',
-      companyLogo: 'https://img.icons8.com/color/48/coca-cola.png',
-      employerName: 'Michael Brown',
-      employerEmail: 'michaelbrown@example.com',
-    },
-    {
-      id: 6,
-      companyName: 'Company F',
-      companyLogo: 'https://img.icons8.com/color/48/google-logo.png',
-      employerName: 'Emily Davis',
-      employerEmail: 'emilydavis@example.com',
-    },
-    {
-      id: 7,
-      companyName: 'Company G',
-      companyLogo: 'https://img.icons8.com/color/48/google-logo.png',
-      employerName: 'Daniel Anderson',
-      employerEmail: 'danielanderson@example.com',
-    },
-    {
-      id: 8,
-      companyName: 'Company H',
-      companyLogo: 'https://img.icons8.com/color/48/google-logo.png',
-      employerName: 'Olivia Wilson',
-      employerEmail: 'oliviawilson@example.com',
-    },
-    {
-      id: 9,
-      companyName: 'Company I',
-      companyLogo: 'https://img.icons8.com/color/48/google-logo.png',
-      employerName: 'William Taylor',
-      employerEmail: 'williamtaylor@example.com',
-    },
-    {
-      id: 10,
-      companyName: 'Company J',
-      companyLogo: 'https://img.icons8.com/color/48/google-logo.png',
-      employerName: 'Sophia Martinez',
-      employerEmail: 'sophiamartinez@example.com',
-    },
-  ]);
+  const [employerRequests, setEmployerRequests] = useState([]);
   
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [showApproveModal, setShowApproveModal] = useState(false);
-  const [curReq, setCurReq] = useState('');
+  const [curReq, setCurReq] = useState(null);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const { user } = useAuthContext();
 
+  const fetchEmpReg = async (userToken) => {
+    try {
+      const empPendingUrl = `${backendUrl}/employerReg/status/pending`;
+      const response = await axios.get(empPendingUrl, {
+        headers: {
+            Authorization: "Bearer " + userToken
+        }
+        });
+      setEmployerRequests(response.data.employers);
+    } catch (error) {
+      console.error('Error fetching job sectors:', error);
+    }
+  };
+
+  const updateEmpStatus = async (userToken, updatedStatus) => {
+    try {
+      const empStatusUpdateUrl = `${backendUrl}/employerReg/status/${curReq._id}`;
+      const response = await axios.put(empStatusUpdateUrl,
+        { status: updatedStatus, id: curReq.id },
+        {
+        headers: {
+            Authorization: "Bearer " + userToken
+        }
+        });
+        if (response.status === 200) {
+          fetchEmpReg(userToken);
+        } else {
+          console.error('Error deleting sector:', response.status);
+        }
+        setShowApproveModal(false);
+        setShowRejectModal(false);
+    } catch (error) {
+      console.error('Error fetching job sectors:', error);
+    }
+  };
 
   const handleApprove = (request) => {
     setCurReq(request);
@@ -91,16 +59,23 @@ function PendingEmployerList() {
   };
 
   const handleApproveConfirm = () => {
-    const EmployerRequests = employerRequests.filter((request) => request.id !== curReq.id);
-    setEmployerRequests(EmployerRequests);
-    setShowApproveModal(false);
+    updateEmpStatus(user.token, 'active');
   };
 
   const handleRejectConfirm = () => {
-    const EmployerRequests = employerRequests.filter((request) => request.id !== curReq.id);
-    setEmployerRequests(EmployerRequests);
-    setShowRejectModal(false);
+    updateEmpStatus(user.token, 'inactive');
   };
+
+  useEffect(() => {
+    if (user) {
+      fetchEmpReg(user.token);
+
+    }
+  }, [user]);
+
+  if (!user) {
+      return <p>Please signin to access this page.</p>;
+  }
 
   return (
     <Container>
@@ -122,11 +97,14 @@ function PendingEmployerList() {
                   <Card.Body>
                     <Card.Title>{request.companyName}</Card.Title>
                     <Card.Text>
-                      <strong>Employer: </strong>
+                      <strong>Employer Name: </strong>
                       {request.employerName}
                       <br />
                       <strong>Email: </strong>
-                      {request.employerEmail}
+                      {request.email}
+                      <br />
+                      <strong>Contact Number: </strong>
+                      {request.contactNumber}
                     </Card.Text>
                     <Button variant="outline-success" onClick={() => handleApprove(request)}>
                       Approve
@@ -145,7 +123,7 @@ function PendingEmployerList() {
         <Modal.Header closeButton>
           <Modal.Title>Confirm Rejection</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to reject "{curReq.employerName}" request?</Modal.Body>
+        <Modal.Body>Are you sure you want to reject <strong>{curReq?.employerName}'s</strong> request?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowRejectModal(false)}>
             No
@@ -159,7 +137,7 @@ function PendingEmployerList() {
         <Modal.Header closeButton>
           <Modal.Title>Confirm Approval</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to approve "{curReq.employerName}" request?</Modal.Body>
+        <Modal.Body>Are you sure you want to approve <strong>{curReq?.employerName}'s</strong> request?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowApproveModal(false)}>
             No

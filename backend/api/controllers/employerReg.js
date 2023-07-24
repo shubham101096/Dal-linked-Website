@@ -138,11 +138,48 @@ const loginEmployer = async (req, res)=>{
     }
 }
 
+async function getEmployerByStatus(req, res) {
+    const { status } = req.params;
+
+    try {
+        const employers = await EmployerReg.find({ status: status });
+        res.status(200).json({employers});
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+}
+
+const updateEmployerStatus = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+  
+    try {
+      // Check if employer exists with the provided ID
+      const employer = await EmployerReg.findById(id);
+      if (!employer) {
+        return res.status(404).json({ error: 'Employer not found' });
+      }
+  
+      // Update the employer's status
+      employer.status = status;
+      await employer.save();
+  
+      res.status(200).json({ message: 'Employer status updated successfully', employer });
+    } catch (error) {
+      console.log('Error updating employer status', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
+
 module.exports = {
     getAllEmployers,
     getEmployerById,
     getEmployerByEmail,
     registerEmployer,
     deleteEmployerByEmail,
-    loginEmployer
+    loginEmployer,
+    getEmployerByStatus,
+    updateEmployerStatus
 };
