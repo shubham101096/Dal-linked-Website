@@ -1,31 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { Container, ListGroup, Pagination, Modal, Row, Col, Button, Form, Dropdown } from 'react-bootstrap';
-import NewAnnouncementForm from '../components/NewAnnouncementForm';
-import AnnouncementsList from '../components/AnnouncementsList';
-import '../styles/Announcements.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  ListGroup,
+  Pagination,
+  Modal,
+  Row,
+  Col,
+  Button,
+  Form,
+  Dropdown,
+} from "react-bootstrap";
+import NewAnnouncementForm from "../components/NewAnnouncementForm";
+import AnnouncementsList from "../components/AnnouncementsList";
+import "../styles/Announcements.css";
+import axios from "axios";
 
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [announcementToDelete, setAnnouncementToDelete] = useState(null);
-  const [showNewAnnouncementModal, setShowNewAnnouncementModal] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('desc');
+  const [showNewAnnouncementModal, setShowNewAnnouncementModal] =
+    useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("desc");
 
   useEffect(() => {
     fetchAnnouncements();
   }, []);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  // const backendUrl = "";
   const announcementsUrl = `${backendUrl}/announcements`;
 
   const fetchAnnouncements = async () => {
     try {
+      console.log(announcementsUrl);
       const response = await axios.get(announcementsUrl);
       setAnnouncements(response.data);
     } catch (error) {
-      console.error('Error fetching announcements:', error);
+      console.error("Error fetching announcements:", error);
     }
   };
 
@@ -33,19 +46,23 @@ function AnnouncementPage() {
     try {
       const response = await axios.delete(`${announcementsUrl}/${_id}`);
       if (response.status === 200) {
-        const updatedAnnouncements = announcements.filter((announcement) => announcement._id !== _id);
+        const updatedAnnouncements = announcements.filter(
+          (announcement) => announcement._id !== _id
+        );
         setAnnouncements(updatedAnnouncements);
         setShowDeleteModal(false);
       } else {
-        console.error('Error deleting announcement:', response.status);
+        console.error("Error deleting announcement:", response.status);
       }
     } catch (error) {
-      console.error('Error deleting announcement:', error);
+      console.error("Error deleting announcement:", error);
     }
   };
 
   const handleDelete = (_id) => {
-    const announcement = announcements.find((announcement) => announcement._id === _id);
+    const announcement = announcements.find(
+      (announcement) => announcement._id === _id
+    );
     setAnnouncementToDelete(announcement);
     setShowDeleteModal(true);
   };
@@ -68,10 +85,10 @@ function AnnouncementPage() {
         fetchAnnouncements();
         setShowNewAnnouncementModal(false);
       } else {
-        console.error('Error creating announcement:', response.status);
+        console.error("Error creating announcement:", response.status);
       }
     } catch (error) {
-      console.error('Error creating announcement:', error);
+      console.error("Error creating announcement:", error);
     }
   };
 
@@ -92,7 +109,7 @@ function AnnouncementPage() {
   const sortedAnnouncements = filteredAnnouncements.sort((a, b) => {
     const date1 = new Date(a.datePosted);
     const date2 = new Date(b.datePosted);
-    if (sortOrder === 'asc') {
+    if (sortOrder === "asc") {
       return date1.getTime() - date2.getTime();
     } else {
       return date2.getTime() - date1.getTime();
@@ -100,7 +117,9 @@ function AnnouncementPage() {
   });
 
   const announcementsPerPage = 5;
-  const totalPages = Math.ceil(sortedAnnouncements.length / announcementsPerPage);
+  const totalPages = Math.ceil(
+    sortedAnnouncements.length / announcementsPerPage
+  );
   const [activePage, setActivePage] = useState(1);
 
   const handlePageChange = (pageNumber) => {
@@ -109,11 +128,15 @@ function AnnouncementPage() {
 
   useEffect(() => {
     setActivePage(1);
-}, [totalPages]);
+  }, [totalPages]);
 
   const indexOfLastAnnouncement = activePage * announcementsPerPage;
-  const indexOfFirstAnnouncement = indexOfLastAnnouncement - announcementsPerPage;
-  const currentAnnouncements = sortedAnnouncements.slice(indexOfFirstAnnouncement, indexOfLastAnnouncement);
+  const indexOfFirstAnnouncement =
+    indexOfLastAnnouncement - announcementsPerPage;
+  const currentAnnouncements = sortedAnnouncements.slice(
+    indexOfFirstAnnouncement,
+    indexOfLastAnnouncement
+  );
 
   return (
     <Container>
@@ -128,10 +151,10 @@ function AnnouncementPage() {
                   placeholder="Search announcement"
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                 />
               </div>
-              <Dropdown onSelect={handleSortChange} className='me-2'>
+              <Dropdown onSelect={handleSortChange} className="me-2">
                 <Dropdown.Toggle variant="outline-secondary">
                   Sort
                 </Dropdown.Toggle>
