@@ -5,6 +5,9 @@ const { registerStudent, loginStudent } = require('../controllers/studentReg')
 const { registerEmployer, loginEmployer } = require('../controllers/employerReg')
 const { loginAdmin } = require('../controllers/adminReg')
 
+const multer = require('multer');
+const upload = multer();
+
 
 // LOGIN ROUTES
 
@@ -19,6 +22,6 @@ router.post('/loginAdmin', loginAdmin)
 
 router.post('/registerStudent', registerStudent)
 
-router.post('/registerEmployer', registerEmployer)
+router.post('/registerEmployer', upload.single('companyLogo'),registerEmployer)
 
 module.exports =  router

@@ -16,7 +16,7 @@ function NavigationBar() {
   const { user } = useAuthContext()
 
   const handleClick = () => {
-    logout()
+      logout()
   }
 
   return (

@@ -43,7 +43,7 @@ function RegistrationFormEmployer() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await signup(employerName, companyName, email, contactNumber,
-            password, 'companyLogoURL', websiteURL)
+            password, companyLogo, websiteURL)
     };
 
     const closeModal = () => {
@@ -60,8 +60,8 @@ function RegistrationFormEmployer() {
 
     const handleLogoUpload = (e) => {
         const file = e.target.files[0];
+        setCompanyLogo(file);
         // WIP, upload logo to s3 and return the image URL here
-       // setCompanyLogo('myS3logoURL.com');
     };
 
     const handlePhoneNumberChange = (e) => {

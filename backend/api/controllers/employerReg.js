@@ -4,6 +4,11 @@ const EmployerReg = require('../models/employerReg');
 const jwt = require("jsonwebtoken");
 const {application} = require("express");
 
+const {S3Client, PutObjectCommand} = require("@aws-sdk/client-s3");
+
+const BUCKET_URL = 'https://web-project-files.s3.amazonaws.com/'
+
+
 const createToken = (_id, email, userType) => {
     return jwt.sign({_id: _id, email: email, userType:userType},
         process.env.SECRET,
@@ -51,7 +56,8 @@ const getEmployerByEmail = async (req, res) => {
 };
 
 const registerEmployer = async (req, res) => {
-    const { employerName, companyName, email, contactNumber, password, companyLogo, websiteURL } = req.body;
+    const { employerName, companyName, email, contactNumber, password, websiteURL } = req.body;
+    const companyLogo = req.file;
 
     // Validate input data
     if (!employerName || !companyName || !email || !contactNumber || !password || !companyLogo || !websiteURL) {
@@ -75,6 +81,8 @@ const registerEmployer = async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        const s3ImageUrl = await uploadLogoToS3(companyLogo, email);
+
         // Create and save the employer
         const employer = new EmployerReg({
             employerName,
@@ -83,7 +91,7 @@ const registerEmployer = async (req, res) => {
             contactNumber,
             password: hashedPassword,
             status,
-            companyLogo,
+            companyLogo: s3ImageUrl,
             websiteURL
         });
 
@@ -137,6 +145,46 @@ const loginEmployer = async (req, res)=>{
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+const uploadLogo = async (logo,employerEmail) => {
+    const client = new S3Client({
+        region: "us-east-1",
+        credentials: {
+            accessKeyId: process.env.ACCESS_KEY_ID,
+            secretAccessKey: process.env.SECRET_ACCESS_KEY
+        }
+    });
+
+    const key = 'employer-logo-'+employerEmail;
+
+    const params = {
+        Bucket: "web-project-files",
+        Key: key, // unique key for the employer logo
+        Body: logo.buffer,
+        ContentType: logo.mimetype,
+        ACL: 'public-read', // Make the uploaded file publicly accessible
+    };
+
+    try {
+        const command = new PutObjectCommand(params);
+        const response = await client.send(command);
+        console.log("Employer Logo uploaded successfully to S3.");
+        return key+BUCKET_URL;
+    } catch (error) {
+        console.log("Error uploading file:", error);
+        throw error;
+    }
+};
+
+const uploadLogoToS3 = async (logo, employerEmail) => {
+    try {
+        const s3ImageUrl = await uploadLogo(logo, employerEmail);
+        return s3ImageUrl;
+    } catch (error) {
+        console.error('Error uploading logo to S3:', error);
+        throw error;
+    }
+};
 
 module.exports = {
     getAllEmployers,
