@@ -16,9 +16,9 @@ function MainStoryPage() {
   }, []);
 
   const handleStoryChange = (newStory) => {
-    setStories([...stories, newStory]);
-    console.log("addedd data");
-    console.log(stories);
+    axios.get("http://localhost:3003/successStory").then((res) => {
+      setStories(res.data.data);
+    });
   };
 
   return (

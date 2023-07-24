@@ -26,14 +26,16 @@ function PostSuccessStory({ onStoryUpdate }) {
   const [jobSector, setJobSector] = useState("None");
   const [storyComments, setStoryComments] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const [jobSectorsPost, setJobSectorsPost] = useState("");
+  const [jobSectorsPost, setJobSectorsPost] = useState([]);
 
-  // useEffect = () => {
-  //   // axios.get();
-  // };
   const handleJobSectorChange = (eventKey) => {
-    setJobSector(eventKey);
-    validateForm(eventKey, storyComments);
+    console.log(eventKey);
+    const selectedSector = jobSectorsPost.find((jsp) => jsp._id === eventKey);
+
+    if (selectedSector) {
+      setJobSector(selectedSector.name);
+      validateForm(selectedSector.name, storyComments);
+    }
   };
 
   const handleStoryCommentsChange = (event) => {
@@ -47,7 +49,18 @@ function PostSuccessStory({ onStoryUpdate }) {
     setIsFormValid(isValid);
   };
 
-  const handleSendClick = () => {
+  useEffect(() => {
+    axios
+      .get("http://localhost:3003/jobSectors")
+      .then((res) => {
+        setJobSectorsPost(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleSendClick = async () => {
     if (isFormValid) {
       const newSuccessStory = {
         username: "JohnDoe",
@@ -58,11 +71,11 @@ function PostSuccessStory({ onStoryUpdate }) {
         likes: [],
       };
 
-      axios
+      await axios
         .post("http://localhost:3003/successStory", newSuccessStory)
         .then((res) => console.log(res))
         .catch((err) => {
-          console.log("error");
+          console.log("error:" + err);
         });
 
       Swal.fire({
@@ -72,13 +85,10 @@ function PostSuccessStory({ onStoryUpdate }) {
         showConfirmButton: false,
         timer: 2000,
       });
-      const newStory = {
-        img: "./images/profile.jpg",
-        jobSector: jobSector,
-        date: getPostingDate(),
-        Content: storyComments,
-      };
-      onStoryUpdate(newStory);
+
+      onStoryUpdate(newSuccessStory);
+      setStoryComments("");
+      setJobSector("none");
     } else {
       Swal.fire(
         "Please provide your story details and the job Sector before sending."
@@ -106,13 +116,13 @@ function PostSuccessStory({ onStoryUpdate }) {
             style={{ display: "inline", paddingTop: "1.2%" }}
             onSelect={handleJobSectorChange}
           >
-            <Dropdown.Item eventKey="None">None</Dropdown.Item>
-            <Dropdown.Item eventKey="Agriculture">Agriculture</Dropdown.Item>
-            <Dropdown.Item eventKey="Medical">Medical</Dropdown.Item>
-            <Dropdown.Item eventKey="Information Technology">
-              Information Technology
-            </Dropdown.Item>
+            {jobSectorsPost.map((jsp) => (
+              <Dropdown.Item key={jsp._id} eventKey={jsp._id}>
+                {jsp.name}
+              </Dropdown.Item>
+            ))}
           </DropdownButton>
+
           <Button variant="secondary" size="sm" onClick={handleSendClick}>
             <BiSend className="sendIcon" />
           </Button>

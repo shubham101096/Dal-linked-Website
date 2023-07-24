@@ -6,7 +6,7 @@ const successStorySchema = new mongoose.Schema({
     required: [true, "The username of the post created is not provided."],
   },
   userId: {
-    type: Number,
+    type: String,
     required: [true, "The user-id of the post created is not provided."],
   },
   creationDate: {

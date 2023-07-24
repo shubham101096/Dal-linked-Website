@@ -14,4 +14,8 @@ router
   .put(successStoryController.updateSuccessStory)
   .delete(successStoryController.deleteSuccessStory);
 
+router
+  .route("/dislike/:id")
+  .put(successStoryController.updateSuccessStoryRemoveLike);
+
 module.exports = router;

@@ -1,6 +1,4 @@
-postProfileImage {
-  max-width: 50px;
-  max-height: 50px;
+.postProfileImage {
   border-radius: 5em;
 }
 
@@ -38,17 +36,66 @@ postProfileImage {
 }
 
 .post {
-  display: flex;
+  border: 1px solid #3e3f79;
+  padding: 1em;
+  margin: 0.5em;
 }
 
 .counter {
   padding: 0.5em;
 }
-
+.count-line {
+  display: flex;
+  justify-content: end;
+}
 .storyCard {
   background-color: silver;
   width: 80%;
   border-radius: 2em;
   margin: 1em auto;
   color: black;
+}
+
+/* Mobile styles - use media queries for smaller screens */
+@media screen and (max-width: 768px) {
+  .postProfileImage {
+    border-radius: 5em;
+  }
+
+  .storyCard {
+    width: 90%;
+    border-radius: 1em;
+    margin: 1em auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .postProfileImage {
+    max-width: 30px;
+    max-height: 30px;
+  }
+
+  .storyCard {
+    width: 100%;
+    border-radius: 1em;
+    margin: 1em auto;
+  }
+
+  .topline {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .jobSector,
+  .datePosted {
+    margin-top: 0.5em;
+  }
+
+  .content {
+    margin: 0.5em;
+  }
+
+  .bottomline {
+    justify-content: center;
+  }
 }
