@@ -5,7 +5,12 @@ const mongoURL = process.env.DATABASE_URL;
 
 const mongoose = require("mongoose");
 mongoose.connect(mongoURL).then(() => {
-  console.log("mongodb connected!");
+  app.listen(process.env.PORT, () => {
+    console.log("mongodb connected!");
+    console.log('connected to db & listening on port', process.env.PORT)
+  })
+}).catch((error) => {
+  console.log(error)
 })
 
 var createError = require('http-errors');
@@ -19,6 +24,13 @@ var contactUsRouter = require('./api/routes/contactUs');
 const jobsRouter = require('./api/routes/jobs');
 const announcementsRouter = require('./api/routes/announcements');
 const jobSectorsRouter = require('./api/routes/jobSectors');
+
+
+const adminRegRouter = require('./api/routes/adminReg');
+const employerRegRouter = require('./api/routes/employerReg');
+const studentRegRouter = require('./api/routes/studentReg');
+
+const userRoutes = require('./api/routes/userAuth')
 
 
 var app = express();
@@ -39,6 +51,13 @@ app.use('/contactUs', contactUsRouter);
 app.use('/jobs', jobsRouter);
 app.use('/announcements', announcementsRouter);
 app.use('/jobSectors', jobSectorsRouter);
+
+app.use('/studentReg', studentRegRouter);
+app.use('/adminReg', adminRegRouter);
+app.use('/employerReg', employerRegRouter);
+
+app.use('/user', userRoutes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
