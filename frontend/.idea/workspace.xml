@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../backend/api/controllers/announcements.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/api/controllers/jobSectors.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/api/models/announcement.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/api/models/jobSector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/api/routes/announcements.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/api/routes/jobSectors.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Announcements.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/JobSectorsPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/PendingEmpReqPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AnnouncementsList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/NewAnnouncementForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/Announcements.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/JobSectors.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2T1XPILbs6FFJrhOOMlngM5QqGg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging Adriana__Sanchez",
+    "last_opened_file_path": "C:/Users/adris/Desktop/Web_Project_2/csci4177-5709-grp-4/frontend",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="" />
+      <created>1690211535300</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1690211535300</updated>
+      <workItem from="1690211536356" duration="253000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

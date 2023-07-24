@@ -22,6 +22,9 @@ var logger = require('morgan');
 var indexRouter = require('./api/routes/index');
 var contactUsRouter = require('./api/routes/contactUs');
 const jobsRouter = require('./api/routes/jobs');
+const announcementsRouter = require('./api/routes/announcements');
+const jobSectorsRouter = require('./api/routes/jobSectors');
+
 
 const adminRegRouter = require('./api/routes/adminReg');
 const employerRegRouter = require('./api/routes/employerReg');
@@ -46,6 +49,8 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/contactUs', contactUsRouter);
 app.use('/jobs', jobsRouter);
+app.use('/announcements', announcementsRouter);
+app.use('/jobSectors', jobSectorsRouter);
 
 app.use('/studentReg', studentRegRouter);
 app.use('/adminReg', adminRegRouter);

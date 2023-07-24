@@ -7,6 +7,10 @@ import FAQPage from "./Pages/FAQPage";
 import ContactUs from "./Pages/ContactUs";
 import JobListingsPage from "./Pages/JobListingsPage";
 
+import JobSectorsPage from "./Pages/JobSectorsPage";
+import PendingEmpReqPage from "./Pages/PendingEmpReqPage";
+import AnnouncementPage from "./Pages/Announcements";
+
 import {useAuthContext} from "./hooks/useAuthContext";
 import RegistrationFormStudent from "./Pages/Registration/RegistrationStudent";
 import RegistrationFormEmployer from "./Pages/Registration/RegistrationEmployer";
@@ -28,10 +32,14 @@ function App() {
       <NavigationBar />
       <Router>
         <Routes>
+
             <Route path="/" element={<LandingPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contactUs" element={<ContactUs />} />
             <Route path="/joblistings" element={<JobListingsPage />} />
+            <Route path="/jobSectors" element={<JobSectorsPage />} />
+            <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
+            <Route path="/announcements" element={<AnnouncementPage />} />
 
 
             {/* LOGIN / SIGNUP */}
