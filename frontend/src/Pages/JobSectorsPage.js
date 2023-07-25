@@ -154,8 +154,8 @@ function JobSectorsPage() {
   }
 
   return (
-    <Container className="mb-3">
-      <h1 className="text-center">Job Sectors</h1>
+    <Container className="mb-3 mt-3">
+      <h3 className="text-center">Job Sectors</h3>
       <Row className="justify-content-center">
         <Col md={8} lg={6}>
           <Form className="mb-3">

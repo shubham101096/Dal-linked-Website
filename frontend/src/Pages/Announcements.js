@@ -141,7 +141,7 @@ function AnnouncementPage() {
 
   return (
     <Container>
-      <h1 className="text-center mt-4 mb-5">Announcements</h1>
+      <h3 className="text-center mt-3 mb-3">Announcements</h3>
       <Row className="justify-content-center">
         <Col sm={12} md={10} lg={8}>
           <ListGroup className="text-left md-8">

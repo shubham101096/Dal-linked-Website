@@ -21,7 +21,7 @@ function NavigationBar() {
 
   const adminNavLinks = [
     { text: "Announcements", href: "/announcements" },
-    { text: "Employers", href: "/employers" },
+    { text: "Employers", href: "/activeEmp" },
     { text: "Job Sectors", href: "/jobSectors" },
     { text: "Requests", href: "/pendingEmpReq" },
   ];

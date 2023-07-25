@@ -19,6 +19,7 @@ import JobListingsPage from "./Pages/JobListingsPage";
 import JobSectorsPage from "./Pages/JobSectorsPage";
 import PendingEmpReqPage from "./Pages/PendingEmpReqPage";
 import AnnouncementPage from "./Pages/Announcements";
+import ActiveEmpPage from "./Pages/ActiveEmpPage";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import RegistrationFormStudent from "./Pages/Registration/RegistrationStudent";
@@ -48,9 +49,11 @@ function App() {
           <Route path="/jobSectors" element={<JobSectorsPage />} />
           <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
           <Route path="/announcements" element={<AnnouncementPage />} />
-            <Route path="/EmployerPage" element={<EmployerPage />} />
-            <Route path="/CreateJobPost" element={<CreateJobPost />} />
-            <Route path="/StudentListingsPage" element={<StudentListingsPage />} />
+          <Route path="/activeEmp" element={<ActiveEmpPage />} />
+          <Route path="/EmployerPage" element={<EmployerPage />} />
+          <Route path="/CreateJobPost" element={<CreateJobPost />} />
+          <Route path="/StudentListingsPage" element={<StudentListingsPage />} />
+
           {/* LOGIN / SIGNUP */}
           <Route
             path="/login-signup"

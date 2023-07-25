@@ -3,7 +3,7 @@ import { ListGroup, Button, Container, Row, Col, Card, Modal } from 'react-boots
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from 'axios';
 
-function PendingEmployerList() {
+function PendingEmpReqPage() {
   const [employerRequests, setEmployerRequests] = useState([]);
   
   const [showRejectModal, setShowRejectModal] = useState(false);
@@ -22,7 +22,7 @@ function PendingEmployerList() {
         });
       setEmployerRequests(response.data.employers);
     } catch (error) {
-      console.error('Error fetching job sectors:', error);
+      console.error('Error fetching employers:', error);
     }
   };
 
@@ -44,7 +44,7 @@ function PendingEmployerList() {
         setShowApproveModal(false);
         setShowRejectModal(false);
     } catch (error) {
-      console.error('Error fetching job sectors:', error);
+      console.error('Error fetching employers:', error);
     }
   };
 
@@ -79,7 +79,7 @@ function PendingEmployerList() {
 
   return (
     <Container>
-      <h1 className="text-center">Pending Employer Requests</h1>
+      <h3 className="text-center mt-3 mb-3">Pending Employers' Requests</h3>
       <Row className="justify-content-center">
         <Col sm={12} md={6} lg={4}>
           <ListGroup>
@@ -151,4 +151,4 @@ function PendingEmployerList() {
   );
 }
 
-export default PendingEmployerList;
+export default PendingEmpReqPage;
