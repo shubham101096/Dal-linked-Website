@@ -15,6 +15,7 @@ import FAQPage from "./Pages/FAQPage";
 import ContactUs from "./Pages/ContactUs";
 import MainStoryPage from "./Pages/MainStoryPage";
 import JobListingsPage from "./Pages/JobListingsPage";
+import AppliedJobsPage from "./Pages/AppliedJobsPage";
 
 import JobSectorsPage from "./Pages/JobSectorsPage";
 import PendingEmpReqPage from "./Pages/PendingEmpReqPage";
@@ -46,6 +47,7 @@ function App() {
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/mainStoryPage" element={<MainStoryPage />} />
           <Route path="/joblistings" element={<JobListingsPage />} />
+          <Route path="/appliedJobs" element={<AppliedJobsPage />} />
           <Route path="/jobSectors" element={<JobSectorsPage />} />
           <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
           <Route path="/announcements" element={<AnnouncementPage />} />

@@ -4,13 +4,23 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { Dropdown } from "react-bootstrap";
 import "../styles/NavigationBar.css";
 
-import { useLogout} from "../hooks/useLogout";
+import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import "../styles/App.css";
 
 
 function NavigationBar() {
+
+  const dropdownStyle = {
+    backgroundColor: '#F0F0F0',
+    color: "black",
+    border: "none",
+    borderRadius: "20px",
+    padding: "0.7rem"
+  };
 
   const { logout } = useLogout()
   const { user } = useAuthContext()
@@ -68,22 +78,43 @@ function NavigationBar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-center flex-grow-1 pe-3">
+                <Nav.Link href="/" className="navigationBar">
+                  Home
+                </Nav.Link>
                 {navLinks.map((link) => (
                   <Nav.Link key={link.href} href={link.href} className="navigationBar">
                     {link.text}
                   </Nav.Link>
                 ))}
+                {
+                  (user !== null && user.userType === "student") &&
+                  <Navbar.Text>
+                    <Dropdown className="text-start">
+                      <Dropdown.Toggle style={{ backgroundColor: "inherit", border: "none", padding: "0" }}>
+                        Jobs
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu style={dropdownStyle}>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/jobListings">All Jobs</a>
+                        </Dropdown.Item>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/appliedJobs">Applied Jobs</a>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Navbar.Text>
+                }
               </Nav>
               <Nav>
                 {!user && (
-                <Nav.Link href="/login-signup" className="navigationBar">
-                  SignIn / SignUp
-                </Nav.Link>
+                  <Nav.Link href="/login-signup" className="navigationBar">
+                    SignIn / SignUp
+                  </Nav.Link>
                 )}
                 {user && (
-                <Nav.Link onClick={handleClick} className="navigationBar">
-                  Logout
-                </Nav.Link>
+                  <Nav.Link onClick={handleClick} className="navigationBar">
+                    Logout
+                  </Nav.Link>
                 )}
               </Nav>
             </Offcanvas.Body>
