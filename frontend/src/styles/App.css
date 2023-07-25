@@ -42,3 +42,17 @@
     transform: rotate(360deg);
   }
 }
+
+.filter-dropdown:hover {
+  background-color: #4E4FEB;
+  border-radius: 20px;
+  color: white;
+}
+
+.filter-dropdown a {
+  text-decoration: none;
+}
+
+.filter-dropdown:hover a {
+  color: white;
+}

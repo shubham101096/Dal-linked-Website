@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FAQPage from "./Pages/FAQPage";
 import ContactUs from "./Pages/ContactUs";
 import JobListingsPage from "./Pages/JobListingsPage";
+import JobDetail from "./components/JobDetail";
+import AppliedJobsPage from "./Pages/AppliedJobsPage";
 function App() {
   return (
     <div className="App">
@@ -16,6 +18,8 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/joblistings" element={<JobListingsPage />} />
+          <Route path="/jobDetail" element={<JobDetail />} />
+          <Route path="/appliedJobs" element={<AppliedJobsPage />} />
         </Routes>
       </Router>
       <Footer />

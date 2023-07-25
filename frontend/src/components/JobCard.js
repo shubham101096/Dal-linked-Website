@@ -8,10 +8,10 @@ function JobCard(props) {
     return (
         <div className="job-card mx-4 my-4">
             <div className="row">
-                <div className="col-2 col-lg-4 col-md-4 m-2">
+                <div className="col-2 col-sm-2 col-lg-4 col-md-4 m-2">
                     <img src={appleLogo} alt="" />
                 </div>
-                <div className="col m-2 col-lg-6 col-md-4 job-title">
+                <div className="col col-sm-6 m-2 col-lg-6 col-md-4 mx-sm-auto mx-md-auto pl-sm-5 p-md-0">
                     {/* <div className="col"> */}
                     <p>{job.title}</p>
                     {/* </div> */}
@@ -21,22 +21,22 @@ function JobCard(props) {
                 </div>
             </div>
             <div className="row mx-2">
-                <div className="col-4 col-xl-3 col-lg-6 col-md-6 col-sm-12 me-lg-3 m-sm-2">
-                    <div className="white-badge">
-                        <p className="my-auto">
+                <div className="col-sm-4 col-xs-12 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4">
+                    <div className="mx-auto mx-md-auto white-badge">
+                        <p className="my-auto my-md-auto">
                             {job.type}
                         </p>
                     </div>
                 </div>
-                <div className="col-4 col-xl-3 col-lg-6 col-md-6 col-sm-12 me-lg-3 m-sm-2">
-                    <div className="white-badge">
-                        <p className="my-auto">
+                <div className="col-sm-4 col-xs-12 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4">
+                    <div className="mx-auto mx-md-auto my-lg-0 my-2 white-badge">
+                        <p className="my-auto m-sm-auto">
                             {job.location}
                         </p>
                     </div>
                 </div>
-                <div className="col-4 col-xl-3 col-lg-6 col-md-6 col-sm-12 me-lg-3 m-sm-2">
-                    <div className="white-badge mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0">
+                <div className="col-sm-4 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4">
+                    <div className="mx-auto mx-md-auto white-badge mt-md-2 mt-sm-2 mt-lg-0 mt-xl-0">
                         <p className="my-auto">
                             {`$${job.salary}`}
                         </p>

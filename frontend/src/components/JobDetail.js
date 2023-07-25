@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/JobDetail.css";
 import "../styles/JobCard.css";
 import appleLogo from "../images/Apple Music.png";
@@ -7,16 +7,25 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
+import { useMediaQuery } from 'react-responsive';
+import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faBookmarkBordered } from '@fortawesome/free-regular-svg-icons';
 
 function JobDetail(props) {
-    const { job } = props;
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    // const location = useLocation();
+    const { job, isApplied } = props;
+    const styleProp = isMobile ? props.styleProp : {};
+    const closeJobDetail = isMobile && props.closeJobDetail;
     const [isLoading, setIsLoading] = useState(false);
 
     const handleApply = () => {
         const currentDate = new Date();
         const appliedJob = {
             "studentId": "ab12",
-            "jobId": "64ac6179fc730dbd37562a7a",
+            "jobId": job._id,
             "appliedDate": currentDate,
             "status": "Applied",
             "job": job
@@ -37,14 +46,18 @@ function JobDetail(props) {
             })
     }
 
+    const handleCloseJobDetail = () => {
+        closeJobDetail();
+    }
+
     return (
         <div className="my-4">
-            <div className="job-detail mt-5">
+            <div style={styleProp} className="job-detail mt-5">
                 <div className="row">
-                    <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-2">
+                    <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
                         <img src={appleLogo} alt="" />
                     </div>
-                    <div className="col col-lg-4 col-md-4 my-2 job-title">
+                    <div className="col-6 col-lg-4 col-md-4 mx-auto my-2 job-title">
                         {/* <div className="col"> */}
                         <p>{job.title}</p>
                         {/* </div> */}
@@ -52,6 +65,11 @@ function JobDetail(props) {
                         <p>{job.companyName}</p>
                         {/* </div> */}
                     </div>
+                    {isMobile &&
+                        <div className="save-badge" onClick={handleCloseJobDetail}>
+                            <FontAwesomeIcon icon={faTimes} style={{ margin: "auto", fontSize: "20px" }} />
+                        </div>
+                    }
                     {isLoading ?
                         (
                             <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
@@ -60,25 +78,34 @@ function JobDetail(props) {
                         )
                         :
                         (
-                            <div onClick={handleApply} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                                <div className="blue-badge">
-                                    <p className="my-auto">
-                                        Apply
-                                    </p>
+                            isApplied ?
+                                <div className="col-6 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                    <div className="applied-badge">
+                                        <p className="my-auto">
+                                            Applied
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                                :
+                                <div onClick={handleApply} className="col-6 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                    <div className="blue-badge">
+                                        <p className="my-auto">
+                                            Apply
+                                        </p>
+                                    </div>
+                                </div>
                         )
                     }
                     <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
                         <div className="save-badge">
                             {/* https://icons8.com/icons/set/bookmark */}
-                            <img src={bookmark} className="my-auto" alt="" />
+                            <FontAwesomeIcon icon={faBookmarkBordered} style={{ margin: "auto", fontSize: "20px" }} />
                         </div>
                     </div>
                 </div>
                 <div className="row mx-md-6 px-md-5 mx-sm-5">
                     <div className="col-xl-2 col-lg-4 col-md-6 col-sm-6 mx-lg-4 m-3">
-                        <div className="detail-badge">
+                        <div className="detail-badge mx-auto">
                             <div className="col">
                                 <p className="my-auto">
                                     Job-type
@@ -90,7 +117,7 @@ function JobDetail(props) {
                         </div>
                     </div>
                     <div className="col-xl-2 col-lg-4 col-md-6 col-sm-6 mx-lg-4 m-3">
-                        <div className="detail-badge detail-badge-2">
+                        <div className="detail-badge detail-badge-2 mx-auto">
                             <div className="col">
                                 <p className="my-auto">
                                     Job Location
@@ -102,7 +129,7 @@ function JobDetail(props) {
                         </div>
                     </div>
                     <div className="col-xl-2 col-lg-4 col-md-6 col-sm-6 mx-lg-4 m-3">
-                        <div className="detail-badge detail-badge-3">
+                        <div className="detail-badge detail-badge-3 mx-auto">
                             <div className="col">
                                 <p className="my-auto">
                                     Salary
@@ -114,7 +141,7 @@ function JobDetail(props) {
                         </div>
                     </div>
                     <div className="col-xl-2 col-lg-4 col-md-6 col-sm-6 mx-lg-4 m-3">
-                        <div className="detail-badge detail-badge-4">
+                        <div className="detail-badge detail-badge-4 mx-auto">
                             <div className="col">
                                 <p className="my-auto">
                                     No. of Positions
@@ -177,14 +204,14 @@ function JobDetail(props) {
                     <div className="col-3"><p>{job.endDate.substring(0, 10)}</p></div>
                 </div>
                 <div className="row mx-2">
-                    <p>Benifits:</p>
+                    <p>Benefits:</p>
                 </div>
                 <div className="row mx-2">
                     {/* <ul className="requirements">
                     {job.benefits.map((benefit, index) => <li key={index}>{benefit}</li>)}
                     </ul> */}
                     <p className="requirements">
-                        {job.benifits}
+                        {job.benefits}
                     </p>
                 </div>
             </div>
