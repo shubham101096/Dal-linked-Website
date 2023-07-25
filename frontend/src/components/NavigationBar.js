@@ -1,16 +1,19 @@
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
+
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Dropdown } from "react-bootstrap";
 import "../styles/NavigationBar.css";
-// import { useNavigate } from "react-router-dom";
+
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
+import "../styles/App.css";
+
 
 function NavigationBar() {
-  // const navigate = useNavigate();
+
   const dropdownStyle = {
     backgroundColor: '#F0F0F0',
     color: "black",
@@ -19,12 +22,41 @@ function NavigationBar() {
     padding: "0.7rem"
   };
 
-  // const jobCategories = ["All Jobs", "Applied Jobs", "Saved Jobs"];
+  const { logout } = useLogout()
+  const { user } = useAuthContext()
 
-  // const handleJobCategory = (event) => {
-  //   const jobcategory = event.target.name;
-  //   navigate("/jobListings");
-  // }
+  const handleClick = () => {
+    logout();
+  };
+
+  const adminNavLinks = [
+    { text: "Announcements", href: "/announcements" },
+    { text: "Employers", href: "/activeEmp" },
+    { text: "Job Sectors", href: "/jobSectors" },
+    { text: "Requests", href: "/pendingEmpReq" },
+  ];
+
+  const studentNavLinks = [
+    { text: "Announcements", href: "/announcements" },
+    { text: "Jobs", href: "/joblistings" },
+    { text: "Contact Us", href: "/contactUs" },
+    { text: "FAQ", href: "/faq" },
+  ];
+
+  const employerNavLinks = [
+    { text: "Create Job Post", href: "/CreateJobPost" },
+  ];
+
+  const userType = user ? user.userType : null;
+  let navLinks = [];
+
+  if (userType === 'admin') {
+    navLinks = adminNavLinks;
+  } else if (userType === 'student') {
+    navLinks = studentNavLinks;
+  } else if (userType === 'employer') {
+    navLinks = [...studentNavLinks, ...employerNavLinks];
+  }
 
   return (
     <div className="navBarDiv">
@@ -49,39 +81,41 @@ function NavigationBar() {
                 <Nav.Link href="/" className="navigationBar">
                   Home
                 </Nav.Link>
-                <Navbar.Text>
-                  <Dropdown className="text-start">
-                    <Dropdown.Toggle style={{ backgroundColor: "inherit", border: "none", padding: "0" }}>
-                      Jobs
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu style={dropdownStyle}>
-                      <Dropdown.Item as="button" className="filter-dropdown">
-                        <a href="/jobListings">All Jobs</a>
-                      </Dropdown.Item>
-                      <Dropdown.Item as="button" className="filter-dropdown">
-                        <a href="/appliedJobs">Applied Jobs</a>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Navbar.Text>
-                {/* <NavDropdown title="Jobs">
-                <Dropdown.Menu style={dropdownStyle}>
-                      {jobCategories.map((jobSector) => (
-                        <Dropdown.Item as="button" className="filter-dropdown">{jobSector}</Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                </NavDropdown> */}
-                <Nav.Link href="/contactUs" className="navigationBar">
-                  Contact Us
-                </Nav.Link>
-                <Nav.Link href="/faq" className="navigationBar">
-                  FAQ
-                </Nav.Link>
+                {navLinks.map((link) => (
+                  <Nav.Link key={link.href} href={link.href} className="navigationBar">
+                    {link.text}
+                  </Nav.Link>
+                ))}
+                {
+                  (user !== null && user.userType === "student") &&
+                  <Navbar.Text>
+                    <Dropdown className="text-start">
+                      <Dropdown.Toggle style={{ backgroundColor: "inherit", border: "none", padding: "0" }}>
+                        Jobs
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu style={dropdownStyle}>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/jobListings">All Jobs</a>
+                        </Dropdown.Item>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/appliedJobs">Applied Jobs</a>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Navbar.Text>
+                }
               </Nav>
               <Nav>
-                <Nav.Link href="/" className="navigationBar">
-                  SignIn / SignUp
-                </Nav.Link>
+                {!user && (
+                  <Nav.Link href="/login-signup" className="navigationBar">
+                    SignIn / SignUp
+                  </Nav.Link>
+                )}
+                {user && (
+                  <Nav.Link onClick={handleClick} className="navigationBar">
+                    Logout
+                  </Nav.Link>
+                )}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

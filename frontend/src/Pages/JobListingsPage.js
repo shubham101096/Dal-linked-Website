@@ -252,9 +252,25 @@ function JobListingsPage() {
       })
   }
 
+  const fetchJobSectors = () => {
+    setIsLoading(true);
+    axios
+      .get("http://localhost:3003/jobSectors/")
+      .then((response) => {
+        setJobSectors(response.data);
+      })
+      .catch((err) => {
+        console.log("Error getting job sectors", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  }
+
   useEffect(() => {
     fetchJobList();
     fetchAppliedJobList();
+    fetchJobSectors();
   }, []);
 
   useEffect(() => {
@@ -322,7 +338,7 @@ function JobListingsPage() {
                 <Dropdown.Menu style={dropdownStyle}>
                   <Dropdown.Header>Job Sectors</Dropdown.Header>
                   {jobSectors.map((jobSector) => (
-                    <Dropdown.Item as="button" key={jobSector} className="filter-dropdown" name={jobSector} onClick={handleFilterByJobSector}>{jobSector}</Dropdown.Item>
+                    <Dropdown.Item as="button" key={jobSector._id} className="filter-dropdown" name={jobSector.name} onClick={handleFilterByJobSector}>{jobSector.name}</Dropdown.Item>
                   ))}
                   <Dropdown.Header>Job Type</Dropdown.Header>
                   {jobTypes.map((jobType) => (

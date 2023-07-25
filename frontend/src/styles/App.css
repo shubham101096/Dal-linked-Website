@@ -44,15 +44,15 @@
 }
 
 .filter-dropdown:hover {
-  background-color: #4E4FEB;
-  border-radius: 20px;
-  color: white;
+  background-color: #4E4FEB !important;
+  border-radius: 20px !important;
+  color: white !important;
 }
 
 .filter-dropdown a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .filter-dropdown:hover a {
-  color: white;
+  color: white !important;
 }

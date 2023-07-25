@@ -20,7 +20,7 @@ function JobCard(props) {
                     {/* </div> */}
                 </div>
             </div>
-            <div className="row mx-2">
+            <div className="row mx-2 mx-lg-0">
                 <div className="col-sm-4 col-xs-12 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4">
                     <div className="mx-auto mx-md-auto white-badge">
                         <p className="my-auto my-md-auto">
@@ -28,14 +28,14 @@ function JobCard(props) {
                         </p>
                     </div>
                 </div>
-                <div className="col-sm-4 col-xs-12 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4">
+                <div className="col-sm-4 col-xs-12 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4 ms-lg-1">
                     <div className="mx-auto mx-md-auto my-lg-0 my-2 white-badge">
                         <p className="my-auto m-sm-auto">
                             {job.location}
                         </p>
                     </div>
                 </div>
-                <div className="col-sm-4 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4">
+                <div className="col-sm-4 col-xl-3 col-lg-6 col-md-12 col-sm-12 me-lg-4 ms-lg-1">
                     <div className="mx-auto mx-md-auto white-badge mt-md-2 mt-sm-2 mt-lg-0 mt-xl-0">
                         <p className="my-auto">
                             {`$${job.salary}`}

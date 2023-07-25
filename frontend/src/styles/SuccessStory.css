@@ -1,0 +1,101 @@
+.postProfileImage {
+  border-radius: 5em;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+.content {
+  padding: 1em;
+  background-color: aliceblue;
+  margin: 0em 1em 0em 1em;
+  border-radius: 1em;
+}
+
+.jobSector {
+  background-color: forestgreen;
+  padding: 0.4em;
+  border-radius: 1em;
+  box-shadow: 1px 1px 3px #164103;
+}
+
+.datePosted {
+  background-color: orange;
+  padding: 0.4em;
+  border-radius: 1em;
+  box-shadow: 1px 1px 3px #966702;
+}
+
+.bottomline {
+  padding: 0.5em;
+  display: flex;
+  justify-content: end;
+}
+
+.post {
+  border: 1px solid #3e3f79;
+  padding: 1em;
+  margin: 0.5em;
+}
+
+.counter {
+  padding: 0.5em;
+}
+.count-line {
+  display: flex;
+  justify-content: end;
+}
+.storyCard {
+  background-color: silver;
+  width: 80%;
+  border-radius: 2em;
+  margin: 1em auto;
+  color: black;
+}
+
+/* Mobile styles - use media queries for smaller screens */
+@media screen and (max-width: 768px) {
+  .postProfileImage {
+    border-radius: 5em;
+  }
+
+  .storyCard {
+    width: 90%;
+    border-radius: 1em;
+    margin: 1em auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .postProfileImage {
+    max-width: 30px;
+    max-height: 30px;
+  }
+
+  .storyCard {
+    width: 100%;
+    border-radius: 1em;
+    margin: 1em auto;
+  }
+
+  .topline {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .jobSector,
+  .datePosted {
+    margin-top: 0.5em;
+  }
+
+  .content {
+    margin: 0.5em;
+  }
+
+  .bottomline {
+    justify-content: center;
+  }
+}
