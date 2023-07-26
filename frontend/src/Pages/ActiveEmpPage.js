@@ -141,7 +141,7 @@ function ActiveEmpPage() {
                       <strong>Contact Number: </strong>
                       {employer.contactNumber}
                     </Card.Text>
-                    <Button variant="outline-danger" onClick={() => handleRevoke(employer)}>
+                    <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={() => handleRevoke(employer)}>
                       Revoke access
                     </Button>
                   </Card.Body>
@@ -172,10 +172,10 @@ function ActiveEmpPage() {
         </Modal.Header>
         <Modal.Body>Are you sure you want to revoke <strong>{curReq?.employerName}'s</strong> access?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowRevokeModal(false)}>
+          <Button style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={() => setShowRevokeModal(false)}>
             No
           </Button>
-          <Button variant="danger" onClick={handleRevokeConfirm}>
+          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handleRevokeConfirm}>
             Yes
           </Button>
         </Modal.Footer>

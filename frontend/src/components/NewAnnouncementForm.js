@@ -61,12 +61,12 @@ function NewAnnouncementForm({ onSubmit }) {
       </Form.Group>
       <div className="d-flex justify-content-end mt-2">
         {!confirmPost && (
-          <Button variant="primary" type="submit">
+          <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} type="submit">
             Post
           </Button>
         )}
         {confirmPost && (
-          <Button variant="danger" onClick={handlePostConfirmation}>
+          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handlePostConfirmation}>
             Confirm
           </Button>
         )}
