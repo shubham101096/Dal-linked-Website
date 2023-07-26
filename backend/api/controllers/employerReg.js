@@ -81,8 +81,6 @@ const registerEmployer = async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const s3ImageUrl = await uploadLogoToS3(companyLogo, email);
-
         // Create and save the employer
         const employer = new EmployerReg({
             employerName,
@@ -91,11 +89,15 @@ const registerEmployer = async (req, res) => {
             contactNumber,
             password: hashedPassword,
             status,
-            companyLogo: s3ImageUrl,
             websiteURL
         });
 
         const savedEmployer = await employer.save();
+
+        const s3ImageUrl = await uploadLogoToS3(companyLogo, savedEmployer._id);
+        savedEmployer.companyLogo = s3ImageUrl;
+        await savedEmployer.save();
+
         res.status(200).json({ email: email, _id: savedEmployer._id});
     } catch (error) {
         console.log('Error registering employer', error);
@@ -146,7 +148,7 @@ const loginEmployer = async (req, res)=>{
     }
 }
 
-const uploadLogo = async (logo,employerEmail) => {
+const uploadLogo = async (logo,employerId) => {
     const client = new S3Client({
         region: "us-east-1",
         credentials: {
@@ -155,7 +157,7 @@ const uploadLogo = async (logo,employerEmail) => {
         }
     });
 
-    const key = employerEmail+'employer-logo';
+    const key = employerId+'-employer-logo';
 
     const params = {
         Bucket: "web-project-files",
@@ -176,9 +178,9 @@ const uploadLogo = async (logo,employerEmail) => {
     }
 };
 
-const uploadLogoToS3 = async (logo, employerEmail) => {
+const uploadLogoToS3 = async (logo, employerId) => {
     try {
-        const s3ImageUrl = await uploadLogo(logo, employerEmail);
+        const s3ImageUrl = await uploadLogo(logo, employerId);
         return s3ImageUrl;
     } catch (error) {
         console.error('Error uploading logo to S3:', error);
