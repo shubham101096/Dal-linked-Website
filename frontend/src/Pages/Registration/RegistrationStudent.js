@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../styles/UserAuth.css'
 import { useStudentSignup } from "../../hooks/useStudentSignup";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Modal from "react-bootstrap/Modal";
 import {useNavigate} from "react-router-dom";
+import {Alert} from "react-bootstrap";
 
 
 function RegistrationFormStudent() {
@@ -13,36 +13,33 @@ function RegistrationFormStudent() {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const {signup, error, isLoading, success} = useStudentSignup();
-    const delay = ms => new Promise(res => setTimeout(res, ms));
+
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
-
         await signup(email, password, firstName, lastName)
+    };
 
-        // Modal not working yet
-        /*
+    const handleSuccessfulRegistration = async () =>{
+        setTimeout(() => {
+            setEmail('')
+            setPassword('')
+            setFirstName('')
+            setLastName('')
+            setShowSuccessAlert(false);
+            navigate('/login-student'); // redirects student to the login page
+        }, 3000);
+    }
+
+    useEffect(() => {
         if (success) {
-            setShowModal(true);
-            await delay(2000)
-            navigate('/login-student');
-        }*/
-    };
+            handleSuccessfulRegistration();
+        }
+    }, [success]);
 
-    const closeModal = () => {
-        // Close the modal and reset the form
-        setShowModal(false);
-        setEmail('');
-        setPassword('');
-        setFirstName('');
-        setLastName('');
-
-        navigate('/login-student');
-    };
 
     return (
         <div className="registration">
@@ -91,26 +88,17 @@ function RegistrationFormStudent() {
                 <center>
                     <Button type="submit" className="btn btn-dark mx-3 px-5 py-2 mt-2" disabled={isLoading}>Register</Button>
                     {error && <div className="error">{error}</div> }
+                    {success && (
+                        <Alert variant="success" className="successAlert" onClose={() => setShowSuccessAlert(false)} dismissible>
+                            Successfully registered!
+                        </Alert>
+                    )}
                     <p></p>
                     <div>
                         <a href="/login-student">Back to student login</a>
                     </div>
                 </center>
             </form>
-            <Modal show={showModal} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirmation</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Successful registration! Redirecting to login page . . .
-                </Modal.Body>
-                <Modal.Footer>
-                    &nbsp; &nbsp; &nbsp;
-                    <Button variant="secondary" onClick={closeModal}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
     );
 }
