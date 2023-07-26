@@ -115,7 +115,7 @@ const EmployerPage = () => {
                     ) : (
                         <div>
                             <div className="row m-2">
-                                <div className="col-1 pl-1">
+                                {/* <div className="col-1 pl-1">
                                     <Dropdown className="text-start">
                                         <Dropdown.Toggle style={dropdownStyle}>
                                             Filter
@@ -124,8 +124,8 @@ const EmployerPage = () => {
                                             <Dropdown.Item href="#/action-1">Job sector</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                </div>
-                                <div className="col-1 pl-1 drop-downs">
+                                </div> */}
+                                {/* <div className="col-1 pl-1 drop-downs">
                                     <Dropdown className="text-start">
                                         <Dropdown.Toggle style={dropdownStyle}>
                                             Sort by
@@ -134,7 +134,7 @@ const EmployerPage = () => {
                                             <Dropdown.Item href="#/action-1">Job sector</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                </div>
+                                </div> */}
                             </div>
                             <Col xs={12} md={8}>
                                 {displayJobListings ? (
