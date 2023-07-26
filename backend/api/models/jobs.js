@@ -71,6 +71,10 @@ const jobSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    imageUrl: {
+        required: true,
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Job', jobSchema);  
