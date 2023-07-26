@@ -41,6 +41,7 @@ function NavigationBar() {
     { text: "Jobs", href: "/joblistings" },
     { text: "Contact Us", href: "/contactUs" },
     { text: "FAQ", href: "/faq" },
+    { text: "Profile", href: "/student-profile"}
   ];
 
   const employerNavLinks = [
