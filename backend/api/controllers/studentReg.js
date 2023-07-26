@@ -111,6 +111,22 @@ const deleteStudentByEmail = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+const deleteStudentById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const deletedStudent = await StudentReg.findByIdAndDelete(id);
+        if (deletedStudent) {
+            res.status(200).json({ message: "Student deleted successfully" });
+        } else {
+            res.status(404).json({ error: "Student not found" });
+        }
+    } catch (error) {
+        console.log("Error deleting student", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
 const loginStudent = async (req, res)=>{
     const { email, password } = req.body;
     // Validate input data
@@ -142,5 +158,6 @@ module.exports = {
     getStudentByEmail,
     registerStudent,
     deleteStudentByEmail,
+    deleteStudentById,
     loginStudent
 };
