@@ -22,10 +22,8 @@ export const useStudentSignup = () => {
 
         axios.post(`${backendUrl}/user/registerStudent`, requestData)
             .then((response) => {
-                console.log('success registering student')
                 setSuccess(true)
                 setIsLoading(false)
-
             })
             .catch((error) => {
                 console.error(error);
