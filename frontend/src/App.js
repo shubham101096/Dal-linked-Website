@@ -32,11 +32,11 @@ import LogInAdmin from "./Pages/Login/AdminLogin";
 
 import TestStudent from "./Pages/testStudentOnlyPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
+import SavedJobsPage from "./Pages/SavedJobsPage";
 
 import StudentProfileDetails from "./Pages/StudentProfileDetailsPage";
 
 import StudentListingsPage from "./Pages/StudentListingsPage";
-
 
 function App() {
   const { user } = useAuthContext();
@@ -55,10 +55,14 @@ function App() {
           <Route path="/jobSectors" element={<JobSectorsPage />} />
           <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
           <Route path="/announcements" element={<AnnouncementPage />} />
+          <Route path="/savedJobs" element={<SavedJobsPage />} />
           <Route path="/activeEmp" element={<ActiveEmpPage />} />
           <Route path="/EmployerPage" element={<EmployerPage />} />
           <Route path="/CreateJobPost" element={<CreateJobPost />} />
-          <Route path="/StudentListingsPage" element={<StudentListingsPage />} />
+          <Route
+            path="/StudentListingsPage"
+            element={<StudentListingsPage />}
+          />
 
           <Route path="/student-profile" element={<StudentProfileDetails />} />
 
@@ -104,13 +108,11 @@ function App() {
             path="/test-student"
             element={user ? <TestStudent /> : <Navigate to="/" />}
           />
-
         </Routes>
       </Router>
       <Footer />
     </div>
   );
-
 }
 
 export default App;

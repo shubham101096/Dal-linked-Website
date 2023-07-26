@@ -5,7 +5,6 @@ const studentProfileController = require('../controllers/studentProfile');
 const jobSectorController = require('../controllers/jobSectors');
 
 const requireStudentAuth = require('../../middleware/requireStudentAuth')
-const {registerEmployer} = require("../controllers/employerReg");
 
 const multer = require('multer');
 const upload = multer();

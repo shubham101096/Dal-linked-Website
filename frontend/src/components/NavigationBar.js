@@ -11,19 +11,16 @@ import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import "../styles/App.css";
 
-
 function NavigationBar() {
-
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
   const dropdownStyle = {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: "#F0F0F0",
     color: "black",
     border: "none",
     borderRadius: "20px",
-    padding: "0.7rem"
+    padding: "0.7rem",
   };
-
-  const { logout } = useLogout()
-  const { user } = useAuthContext()
 
   const handleClick = () => {
     logout();
@@ -39,8 +36,10 @@ function NavigationBar() {
   const studentNavLinks = [
     { text: "Announcements", href: "/announcements" },
     { text: "Jobs", href: "/joblistings" },
+    { text: "Success Stories", href: "/mainStoryPage" },
     { text: "Contact Us", href: "/contactUs" },
     { text: "FAQ", href: "/faq" },
+    { text: "Profile", href: "/student-profile"}
   ];
 
   const employerNavLinks = [
@@ -51,13 +50,12 @@ function NavigationBar() {
   const userType = user ? user.userType : null;
   let navLinks = [];
 
-  if (userType === 'admin') {
+  if (userType === "admin") {
     navLinks = adminNavLinks;
-  } else if (userType === 'student') {
+  } else if (userType === "student") {
     navLinks = studentNavLinks;
-  } else if (userType === 'employer') {
+  } else if (userType === "employer") {
     navLinks = [...studentNavLinks, ...employerNavLinks];
-
   }
 
   return (
@@ -84,28 +82,40 @@ function NavigationBar() {
                   Home
                 </Nav.Link>
                 {navLinks.map((link) => (
-                  <Nav.Link key={link.href} href={link.href} className="navigationBar">
+                  <Nav.Link
+                    key={link.href}
+                    href={link.href}
+                    className="navigationBar"
+                  >
                     {link.text}
                   </Nav.Link>
                 ))}
-                {
-                  (user !== null && user.userType === "student") &&
+                {user !== null && user.userType === "student" && (
                   <Navbar.Text>
                     <Dropdown className="text-start">
-                      <Dropdown.Toggle style={{ backgroundColor: "inherit", border: "none", padding: "0" }}>
+                      <Dropdown.Toggle
+                        style={{
+                          backgroundColor: "inherit",
+                          border: "none",
+                          padding: "0",
+                        }}
+                      >
                         Jobs
                       </Dropdown.Toggle>
                       <Dropdown.Menu style={dropdownStyle}>
-                        <Dropdown.Item as="button" className="filter-dropdown">
+                        <Dropdown.Item as="button" href="/jobListings" className="filter-dropdown">
                           <a href="/jobListings">All Jobs</a>
                         </Dropdown.Item>
                         <Dropdown.Item as="button" className="filter-dropdown">
                           <a href="/appliedJobs">Applied Jobs</a>
                         </Dropdown.Item>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/savedJobs">Saved Jobs</a>
+                        </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </Navbar.Text>
-                }
+                )}
               </Nav>
               <Nav>
                 {!user && (

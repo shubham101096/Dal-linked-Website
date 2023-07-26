@@ -1,5 +1,6 @@
-const express = require('express');
-const requireStudentAuth = require('../../middleware/requireStudentAuth');
+const express = require("express");
+const requireStudentAuth = require("../../middleware/requireStudentAuth");
+
 const router = express.Router();
 
 const appliedJobsController = require("../controllers/appliedJobs");

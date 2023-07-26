@@ -141,7 +141,7 @@ function ActiveEmpPage() {
                       <strong>Contact Number: </strong>
                       {employer.contactNumber}
                     </Card.Text>
-                    <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={() => handleRevoke(employer)}>
+                    <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={() => handleRevoke(employer)}>
                       Revoke access
                     </Button>
                   </Card.Body>

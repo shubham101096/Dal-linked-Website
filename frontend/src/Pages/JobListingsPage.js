@@ -5,8 +5,12 @@ import JobDetail from '../components/JobDetail.js';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useMediaQuery } from 'react-responsive';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function JobListingsPage() {
+  const { user } = useAuthContext();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const [userData, setUserData] = useState({});
   // const isMobile = window.innerWidth <= 768;
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   // const jobs = [{
@@ -203,7 +207,9 @@ function JobListingsPage() {
   const [selectedFilter, setSelectedFilter] = useState("");
   const [isApplied, setIsApplied] = useState(false);
   const [appliedJobList, setAppliedJobList] = useState([]);
+  const [savedJobList, setSavedJobList] = useState([]);
   const [showJobDetail, setShowJobDetail] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const handleJob = (job) => {
     setSelectedJob(job);
@@ -224,7 +230,11 @@ function JobListingsPage() {
   const fetchJobList = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:3003/jobs/")
+      .get("http://localhost:3003/jobs/", {
+        headers: {
+            Authorization: "Bearer " + user.token
+        }
+        })
       .then((response) => {
         setJobList(response.data.jobs);
       })
@@ -238,11 +248,35 @@ function JobListingsPage() {
 
   const fetchAppliedJobList = () => {
     setIsLoading(true);
-    const studentId = "ab12"
+    // const studentId = "ab12"
     axios
-      .get(`http://localhost:3003/appliedJobs/getByStudent/${studentId}`)
+      .get(`http://localhost:3003/appliedJobs/getByStudent`, {
+        headers: {
+            Authorization: "Bearer " + user.token
+        }
+        })
       .then((response) => {
         setAppliedJobList(response.data.jobs);
+      })
+      .catch((err) => {
+        console.log("Error getting job list", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  }
+
+  const fetchSavedJobList = () => {
+    setIsLoading(true);
+    // const studentId = "ab12"
+    axios
+      .get(`http://localhost:3003/saveJobs/getByStudent/`, {
+        headers: {
+            Authorization: "Bearer " + user.token
+        }
+        })
+      .then((response) => {
+        setSavedJobList(response.data.jobs);
       })
       .catch((err) => {
         console.log("Error getting job list", err);
@@ -255,7 +289,11 @@ function JobListingsPage() {
   const fetchJobSectors = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:3003/jobSectors/")
+      .get("http://localhost:3003/jobSectors/", {
+        headers: {
+            Authorization: "Bearer " + user.token
+        }
+        })
       .then((response) => {
         setJobSectors(response.data);
       })
@@ -268,10 +306,13 @@ function JobListingsPage() {
   }
 
   useEffect(() => {
-    fetchJobList();
-    fetchAppliedJobList();
-    fetchJobSectors();
-  }, []);
+    if(user) {
+      fetchJobList();
+      fetchAppliedJobList();
+      fetchJobSectors();
+      fetchSavedJobList();
+    }
+  }, [user]);
 
   useEffect(() => {
     setSelectedJob(jobList.length > 0 ? jobList[0] : {});
@@ -285,6 +326,15 @@ function JobListingsPage() {
       setIsApplied(false);
     }
   }, [selectedJob, appliedJobList]);
+
+  useEffect(() => {
+    const exists = savedJobList.findIndex((job) => job.jobId === selectedJob._id);
+    if (exists !== -1) {
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+  }, [selectedJob, savedJobList]);
 
   useEffect(() => {
     if (selectedFilter !== "") {
@@ -321,6 +371,18 @@ function JobListingsPage() {
 
   const closeJobdetailForMobile = () => {
     setShowJobDetail(false);
+  }
+
+  const addToAppliedJobs = (job) => {
+    setAppliedJobList(currentJobList => [...currentJobList, job]);
+  }
+
+  const addToSavedJobs = (job) => {
+    setSavedJobList(currentJobList => [...currentJobList, job]);
+  }
+
+  if (!user) {
+    return <p>Please signin to access this page.</p>;
   }
 
   return (
@@ -378,7 +440,7 @@ function JobListingsPage() {
               ?
               (
                 <div className="constainer vh-100">
-                  <JobDetail styleProp={{ position: "static", overflow: "visible" }} job={selectedJob} isApplied={isApplied} closeJobDetail={closeJobdetailForMobile} />
+                  <JobDetail styleProp={{ position: "static", overflow: "visible" }} job={selectedJob} isApplied={isApplied} isSaved={isSaved} addToAppliedJobs={addToAppliedJobs} addToSavedJobs={addToSavedJobs} closeJobDetail={closeJobdetailForMobile} />
                 </div>
               )
               :
@@ -402,7 +464,7 @@ function JobListingsPage() {
           {(!isMobile && jobList.length !== 0 && Object.keys(selectedJob).length !== 0 && (selectedFilter !== "" ? filteredJobList.length !== 0 : true))
             &&
             <div className="col-7 col-xl-6 col-lg-6 col-md-6">
-              <JobDetail job={selectedJob} isApplied={isApplied} />
+              <JobDetail job={selectedJob} isApplied={isApplied} isSaved={isSaved} addToAppliedJobs={addToAppliedJobs} addToSavedJobs={addToSavedJobs} />
             </div>
           }
         </div>

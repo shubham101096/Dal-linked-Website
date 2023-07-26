@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Job = require("../models/jobs");
 
-const appliedJobsSchema = new mongoose.Schema({
+const savedJobsSchema = new mongoose.Schema({
   studentId: {
     required: true,
     type: String,
@@ -11,7 +11,7 @@ const appliedJobsSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  appliedDate: {
+  savedDate: {
     required: true,
     type: Date,
   },
@@ -25,4 +25,4 @@ const appliedJobsSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("AppliedJobs", appliedJobsSchema);
+module.exports = mongoose.model("SavedJobs", savedJobsSchema);

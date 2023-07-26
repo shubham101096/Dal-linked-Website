@@ -4,13 +4,15 @@ import "./../styles/SuccessStory.css";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import axios from "axios";
 import { Card, Button, ListGroup } from "react-bootstrap";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function SuccessStory(props) {
   const [buttonValue, setButtonValue] = useState("");
   const [likeCount, setLikeCount] = useState(0);
   const [isLiked, setIsLiked] = useState(null);
-  const [userId, setUserId] = useState("12345");
+  const [userId, setUserId] = useState(props.studentId);
   const [likesArray, setLikesArray] = useState(props.likes ? props.likes : []);
+  const { user } = useAuthContext();
 
   useEffect(() => {
     console.log(likesArray);
@@ -42,8 +44,9 @@ function SuccessStory(props) {
 
   const handleLike = async (value) => {
     const updatedData = {
-      userId: userId,
+      userId: props.studentId,
     };
+
     console.log(`${value} received.`);
     if (value === "like") {
       // alert("Like");
@@ -51,7 +54,11 @@ function SuccessStory(props) {
       //get userId from the session
 
       await axios
-        .put("http://localhost:3003/successStory/" + props.id, updatedData)
+        .put("http://localhost:3003/successStory/" + props.id, updatedData, {
+          headers: {
+            Authorization: "Bearer " + user.userToken,
+          },
+        })
         .then((res) => {
           setLikesArray(res.data.likes);
           setLikeCount(res.data.likes.length);
@@ -67,7 +74,12 @@ function SuccessStory(props) {
       await axios
         .put(
           "http://localhost:3003/successStory/dislike/" + props.id,
-          updatedData
+          updatedData,
+          {
+            headers: {
+              Authorization: "Bearer " + user.userToken,
+            },
+          }
         )
         .then((res) => {
           setLikesArray(res.data.likes);
@@ -82,13 +94,13 @@ function SuccessStory(props) {
 
   return (
     <div className="post">
-      <img src={profilePhoto} className="postProfileImage" />
+      <img src={props.profileImage} className="postProfileImage" />
 
       <ListGroup.Item className="p-0 mb-3 border-0">
         <Card>
           <Card.Header className="d-flex justify-content-between align-items-center">
             <h5>{props.jobSector}</h5>
-            {props.userId === userId ? (
+            {props.userId === props.studentId ? (
               <Button
                 variant="outline-danger"
                 size="sm"
