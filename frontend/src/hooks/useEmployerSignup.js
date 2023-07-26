@@ -12,31 +12,31 @@ export const useEmployerSignup = () => {
         setError(null) //reset every time there is a new signup request
         setSuccess(false)
 
-        const requestData = {
-            employerName: employerName,
-            companyName: companyName,
-            email: email,
-            contactNumber: contactNumber,
-            password: password,
-            companyLogo: companyLogo,
-            websiteURL: websiteURL
-        }
+        const formData = new FormData();
+        formData.append('employerName', employerName);
+        formData.append('companyName', companyName);
+        formData.append('email', email);
+        formData.append('contactNumber', contactNumber);
+        formData.append('password', password);
+        formData.append('websiteURL', websiteURL);
+        formData.append('companyLogo', companyLogo);
 
         const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-        axios.post(`${backendUrl}//user/registerEmployer`, requestData)
-            .then((response) => {
-                setSuccess(true)
-                setIsLoading(false)
-               // const data = response;
-
-            })
-            .catch((error) => {
-                console.error(error);
-                setError(error.response.data.error)
-                setIsLoading(false)
-                setSuccess(false)
+        try {
+            const response = await axios.post(`${backendUrl}/user/registerEmployer`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
+            setSuccess(true);
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error registering employer:', error);
+            setError(error.response.data.error)
+            setIsLoading(false)
+            setSuccess(false)
+        }
     }
 
     return { signup, isLoading, error, success }

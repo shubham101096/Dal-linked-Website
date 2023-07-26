@@ -56,6 +56,7 @@ function NavigationBar() {
     navLinks = studentNavLinks;
   } else if (userType === 'employer') {
     navLinks = [...studentNavLinks, ...employerNavLinks];
+
   }
 
   return (

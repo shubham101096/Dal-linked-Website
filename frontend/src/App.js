@@ -32,7 +32,11 @@ import LogInAdmin from "./Pages/Login/AdminLogin";
 
 import TestStudent from "./Pages/testStudentOnlyPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
+
+import StudentProfileDetails from "./Pages/StudentProfileDetailsPage";
+
 import StudentListingsPage from "./Pages/StudentListingsPage";
+
 
 function App() {
   const { user } = useAuthContext();
@@ -55,6 +59,8 @@ function App() {
           <Route path="/EmployerPage" element={<EmployerPage />} />
           <Route path="/CreateJobPost" element={<CreateJobPost />} />
           <Route path="/StudentListingsPage" element={<StudentListingsPage />} />
+
+          <Route path="/student-profile" element={<StudentProfileDetails />} />
 
           {/* LOGIN / SIGNUP */}
           <Route
@@ -98,6 +104,7 @@ function App() {
             path="/test-student"
             element={user ? <TestStudent /> : <Navigate to="/" />}
           />
+
         </Routes>
       </Router>
       <Footer />

@@ -21,6 +21,7 @@ const adminRegRouter = require("./api/routes/adminReg");
 const employerRegRouter = require("./api/routes/employerReg");
 const userRoutes = require("./api/routes/userAuth");
 const appliedJobsRouter = require('./api/routes/appliedJobs');
+const studentProfileRouter = require("./api/routes/studentProfile");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -39,6 +40,7 @@ app.use("/adminReg", adminRegRouter);
 app.use("/employerReg", employerRegRouter);
 
 app.use("/user", userRoutes);
+app.use("/studentProfile", studentProfileRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
