@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import "../styles/JobDetail.css";
 import "../styles/JobCard.css";
 import appleLogo from "../images/Apple Music.png";
-import bookmark from "../images/bookmark.png";
+// import bookmark from "../images/bookmark.png";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 import { useMediaQuery } from 'react-responsive';
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkBordered } from '@fortawesome/free-regular-svg-icons';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function JobDetail(props) {
+    const { user } = useAuthContext();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     // const location = useLocation();
-    const { job, isApplied } = props;
+    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs } = props;
     const styleProp = isMobile ? props.styleProp : {};
     const closeJobDetail = isMobile && props.closeJobDetail;
     const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +26,6 @@ function JobDetail(props) {
     const handleApply = () => {
         const currentDate = new Date();
         const appliedJob = {
-            "studentId": "ab12",
             "jobId": job._id,
             "appliedDate": currentDate,
             "status": "Applied",
@@ -34,20 +35,67 @@ function JobDetail(props) {
         toast.success("You have successfully applied");
     }
 
+    const handleSave = () => {
+        const currentDate = new Date();
+        const savedJob = {
+            "jobId": job._id,
+            "savedDate": currentDate,
+            "status": "Saved",
+            "job": job
+        }
+        saveJob(savedJob);
+    }
+
     const applyJob = (job) => {
         setIsLoading(true);
-        axios
-            .post("http://localhost:3003/appliedJobs/save", job)
-            .catch((err) => {
-                console.log("Error applying job", err);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
+        if (user) {
+            axios
+                .post("http://localhost:3003/appliedJobs/save", job, {
+                    headers: {
+                        Authorization: "Bearer " + user.token
+                    }
+                })
+                .then(() => {
+                    addToAppliedJobs(job);
+                    toast.success("You have successfully applied");
+                })
+                .catch((err) => {
+                    console.log("Error applying job", err);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                })
+        }
+    }
+
+    const saveJob = (job) => {
+        setIsLoading(true);
+        if (user) {
+            axios
+                .post("http://localhost:3003/saveJobs/save", job, {
+                    headers: {
+                        Authorization: "Bearer " + user.token
+                    }
+                })
+                .then(() => {
+                    addToSavedJobs(job);
+                    toast.success("Job saved");
+                })
+                .catch((err) => {
+                    console.log("Error saving job", err);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                })
+        }
     }
 
     const handleCloseJobDetail = () => {
         closeJobDetail();
+    }
+
+    if (!user) {
+        return <p>Please signin to access this page.</p>;
     }
 
     return (
@@ -55,7 +103,7 @@ function JobDetail(props) {
             <div style={styleProp} className="job-detail mt-5">
                 <div className="row">
                     <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                        <img src={appleLogo} alt="" />
+                        <img src={job.imageUrl} alt="company-logo" />
                     </div>
                     <div className="col-6 col-lg-4 col-md-4 mx-auto my-2 job-title">
                         {/* <div className="col"> */}
@@ -96,12 +144,32 @@ function JobDetail(props) {
                                 </div>
                         )
                     }
-                    <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                        <div className="save-badge">
-                            {/* https://icons8.com/icons/set/bookmark */}
-                            <FontAwesomeIcon icon={faBookmarkBordered} style={{ margin: "auto", fontSize: "20px" }} />
-                        </div>
-                    </div>
+                    {
+                        isLoading ? 
+                        (
+                            <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                <Spinner />
+                            </div>
+                        )
+                        :
+                        (
+                            isSaved
+                            ?
+                            <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                <div className="save-badge">
+                                    {/* https://icons8.com/icons/set/bookmark */}
+                                    <FontAwesomeIcon icon={faBookmark} style={{ margin: "auto", fontSize: "20px" }} />
+                                </div>
+                            </div>
+                            :
+                            <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                <div className="save-badge">
+                                    {/* https://icons8.com/icons/set/bookmark */}
+                                    <FontAwesomeIcon icon={faBookmarkBordered} style={{ margin: "auto", fontSize: "20px" }} />
+                                </div>
+                            </div>
+                        )
+                    }
                 </div>
                 <div className="row mx-md-6 px-md-5 mx-sm-5">
                     <div className="col-xl-2 col-lg-4 col-md-6 col-sm-6 mx-lg-4 m-3">
