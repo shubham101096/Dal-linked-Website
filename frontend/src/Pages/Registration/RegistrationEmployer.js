@@ -61,7 +61,6 @@ function RegistrationFormEmployer() {
     const handleLogoUpload = (e) => {
         const file = e.target.files[0];
         setCompanyLogo(file);
-        // WIP, upload logo to s3 and return the image URL here
     };
 
     const handlePhoneNumberChange = (e) => {

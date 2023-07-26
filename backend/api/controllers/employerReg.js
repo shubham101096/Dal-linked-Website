@@ -159,15 +159,15 @@ const uploadLogo = async (logo,employerEmail) => {
 
     const params = {
         Bucket: "web-project-files",
-        Key: key, // unique key for the employer logo
+        Key: key,
         Body: logo.buffer,
         ContentType: logo.mimetype,
-        ACL: 'public-read', // Make the uploaded file publicly accessible
+        ACL: 'public-read',
     };
 
     try {
         const command = new PutObjectCommand(params);
-        const response = await client.send(command);
+        await client.send(command);
         console.log("Employer Logo uploaded successfully to S3.");
         return BUCKET_URL+key;
     } catch (error) {

@@ -1,58 +1,104 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import { Container, Row, Col, Form, Button, Modal, Card } from 'react-bootstrap';
-import placeholderImage from '../images/user-placeholder.jpg'; // Import the placeholder image
+import placeholderImage from '../images/user-placeholder.jpg';
+import axios from 'axios';
 import '../styles/StudenProfile.css';
 
+import { useAuthContext } from "../hooks/useAuthContext";
+
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+
 const StudentProfileDetails = () => {
-    const [profilePicture, setProfilePicture] = useState(null);
-    const [resumeFile, setResumeFile] = useState(null);
+    const [profileImage, setProfileImage] = useState(null);
+    const [resume, setResume] = useState(null);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [contactNumber, setContactNumber] = useState('');
+    const [contact, setContact] = useState('');
     const [skills, setSkills] = useState('');
     const [education, setEducation] = useState('');
     const [workExperience, setWorkExperience] = useState('');
     const [jobSector, setJobSector] = useState('');
     const [workStyle, setWorkStyle] = useState('');
     const [about, setAbout] = useState('');
-
+    const [jobSectors, setJobSectors] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+    const { user } = useAuthContext();
 
     const handleProfilePictureChange = (event) => {
         const file = event.target.files[0];
-       // setProfilePicture(URL.createObjectURL(file));
-        // maybe a form?
+        setProfileImage(file);
     };
-
 
     const handleResumeFileChange = (event) => {
         const file = event.target.files[0];
-        setResumeFile(file);
+        setResume(file);
     };
 
-    const fetchProfilePicture = () => {
-        // fetch the profile picture from the backend if available
-        // if no image, then set profilePicture state to placeholder img
-        // w setProfilePicture(placeholderImage);
-    };
 
-    //set profile picture when the component renders
-    useEffect(() => {
-        fetchProfilePicture();
-    }, []);
+    // Fetch data from MongoDB collection on initial component load
+    useLayoutEffect(() => {
+        if(user) {
+            // Function to fetch user profile data from the backend (replace API_URL with your API endpoint)
+            const fetchUserProfile = async () => {
+                try {
+                    const response = await axios.get(`${backendUrl}/studentProfile/`, {
+                        headers: {
+                            Authorization: "Bearer " + user.token
+                        }
+                    });
+                    const userData = response.data; // Assuming the API response is an object with user data
+
+                    // Update state variables with the fetched data
+                    setProfileImage(userData.profileImage || placeholderImage);
+                    setResume(null); // Assuming the resume file URL will not be fetched here
+                    setFirstName(userData.firstName);
+                    setLastName(userData.lastName);
+                    setContact(!userData.contact ? '' : userData.contact);
+                    setSkills(!userData.skills ? '' : userData.skills);
+                    setEducation(!userData.education ? '' : userData.education);
+                    setWorkExperience(!userData.workExperience ? '' : userData.workExperience);
+                    setAbout(!userData.about ? '' : userData.about);
+                    setJobSector(!userData.jobSector ? '' : userData.jobSector);
+                    setWorkStyle(!userData.workStyle ? '' : userData.workStyle);
+                } catch (error) {
+                    console.error('Error fetching user profile:', error);
+                }
+            };
+            const fetchJobSectors = async () => {
+                try {
+                    const response = await axios.get(`${backendUrl}/studentProfile/job-sectors`, {
+                        headers: {
+                            Authorization: "Bearer " + user.token
+                        }
+                    });
+                    const sectors = response.data; // Assuming the API response is an array of job sectors
+                    setJobSectors(sectors);
+                } catch (error) {
+                    console.error('Error fetching job sectors:', error);
+                }
+            };
+            fetchUserProfile();
+            fetchJobSectors();
+        }
+    }, [user]);
+
+    if (!user) {
+        return <p>Please sign-in to access this page.</p>;
+    }
 
     const handleDeleteAccount = () => {
         // account deletion request
         setShowDeleteModal(false); // Close the modal after deleting the account
     };
 
-    const handleSaveChanges = (event) => {
+    const handleSaveChanges = async (event) => {
         event.preventDefault();
         const data = {
             firstName,
             lastName,
-            contactNumber,
+            contact,
             skills,
             education,
             workExperience,
@@ -60,7 +106,58 @@ const StudentProfileDetails = () => {
             workStyle,
             about,
         };
-        console.log(data); // You can use the data to send to the backend
+        const jsonData = { ...data };
+        await saveProfile(jsonData);
+        await saveProfilePicture(profileImage);
+        await saveResume(resume);
+    };
+
+    const saveProfile = async (jsonData) => {
+        try {
+            const response = await axios.put(`${backendUrl}/studentProfile/update-details`, jsonData, {
+                headers: {
+                    Authorization: "Bearer " + user.token,
+                },
+            });
+            console.log("Profile updated successfully:", response.data);
+        } catch (error) {
+            console.error("Error updating user profile:", error);
+        }
+    };
+    const saveProfilePicture = async (profilePicture) => {
+        if (profilePicture) {
+            const formData = new FormData();
+            formData.append('profilePicture', profilePicture);
+            try {
+                const response = await axios.put(`${backendUrl}/studentProfile/profile-picture`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: "Bearer " + user.token,
+                    },
+                });
+                console.log("Profile picture updated successfully:", response.data);
+            } catch (error) {
+                console.error("Error updating profile picture:", error);
+            }
+        }
+    };
+
+    const saveResume = async (resume) => {
+        if (resume) {
+            const formData = new FormData();
+            formData.append('resume', resume);
+            try {
+                const response = await axios.put(`${backendUrl}/studentProfile/resume`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: "Bearer " + user.token,
+                    },
+                });
+                console.log("Resume updated successfully:", response.data);
+            } catch (error) {
+                console.error("Error updating resume:", error);
+            }
+        }
     };
 
     return (
@@ -70,9 +167,9 @@ const StudentProfileDetails = () => {
                     <Row>
                         <Col md={4}>
                             <div className="text-center">
-                                {profilePicture ? (
+                                {profileImage ? (
                                     <img
-                                        src={profilePicture}
+                                        src={profileImage}
                                         alt="Profile"
                                         className="img-fluid mt-3 rounded-circle"
                                         style={{ maxHeight: '200px', maxWidth: '200px' }}
@@ -134,11 +231,11 @@ const StudentProfileDetails = () => {
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.Label>Contact Number</Form.Label>
+                                    <Form.Label>Contact</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={contactNumber}
-                                        onChange={(e) => setContactNumber(e.target.value)}
+                                        value={contact}
+                                        onChange={(e) => setContact(e.target.value)}
                                     />
                                 </Form.Group>
 
@@ -167,15 +264,13 @@ const StudentProfileDetails = () => {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Job Sector</Form.Label>
-                                    <Form.Control
-                                        as="select"
-                                        value={jobSector}
-                                        onChange={(e) => setJobSector(e.target.value)}
-                                    >
+                                    <Form.Control as="select" value={jobSector} onChange={(e) => setJobSector(e.target.value)}>
                                         <option value="">Select Job Sector</option>
-                                        <option value="sector1">Sector 1</option>
-                                        <option value="sector2">Sector 2</option>
-
+                                        {jobSectors.map((sector) => (
+                                            <option key={sector._id} value={sector.name}>
+                                                {sector.name}
+                                            </option>
+                                        ))}
                                     </Form.Control>
                                 </Form.Group>
 
@@ -217,8 +312,6 @@ const StudentProfileDetails = () => {
                     </Row>
                 </Card>
             </div>
-
-            {/* MODAL TO SHOW WHEN ACCOUNT IS ABOUT TO GET DELETED */}
 
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>

@@ -5,64 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/api/controllers/appliedJobs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/controllers/successStoryController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/models/appliedJobs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/models/successStory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/routes/appliedJobs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/api/routes/successStoryRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/config.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/ActiveEmpPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/AppliedJobsPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/EmployerPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/MainStoryPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/StudentListingsPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/SuccessStoryPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/CreateJobPost.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EmployerProfileCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PostSuccessStory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SuccessStory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/profile.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/CreateJobPost.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/EmployerPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/MainStoryPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/PostSuccessStory.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/StudentListingsPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/SuccessStory.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/SuccessStoryPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/models/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/models/employerReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/models/jobs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/models/jobs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/routes/announcements.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/routes/announcements.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/routes/contactUs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/routes/contactUs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/routes/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/routes/employerReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/routes/index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/bin/www" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Announcements.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Announcements.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/JobListingsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/JobListingsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/JobSectorsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/JobSectorsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/PendingEmpReqPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/PendingEmpReqPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/testStudentOnlyPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/testStudentOnlyPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/JobCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JobCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/JobDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JobDetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NewAnnouncementForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewAnnouncementForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useEmployerSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useEmployerSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useStudentSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useStudentSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Footer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/JobDetail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/JobDetail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Registration/RegistrationEmployer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Registration/RegistrationEmployer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/StudentProfileDetailsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/StudentProfileDetailsPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +36,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging Adriana__Sanchez",
+    "git-widget-placeholder": "Adriana__Sanchez",
     "last_opened_file_path": "C:/Users/adris/Desktop/Web_Project_2/csci4177-5709-grp-4/frontend/src/images",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
