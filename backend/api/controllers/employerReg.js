@@ -146,7 +146,6 @@ const loginEmployer = async (req, res)=>{
     }
 }
 
-<<<<<<< HEAD
 const uploadLogo = async (logo,employerEmail) => {
     const client = new S3Client({
         region: "us-east-1",
@@ -156,7 +155,7 @@ const uploadLogo = async (logo,employerEmail) => {
         }
     });
 
-    const key = 'employer-logo-'+employerEmail;
+    const key = employerEmail+'employer-logo';
 
     const params = {
         Bucket: "web-project-files",
@@ -170,7 +169,7 @@ const uploadLogo = async (logo,employerEmail) => {
         const command = new PutObjectCommand(params);
         const response = await client.send(command);
         console.log("Employer Logo uploaded successfully to S3.");
-        return key+BUCKET_URL;
+        return BUCKET_URL+key;
     } catch (error) {
         console.log("Error uploading file:", error);
         throw error;
