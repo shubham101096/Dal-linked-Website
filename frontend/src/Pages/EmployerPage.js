@@ -110,7 +110,7 @@ const EmployerPage = () => {
                     {showJobDetail ? (
                         <div>
                             <Button variant="primary" onClick={handleBack} className="toggle-button">Back to Job Listings</Button>
-                            <JobDetail job={selectedJob} />
+                            <JobDetail job={selectedJob} isEmployerPage={true} />
                         </div>
                     ) : (
                         <div>
