@@ -5,19 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/api/controllers/adminReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/adminReg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/employerReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/controllers/studentReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/controllers/studentReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/api/models/employerReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/api/models/employerReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/middleware/requireAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/middleware/requireAuth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Login/AdminLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Login/AdminLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Login/EmployerLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Login/EmployerLogin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -32,7 +34,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Adriana__Sanchez",
-    "last_opened_file_path": "C:/Users/adris/Desktop/Web_Project_2/csci4177-5709-grp-4/frontend",
+    "last_opened_file_path": "C:/Users/adris/Desktop/Web_Project_2/csci4177-5709-grp-4/frontend/src/images",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -41,6 +44,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\adris\Desktop\Web_Project_2\csci4177-5709-grp-4\frontend\src\images" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

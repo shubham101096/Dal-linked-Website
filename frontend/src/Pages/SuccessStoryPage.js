@@ -79,7 +79,7 @@ function SuccessStoryPage(props) {
     });
   };
   if (props.stories.length === 0) {
-    return <div>Loading...</div>;
+    return <div>No success Stories..</div>;
   }
 
   return (
@@ -114,7 +114,9 @@ function SuccessStoryPage(props) {
                     date={element.creationDate}
                     content={element.message}
                     likes={element.likes}
+                    profileImage={element.profileImage}
                     deleteStory={handleDelete}
+                    studentId={props.userId}
                   />
                 ))}
               </div>

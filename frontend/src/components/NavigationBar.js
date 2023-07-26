@@ -14,7 +14,6 @@ import "../styles/App.css";
 function NavigationBar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
-
   const dropdownStyle = {
     backgroundColor: "#F0F0F0",
     color: "black",

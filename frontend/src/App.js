@@ -33,6 +33,9 @@ import LogInAdmin from "./Pages/Login/AdminLogin";
 import TestStudent from "./Pages/testStudentOnlyPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
 import SavedJobsPage from "./Pages/SavedJobsPage";
+
+import StudentProfileDetails from "./Pages/StudentProfileDetailsPage";
+
 import StudentListingsPage from "./Pages/StudentListingsPage";
 
 function App() {
@@ -60,6 +63,8 @@ function App() {
             path="/StudentListingsPage"
             element={<StudentListingsPage />}
           />
+
+          <Route path="/student-profile" element={<StudentProfileDetails />} />
 
           {/* LOGIN / SIGNUP */}
           <Route
