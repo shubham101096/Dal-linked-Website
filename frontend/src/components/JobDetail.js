@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../styles/JobDetail.css";
 import "../styles/JobCard.css";
-import appleLogo from "../images/Apple Music.png";
-// import bookmark from "../images/bookmark.png";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 import { useMediaQuery } from 'react-responsive';
-// import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkBordered } from '@fortawesome/free-regular-svg-icons';
