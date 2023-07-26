@@ -88,7 +88,7 @@ function PostSuccessStory({ onStoryUpdate }) {
 
       onStoryUpdate(newSuccessStory);
       setStoryComments("");
-      setJobSector("none");
+      setJobSector("None");
     } else {
       Swal.fire(
         "Please provide your story details and the job Sector before sending."

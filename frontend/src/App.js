@@ -27,7 +27,7 @@ import LogInAdmin from "./Pages/Login/AdminLogin";
 
 import TestStudent from "./Pages/testStudentOnlyPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
-
+import SavedJobsPage from "./Pages/SavedJobsPage";
 function App() {
   const { user } = useAuthContext();
 
@@ -44,7 +44,7 @@ function App() {
           <Route path="/jobSectors" element={<JobSectorsPage />} />
           <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
           <Route path="/announcements" element={<AnnouncementPage />} />
-
+          <Route path="/savedJobs" element={<SavedJobsPage />} />
           {/* LOGIN / SIGNUP */}
           <Route
             path="/login-signup"

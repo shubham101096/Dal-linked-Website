@@ -6,18 +6,16 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "../styles/NavigationBar.css";
 
-import { useLogout} from "../hooks/useLogout";
+import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-
 function NavigationBar() {
-
-  const { logout } = useLogout()
-  const { user } = useAuthContext()
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
 
   const handleClick = () => {
-    logout()
-  }
+    logout();
+  };
 
   return (
     <div className="navBarDiv">
@@ -52,21 +50,23 @@ function NavigationBar() {
                   FAQ
                 </Nav.Link>
                 <Nav.Link href="/mainStoryPage" className="navigationBar">
-                  SuccessStories
+                  Success Stories
+                </Nav.Link>
+                <Nav.Link href="/savedJobs" className="navigationBar">
+                  Saved Jobs
                 </Nav.Link>
               </Nav>
               <Nav>
                 {!user && (
-                <Nav.Link href="/login-signup" className="navigationBar">
-                  SignIn / SignUp
-                </Nav.Link>
+                  <Nav.Link href="/login-signup" className="navigationBar">
+                    SignIn / SignUp
+                  </Nav.Link>
                 )}
                 {user && (
-                <Nav.Link onClick={handleClick} className="navigationBar">
-                  Logout
-                </Nav.Link>
+                  <Nav.Link onClick={handleClick} className="navigationBar">
+                    Logout
+                  </Nav.Link>
                 )}
-
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
