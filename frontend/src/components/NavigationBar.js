@@ -44,6 +44,7 @@ function NavigationBar() {
 
   const employerNavLinks = [
     { text: "Create Job Post", href: "/CreateJobPost" },
+    { text: "Employer", href: "/EmployerPage" }
   ];
 
   const userType = user ? user.userType : null;

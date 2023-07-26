@@ -25,6 +25,7 @@ function AppliedJobsPage() {
                 }
                 })
             .then((response) => {
+                console.log(response.data.jobs);
                 setAppliedJobList(response.data.jobs);
             })
             .catch((err) => {
