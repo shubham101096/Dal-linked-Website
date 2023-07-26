@@ -120,7 +120,7 @@ function NavigationBar() {
                   </Nav.Link>
                 )}
                 {user && (
-                  <Nav.Link onClick={handleClick} className="navigationBar">
+                  <Nav.Link href="/" onClick={handleClick} className="navigationBar">
                     Logout
                   </Nav.Link>
                 )}
