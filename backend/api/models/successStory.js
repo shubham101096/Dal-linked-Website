@@ -21,6 +21,10 @@ const successStorySchema = new mongoose.Schema({
     type: String,
     required: [true, "The message content was not provided."],
   },
+  profileImage: {
+    type: String,
+    required: [true, "The message content was not provided."],
+  },
   likes: {
     type: [String],
   },

@@ -156,7 +156,7 @@ function AnnouncementPage() {
                 />
               </div>
               <Dropdown onSelect={handleSortChange} className="me-2">
-                <Dropdown.Toggle variant="outline-secondary">
+                <Dropdown.Toggle style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}>
                   Sort
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -164,12 +164,13 @@ function AnnouncementPage() {
                   <Dropdown.Item eventKey="desc">Latest first</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Button variant="outline-success" onClick={handleNewAnnouncement}>
+              <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}  onClick={handleNewAnnouncement}>
                 New
               </Button>
             </ListGroup.Item>
             <AnnouncementsList
               announcements={currentAnnouncements}
+              userType={user.userType}
               onDelete={handleDelete}
             />
           </ListGroup>
@@ -203,10 +204,10 @@ function AnnouncementPage() {
           announcement?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+          <Button style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={() => setShowDeleteModal(false)}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleDeleteConfirmation}>
+          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handleDeleteConfirmation}>
             Delete
           </Button>
         </Modal.Footer>
