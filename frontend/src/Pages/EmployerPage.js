@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
-import {Container, Row, Col, Button, Dropdown} from 'react-bootstrap';
+import React, { useState, useContext, useEffect } from 'react';
+import { Container, Row, Col, Button, Dropdown } from 'react-bootstrap';
 import EmployerProfileCard from '../components/EmployerProfileCard.js';
 import JobListingsPage from './JobListingsPage';
 import StudentListingsPage from './StudentListingsPage';
 import JobDetail from '../components/JobDetail'
 import JobCard from "../components/JobCard";
+import { AuthContext } from "../context/AuthContext";
+import { Card } from 'react-bootstrap';
+import axios from 'axios';
 
 const EmployerPage = () => {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const { user } = useContext(AuthContext);
+    const [employer, setEmployer] = useState(null);
     const [displayJobListings, setDisplayJobListings] = useState(true);
-    // Sample job for JobDetail component, you should replace this with a real job object
+
     const dropdownStyle = {
         backgroundColor: '#F0F0F0',
         color: "black",
@@ -18,220 +24,52 @@ const EmployerPage = () => {
     };
 
     const jobs = [{
-        "id": 0,
-        "jobTitle": "iOS Developer",
-        "companyName": "Apple",
-        "location": "Cupertino",
-        "jobType": "Full-Time",
-        "positions": 15,
-        "jobDescription": "We are seeking a skilled iOS Developer to join our team and work on cutting-edge mobile applications. As an iOS Developer, you will collaborate with cross-functional teams to design and develop innovative iOS applications that deliver exceptional user experiences. Your responsibilities will include coding, debugging, and optimizing applications, as well as collaborating with designers and product managers to ensure project success.",
-        "requirements": [
-            "Bachelor's degree in Computer Science or a related field",
-            "Proven experience in iOS app development using Swift and Xcode",
-            "Strong knowledge of iOS frameworks, libraries, and design patterns",
-            "Familiarity with RESTful APIs to connect iOS applications to back-end services",
-            "Experience with version control systems (e.g., Git)",
-            "Solid understanding of the full mobile development life cycle",
-            "Ability to work independently and in a team environment",
-            "Excellent problem-solving and communication skills"
-        ],
-        "responsibilities": [
-            "Design and build advanced applications for the iOS platform",
-            "Collaborate with cross-functional teams to define, design, and ship new features",
-            "Unit-test code for robustness, including edge cases, usability, and general reliability",
-            "Work on bug fixing and improving application performance",
-            "Continuously discover, evaluate, and implement new technologies to maximize development efficiency",
-            "Stay up-to-date with the latest iOS development trends and best practices"
-        ],
-        "salary": "$80,000/Year",
-        "applicationDeadline": "05 June 2023",
-        "postedDate": "24 May 2023",
-        "skills": [
-            "Swift",
-            "Xcode",
-            "iOS",
-            "APIs",
-            "Git"
-        ],
-        "benefits": [
-            "Competitive salary and benefits package",
-            "Opportunity for career growth and advancement",
-            "Flexible working hours and remote work options",
-            "Collaborative and inclusive work environment",
-            "Training and professional development programs",
-            "Employee wellness programs",
-            "Company-sponsored events and team-building activities",
-            "Modern and well-equipped office spaces"
-        ]
-    },
-
-
-        {
-            "companyName": "ABC Company",
-            "noOfPositions": 5,
-            "jobSector": "IT",
-            "title": "Software Engineer",
-            "location": "New York",
-            "type": "Full-time",
-            "startDate": "2023-07-20",
-            "salary": 80000,
-            "requirement": "Bachelor's degree in Computer Science",
-            "skills": [
-                {
-                    "skillName": "JavaScript"
-                },
-                {
-                    "skillName": "React"
-                }
-            ],
-            "hrEmail": "hr@company.com",
-            "description": "We are looking for a skilled software engineer...",
-            "benefits": "Health insurance, retirement plan",
-            "postedDate": "2023-07-15",
-            "endDate": "2023-08-15",
-            "employeeId": "1234567890"
-        },
-
-
-
-        {
-            "id": 1,
-            "jobTitle": "Flutter Developer",
-            "companyName": "Google",
-            "location": "LA",
-            "jobType": "Full-Time",
-            "positions": 15,
-            "jobDescription": "We are seeking a skilled iOS Developer to join our team and work on cutting-edge mobile applications. As an iOS Developer, you will collaborate with cross-functional teams to design and develop innovative iOS applications that deliver exceptional user experiences. Your responsibilities will include coding, debugging, and optimizing applications, as well as collaborating with designers and product managers to ensure project success.",
-            "requirements": [
-                "Bachelor's degree in Computer Science or a related field",
-                "Proven experience in iOS app development using Swift and Xcode",
-                "Strong knowledge of iOS frameworks, libraries, and design patterns",
-                "Familiarity with RESTful APIs to connect iOS applications to back-end services",
-                "Experience with version control systems (e.g., Git)",
-                "Solid understanding of the full mobile development life cycle",
-                "Ability to work independently and in a team environment",
-                "Excellent problem-solving and communication skills"
-            ],
-            "responsibilities": [
-                "Design and build advanced applications for the iOS platform",
-                "Collaborate with cross-functional teams to define, design, and ship new features",
-                "Unit-test code for robustness, including edge cases, usability, and general reliability",
-                "Work on bug fixing and improving application performance",
-                "Continuously discover, evaluate, and implement new technologies to maximize development efficiency",
-                "Stay up-to-date with the latest iOS development trends and best practices"
-            ],
-            "salary": "$80,000/Year",
-            "applicationDeadline": "05 June 2023",
-            "postedDate": "24 May 2023",
-            "skills": [
-                "Flutter",
-                "Dart",
-                "iOS",
-                "APIs",
-                "Git"
-            ],
-            "benefits": [
-                "Competitive salary and benefits package",
-                "Opportunity for career growth and advancement",
-                "Flexible working hours and remote work options",
-                "Collaborative and inclusive work environment"
-            ]
-        },
-        {
-            "id": 2,
-            "jobTitle": "iOS Developer",
-            "companyName": "Broken Dreams",
-            "location": "Cupertino",
-            "jobType": "Full-Time",
-            "positions": 15,
-            "jobDescription": "We are seeking a skilled iOS Developer to join our team and work on cutting-edge mobile applications. As an iOS Developer, you will collaborate with cross-functional teams to design and develop innovative iOS applications that deliver exceptional user experiences. Your responsibilities will include coding, debugging, and optimizing applications, as well as collaborating with designers and product managers to ensure project success.",
-            "requirements": [
-                "Bachelor's degree in Computer Science or a related field",
-                "Proven experience in iOS app development using Swift and Xcode",
-                "Strong knowledge of iOS frameworks, libraries, and design patterns",
-                "Familiarity with RESTful APIs to connect iOS applications to back-end services",
-                "Experience with version control systems (e.g., Git)",
-                "Solid understanding of the full mobile development life cycle",
-                "Ability to work independently and in a team environment",
-                "Excellent problem-solving and communication skills"
-            ],
-            "responsibilities": [
-                "Design and build advanced applications for the iOS platform",
-                "Collaborate with cross-functional teams to define, design, and ship new features",
-                "Unit-test code for robustness, including edge cases, usability, and general reliability",
-                "Work on bug fixing and improving application performance",
-                "Continuously discover, evaluate, and implement new technologies to maximize development efficiency",
-                "Stay up-to-date with the latest iOS development trends and best practices"
-            ],
-            "salary": "$80,000/Year",
-            "applicationDeadline": "05 June 2023",
-            "postedDate": "24 May 2023",
-            "skills": [
-                "Swift",
-                "Xcode",
-                "iOS",
-                "APIs",
-                "Git"
-            ],
-            "benefits": [
-                "Competitive salary and benefits package",
-                "Opportunity for career growth and advancement",
-                "Flexible working hours and remote work options",
-                "Collaborative and inclusive work environment",
-                "Training and professional development programs",
-                "Employee wellness programs",
-                "Company-sponsored events and team-building activities",
-                "Modern and well-equipped office spaces"
-            ]
-        },
-        {
-            "id": 3,
-            "jobTitle": "iOS Developer",
-            "companyName": "Apple",
-            "location": "Cupertino",
-            "jobType": "Full-Time",
-            "positions": 15,
-            "jobDescription": "We are seeking a skilled iOS Developer to join our team and work on cutting-edge mobile applications. As an iOS Developer, you will collaborate with cross-functional teams to design and develop innovative iOS applications that deliver exceptional user experiences. Your responsibilities will include coding, debugging, and optimizing applications, as well as collaborating with designers and product managers to ensure project success.",
-            "requirements": [
-                "Bachelor's degree in Computer Science or a related field",
-                "Proven experience in iOS app development using Swift and Xcode",
-                "Strong knowledge of iOS frameworks, libraries, and design patterns",
-                "Familiarity with RESTful APIs to connect iOS applications to back-end services",
-                "Experience with version control systems (e.g., Git)",
-                "Solid understanding of the full mobile development life cycle",
-                "Ability to work independently and in a team environment",
-                "Excellent problem-solving and communication skills"
-            ],
-            "responsibilities": [
-                "Design and build advanced applications for the iOS platform",
-                "Collaborate with cross-functional teams to define, design, and ship new features",
-                "Unit-test code for robustness, including edge cases, usability, and general reliability",
-                "Work on bug fixing and improving application performance",
-                "Continuously discover, evaluate, and implement new technologies to maximize development efficiency",
-                "Stay up-to-date with the latest iOS development trends and best practices"
-            ],
-            "salary": "$80,000/Year",
-            "applicationDeadline": "05 June 2023",
-            "postedDate": "24 May 2023",
-            "skills": [
-                "Swift",
-                "Xcode",
-                "iOS",
-                "APIs",
-                "Git"
-            ],
-            "benefits": [
-                "Competitive salary and benefits package",
-                "Opportunity for career growth and advancement",
-                "Flexible working hours and remote work options",
-                "Collaborative and inclusive work environment",
-                "Training and professional development programs",
-                "Employee wellness programs",
-                "Company-sponsored events and team-building activities",
-                "Modern and well-equipped office spaces"
-            ]
-        },
-    ];
+    //     "id": 0,
+    //     "jobTitle": "iOS Developer",
+    //     "companyName": "Apple",
+    //     "location": "Cupertino",
+    //     "jobType": "Full-Time",
+    //     "positions": 15,
+    //     "jobDescription": "We are seeking a skilled iOS Developer to join our team and work on cutting-edge mobile applications. As an iOS Developer, you will collaborate with cross-functional teams to design and develop innovative iOS applications that deliver exceptional user experiences. Your responsibilities will include coding, debugging, and optimizing applications, as well as collaborating with designers and product managers to ensure project success.",
+    //     "requirements": [
+    //         "Bachelor's degree in Computer Science or a related field",
+    //         "Proven experience in iOS app development using Swift and Xcode",
+    //         "Strong knowledge of iOS frameworks, libraries, and design patterns",
+    //         "Familiarity with RESTful APIs to connect iOS applications to back-end services",
+    //         "Experience with version control systems (e.g., Git)",
+    //         "Solid understanding of the full mobile development life cycle",
+    //         "Ability to work independently and in a team environment",
+    //         "Excellent problem-solving and communication skills"
+    //     ],
+    //     "responsibilities": [
+    //         "Design and build advanced applications for the iOS platform",
+    //         "Collaborate with cross-functional teams to define, design, and ship new features",
+    //         "Unit-test code for robustness, including edge cases, usability, and general reliability",
+    //         "Work on bug fixing and improving application performance",
+    //         "Continuously discover, evaluate, and implement new technologies to maximize development efficiency",
+    //         "Stay up-to-date with the latest iOS development trends and best practices"
+    //     ],
+    //     "salary": "$80,000/Year",
+    //     "applicationDeadline": "05 June 2023",
+    //     "postedDate": "24 May 2023",
+    //     "skills": [
+    //         "Swift",
+    //         "Xcode",
+    //         "iOS",
+    //         "APIs",
+    //         "Git"
+    //     ],
+    //     "benefits": [
+    //         "Competitive salary and benefits package",
+    //         "Opportunity for career growth and advancement",
+    //         "Flexible working hours and remote work options",
+    //         "Collaborative and inclusive work environment",
+    //         "Training and professional development programs",
+    //         "Employee wellness programs",
+    //         "Company-sponsored events and team-building activities",
+    //         "Modern and well-equipped office spaces"
+    //     ]
+    }];
     const [selectedJob, setSelectedJob] = useState(jobs[0]);
     const [showJobDetail, setShowJobDetail] = useState(false);
 
@@ -248,12 +86,54 @@ const EmployerPage = () => {
     const handleBack = () => {
         setShowJobDetail(false);
     }
+    useEffect(() => {
+        const getEmployerDetails = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/employerReg/email/${user.email}`);
+                setEmployer(response.data.employer);
+            } catch (error) {
+                console.error('Error getting employer details', error);
+            }
+        };
+        getEmployerDetails();
+    }, [user]);
+    console.log("user:", user);
+    console.log("emp:", employer)
 
     return (
         <Container className="employer-page">
             <Row>
                 <Col xs={12} md={4}>
-                    <EmployerProfileCard />
+                    {/* <EmployerProfileCard /> */}
+
+                    <Card style={{ width: '100%', backgroundColor: '#F0F0F0' }}>
+                        {employer ? (
+                            <>
+                                <Card.Img
+                                    variant="top"
+                                    src={"https://s3.amazonaws.com/www-inside-design/uploads/2019/05/woolmarkimagelogo-1024x576.png" || "default-photo-url"}
+                                />
+                                <Card.Body>
+                                    <Card.Title style={{ fontSize: '20px', color: '#333' }}>
+                                        {employer.employerName}
+                                    </Card.Title>
+                                    <Card.Text style={{ fontSize: '16px', color: '#555' }}>
+                                        Company Name: {employer.companyName} <br />
+                                        Email: {employer.email} <br />
+                                        Contact Number: {employer.contactNumber} <br />
+                                        Status: {employer.status} <br />
+                                        Website: <a href={employer.websiteURL}>{employer.websiteURL}</a>
+                                    </Card.Text>
+                                    <Button variant="danger" className="mt-3">Delete Account</Button>
+                                </Card.Body>
+                            </>
+                        ) : (
+                            'Loading...'
+                        )}
+                    </Card>
+
+
+
                     <div className="button-container">
                         <Button
                             variant="primary"

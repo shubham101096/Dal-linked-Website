@@ -20,7 +20,7 @@ import AppliedJobsPage from "./Pages/AppliedJobsPage";
 import JobSectorsPage from "./Pages/JobSectorsPage";
 import PendingEmpReqPage from "./Pages/PendingEmpReqPage";
 import AnnouncementPage from "./Pages/Announcements";
-import ActiveEmpPage from "./Pages/ActiveEmpPage";
+import ActiveEmpPage from "./Pages/ActiveEmpPage.js";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import RegistrationFormStudent from "./Pages/Registration/RegistrationStudent";
