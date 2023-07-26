@@ -16,7 +16,7 @@ function formatDateString(dateStr) {
   return date.toLocaleString('en-US', options);
 }
 
-function AnnouncementsList({ announcements, onDelete }) {
+function AnnouncementsList({ announcements, userType, onDelete }) {
   return (
     <ListGroup className="text-left md-8">
       {announcements.map((announcement) => (
@@ -24,13 +24,15 @@ function AnnouncementsList({ announcements, onDelete }) {
           <Card>
             <Card.Header className="d-flex justify-content-between align-items-center">
               <h5>{announcement.title}</h5>
-              <Button
-                variant="outline-danger"
-                size="sm"
-                onClick={() => onDelete(announcement._id)}
-              >
-                Delete
-              </Button>
+              {userType === 'admin' && (
+                <Button
+                  style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}
+                  size="sm"
+                  onClick={() => onDelete(announcement._id)}
+                >
+                  Delete
+                </Button>
+              )}
             </Card.Header>
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">

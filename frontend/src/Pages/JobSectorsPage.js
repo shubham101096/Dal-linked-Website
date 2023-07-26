@@ -169,7 +169,7 @@ function JobSectorsPage() {
                 />
               </div>
               <div className="text-end">
-                <Button variant="outline-success" onClick={handleAddClick}>
+                <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)' , borderRadius:'25px'}} onClick={handleAddClick}>
                   Add
                 </Button>
               </div>
@@ -180,7 +180,7 @@ function JobSectorsPage() {
               <ListGroup.Item key={index} className="d-flex align-items-left">
                 <span className="me-auto text-left">{sector.name}</span>
                 <Button
-                  variant="outline-primary"
+                  style={{color:'blue', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}
                   size="sm"
                   className="me-2"
                   onClick={() => handleEditClick(sector)}
@@ -188,11 +188,11 @@ function JobSectorsPage() {
                   Edit
                 </Button>
                 <Button
-                  variant="outline-danger"
+                  style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}
                   size="sm"
                   onClick={() => handleRemoveClick(sector)}
                 >
-                  Remove
+                  Delete
                 </Button>
               </ListGroup.Item>
             ))}
@@ -213,10 +213,10 @@ function JobSectorsPage() {
           {error && <Alert variant="danger" className="mt-2">{error}</Alert>}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleAddModalCancel}>
+          <Button style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handleAddModalCancel}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSaveClick}>
+          <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handleSaveClick}>
             Save
           </Button>
         </Modal.Footer>
@@ -227,10 +227,10 @@ function JobSectorsPage() {
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete the job sector "{sectorToDelete?.name}"?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+          <Button style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={() => setShowDeleteModal(false)}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleDeleteConfirm}>
+          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handleDeleteConfirm}>
             Delete
           </Button>
         </Modal.Footer>
@@ -248,10 +248,10 @@ function JobSectorsPage() {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+          <Button style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={() => setShowEditModal(false)}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleEditSave}>
+          <Button style={{color:'blue', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handleEditSave}>
             Save
           </Button>
         </Modal.Footer>
