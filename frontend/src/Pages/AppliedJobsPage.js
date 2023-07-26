@@ -10,6 +10,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 function AppliedJobsPage() {
     const { user }= useAuthContext();
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const [appliedJobList, setAppliedJobList] = useState([]);
     const [selectedJob, setSelectedJob] = useState({});
@@ -19,7 +20,7 @@ function AppliedJobsPage() {
     const fetchAppliedJobList = () => {
         setIsLoading(true);
         axios
-            .get(`http://localhost:3003/appliedJobs/getByStudent/`, {
+            .get(`${backendUrl}/appliedJobs/getByStudent/`, {
                 headers: {
                     Authorization: "Bearer " + user.token
                 }
