@@ -39,6 +39,7 @@ function NavigationBar() {
     { text: "Success Stories", href: "/mainStoryPage" },
     { text: "Contact Us", href: "/contactUs" },
     { text: "FAQ", href: "/faq" },
+    { text: "Profile", href: "/student-profile"}
   ];
 
   const employerNavLinks = [
