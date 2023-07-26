@@ -164,9 +164,10 @@ function AnnouncementPage() {
                   <Dropdown.Item eventKey="desc">Latest first</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}  onClick={handleNewAnnouncement}>
+              {user.userType === 'admin' && (<Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}  onClick={handleNewAnnouncement}>
                 New
               </Button>
+              )}
             </ListGroup.Item>
             <AnnouncementsList
               announcements={currentAnnouncements}
