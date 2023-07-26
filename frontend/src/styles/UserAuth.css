@@ -8,16 +8,20 @@ body{
 }
 
 .form{
-    background-color: #F9F5EB;
+
     border-radius: 4px;
     width: 550px;
     margin: 80px auto;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #F0F0F0;
+    /*font-size: 20px;*/
+
 }
 
 .user-card{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .form-body{
@@ -43,6 +47,10 @@ body{
 }
 :root {
     --error: red;
+}
+
+.successAlert{
+    margin: 20px 0;
 }
 
 div.error {

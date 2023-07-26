@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import '../../styles/UserAuth.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -19,10 +19,9 @@ function RegistrationFormEmployer() {
     const navigate = useNavigate();
     const {signup, error, isLoading, success} = useEmployerSignup();
 
-
     const renderModalContent = () => {
         return (
-            <Modal show={showModal} onHide={closeModal}>
+            <Modal show={success} onHide={closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmation</Modal.Title>
                 </Modal.Header>
@@ -40,10 +39,11 @@ function RegistrationFormEmployer() {
         );
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         await signup(employerName, companyName, email, contactNumber,
-            password, 'companyLogoURL', websiteURL)
+            password, companyLogo, websiteURL)
     };
 
     const closeModal = () => {
@@ -60,16 +60,15 @@ function RegistrationFormEmployer() {
 
     const handleLogoUpload = (e) => {
         const file = e.target.files[0];
-        // WIP, upload logo to s3 and return the image URL here
-       // setCompanyLogo('myS3logoURL.com');
+        setCompanyLogo(file);
     };
 
     const handlePhoneNumberChange = (e) => {
         const input = e.target.value;
-        // Remove any non-numeric characters
         const numericInput = input.replace(/\D/g, '');
         setContactNumber(numericInput);
     };
+
 
     return (
         <div className="registration">
@@ -153,8 +152,6 @@ function RegistrationFormEmployer() {
                     </div>
                 </center>
             </form>
-
-            { /*modal not working yet*/}
             {success && renderModalContent()}
         </div>
     );

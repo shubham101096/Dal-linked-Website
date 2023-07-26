@@ -106,10 +106,10 @@ function PendingEmpReqPage() {
                       <strong>Contact Number: </strong>
                       {request.contactNumber}
                     </Card.Text>
-                    <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={() => handleApprove(request)}>
+                    <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px'  }} onClick={() => handleApprove(request)}>
                       Approve
                     </Button>{' '}
-                    <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={() => handleReject(request)}>
+                    <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px'  }} onClick={() => handleReject(request)}>
                       Reject
                     </Button>
                   </Card.Body>
@@ -125,10 +125,10 @@ function PendingEmpReqPage() {
         </Modal.Header>
         <Modal.Body>Are you sure you want to reject <strong>{curReq?.employerName}'s</strong> request?</Modal.Body>
         <Modal.Footer>
-          <Button style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={() => setShowRejectModal(false)}>
+          <Button style={{color:'grey', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={() => setShowRejectModal(false)}>
             No
           </Button>
-          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={handleRejectConfirm}>
+          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }} onClick={handleRejectConfirm}>
             Yes
           </Button>
         </Modal.Footer>
@@ -139,10 +139,10 @@ function PendingEmpReqPage() {
         </Modal.Header>
         <Modal.Body>Are you sure you want to approve <strong>{curReq?.employerName}'s</strong> request?</Modal.Body>
         <Modal.Footer>
-          <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={() => setShowApproveModal(false)}>
+          <Button style={{color:'green', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px'  }} onClick={() => setShowApproveModal(false)}>
             No
           </Button>
-          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)' }} onClick={handleApproveConfirm}>
+          <Button style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px'  }} onClick={handleApproveConfirm}>
             Yes
           </Button>
         </Modal.Footer>

@@ -34,4 +34,18 @@ const postJob = async (req, res) => {
     }
 }
 
-module.exports = { getAllJobs, getJobById, postJob };
+const getJobByEmployerId = async (req, res) => {
+    try {
+        const job = await Job.find({ employeeId: req.params.id });
+        res.status(200).json({
+            job: job
+        });
+    } catch (error) {
+        console.log("Error getting job by given employee id", error);
+        res.status(200).json({
+            message: "Job with given employee id does not exist."
+        });
+    }
+}
+
+module.exports = { getAllJobs, getJobById, postJob, getJobByEmployerId };

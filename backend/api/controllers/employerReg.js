@@ -4,6 +4,11 @@ const EmployerReg = require('../models/employerReg');
 const jwt = require("jsonwebtoken");
 const {application} = require("express");
 
+const {S3Client, PutObjectCommand} = require("@aws-sdk/client-s3");
+
+const BUCKET_URL = 'https://web-project-files.s3.amazonaws.com/'
+
+
 const createToken = (_id, email, userType) => {
     return jwt.sign({_id: _id, email: email, userType:userType},
         process.env.SECRET,
@@ -51,7 +56,8 @@ const getEmployerByEmail = async (req, res) => {
 };
 
 const registerEmployer = async (req, res) => {
-    const { employerName, companyName, email, contactNumber, password, companyLogo, websiteURL } = req.body;
+    const { employerName, companyName, email, contactNumber, password, websiteURL } = req.body;
+    const companyLogo = req.file;
 
     // Validate input data
     if (!employerName || !companyName || !email || !contactNumber || !password || !companyLogo || !websiteURL) {
@@ -83,11 +89,15 @@ const registerEmployer = async (req, res) => {
             contactNumber,
             password: hashedPassword,
             status,
-            companyLogo,
             websiteURL
         });
 
         const savedEmployer = await employer.save();
+
+        const s3ImageUrl = await uploadLogoToS3(companyLogo, savedEmployer._id);
+        savedEmployer.companyLogo = s3ImageUrl;
+        await savedEmployer.save();
+
         res.status(200).json({ email: email, _id: savedEmployer._id});
     } catch (error) {
         console.log('Error registering employer', error);
@@ -138,6 +148,46 @@ const loginEmployer = async (req, res)=>{
     }
 }
 
+const uploadLogo = async (logo,employerId) => {
+    const client = new S3Client({
+        region: "us-east-1",
+        credentials: {
+            accessKeyId: process.env.ACCESS_KEY_ID,
+            secretAccessKey: process.env.SECRET_ACCESS_KEY
+        }
+    });
+
+    const key = employerId+'-employer-logo';
+
+    const params = {
+        Bucket: "web-project-files",
+        Key: key,
+        Body: logo.buffer,
+        ContentType: logo.mimetype,
+        ACL: 'public-read',
+    };
+
+    try {
+        const command = new PutObjectCommand(params);
+        await client.send(command);
+        console.log("Employer Logo uploaded successfully to S3.");
+        return BUCKET_URL+key;
+    } catch (error) {
+        console.log("Error uploading file:", error);
+        throw error;
+    }
+};
+
+const uploadLogoToS3 = async (logo, employerId) => {
+    try {
+        const s3ImageUrl = await uploadLogo(logo, employerId);
+        return s3ImageUrl;
+    } catch (error) {
+        console.error('Error uploading logo to S3:', error);
+        throw error;
+    }
+};
+
 async function getEmployerByStatus(req, res) {
     const { status } = req.params;
 
@@ -170,7 +220,6 @@ const updateEmployerStatus = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 
 
 module.exports = {

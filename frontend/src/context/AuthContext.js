@@ -9,6 +9,7 @@ export const authReducer = (state, action) => {
         case 'LOGIN':
             return {user: action.payload}
         case 'LOGOUT':
+            console.log('logging out user in context')
             return {user: null}
         default:
             return state // If there are no changes, return original state

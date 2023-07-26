@@ -15,6 +15,7 @@ import FAQPage from "./Pages/FAQPage";
 import ContactUs from "./Pages/ContactUs";
 import MainStoryPage from "./Pages/MainStoryPage";
 import JobListingsPage from "./Pages/JobListingsPage";
+import AppliedJobsPage from "./Pages/AppliedJobsPage";
 
 import JobSectorsPage from "./Pages/JobSectorsPage";
 import PendingEmpReqPage from "./Pages/PendingEmpReqPage";
@@ -31,6 +32,10 @@ import LogInAdmin from "./Pages/Login/AdminLogin";
 
 import TestStudent from "./Pages/testStudentOnlyPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
+import SavedJobsPage from "./Pages/SavedJobsPage";
+
+import StudentProfileDetails from "./Pages/StudentProfileDetailsPage";
+
 import StudentListingsPage from "./Pages/StudentListingsPage";
 
 function App() {
@@ -46,13 +51,20 @@ function App() {
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/mainStoryPage" element={<MainStoryPage />} />
           <Route path="/joblistings" element={<JobListingsPage />} />
+          <Route path="/appliedJobs" element={<AppliedJobsPage />} />
           <Route path="/jobSectors" element={<JobSectorsPage />} />
           <Route path="/pendingEmpReq" element={<PendingEmpReqPage />} />
           <Route path="/announcements" element={<AnnouncementPage />} />
+          <Route path="/savedJobs" element={<SavedJobsPage />} />
           <Route path="/activeEmp" element={<ActiveEmpPage />} />
           <Route path="/EmployerPage" element={<EmployerPage />} />
           <Route path="/CreateJobPost" element={<CreateJobPost />} />
-          <Route path="/StudentListingsPage" element={<StudentListingsPage />} />
+          <Route
+            path="/StudentListingsPage"
+            element={<StudentListingsPage />}
+          />
+
+          <Route path="/student-profile" element={<StudentProfileDetails />} />
 
           {/* LOGIN / SIGNUP */}
           <Route
@@ -101,7 +113,6 @@ function App() {
       <Footer />
     </div>
   );
-
 }
 
 export default App;
