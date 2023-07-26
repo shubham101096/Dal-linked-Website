@@ -1,11 +1,11 @@
 .job-detail {
     background-color: #F0F0F0;
     border-radius: 25px;
-    height: 620px;
+    height: 85%;
     text-align: left;
     overflow-y: scroll;
     position: fixed;
-    top: 11%;
+    top: 1.3rem;
     margin-right: 4%;
     margin-bottom: 4%;
     padding: 1.5rem;
@@ -41,6 +41,19 @@
     display: flex;
     justify-content: center;
     font-weight: 600;
+    cursor: pointer;
+}
+
+.applied-badge {
+    height: 38px;
+    width: 106px;
+    background-color: rgba(209, 209, 214, 1);
+    border-radius: 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    color: rgba(0, 64, 221, 1);
 }
 
 .blue-badge p {
@@ -56,6 +69,7 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    cursor: pointer;
 }
 
 .detail-badge {

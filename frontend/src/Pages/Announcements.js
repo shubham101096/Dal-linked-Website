@@ -1,41 +1,31 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  ListGroup,
-  Pagination,
-  Modal,
-  Row,
-  Col,
-  Button,
-  Form,
-  Dropdown,
-} from "react-bootstrap";
-import NewAnnouncementForm from "../components/NewAnnouncementForm";
-import AnnouncementsList from "../components/AnnouncementsList";
-import "../styles/Announcements.css";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { Container, ListGroup, Pagination, Modal, Row, Col, Button, Form, Dropdown } from 'react-bootstrap';
+import NewAnnouncementForm from '../components/NewAnnouncementForm';
+import AnnouncementsList from '../components/AnnouncementsList';
+import '../styles/Announcements.css';
+import axios from 'axios';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [announcementToDelete, setAnnouncementToDelete] = useState(null);
-  const [showNewAnnouncementModal, setShowNewAnnouncementModal] =
-    useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("desc");
-
-  useEffect(() => {
-    fetchAnnouncements();
-  }, []);
+  const [showNewAnnouncementModal, setShowNewAnnouncementModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('desc');
+  const { user } = useAuthContext();
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   // const backendUrl = "";
   const announcementsUrl = `${backendUrl}/announcements`;
 
-  const fetchAnnouncements = async () => {
+  const fetchAnnouncements = async (userToken) => {
     try {
-      console.log(announcementsUrl);
-      const response = await axios.get(announcementsUrl);
+      const response = await axios.get(announcementsUrl, {
+        headers: {
+            Authorization: "Bearer " + userToken
+        }
+    });
       setAnnouncements(response.data);
     } catch (error) {
       console.error("Error fetching announcements:", error);
@@ -82,7 +72,7 @@ function AnnouncementPage() {
         body,
       });
       if (response.status === 200) {
-        fetchAnnouncements();
+        fetchAnnouncements(user.token);
         setShowNewAnnouncementModal(false);
       } else {
         console.error("Error creating announcement:", response.status);
@@ -138,9 +128,20 @@ function AnnouncementPage() {
     indexOfLastAnnouncement
   );
 
+  useEffect(() => {
+    if (user) {
+      fetchAnnouncements(user.token);
+
+    }
+  }, [user]);
+
+  if (!user) {
+      return <p>Please signin to access this page.</p>;
+  }
+
   return (
     <Container>
-      <h1 className="text-center mt-4 mb-5">Announcements</h1>
+      <h3 className="text-center mt-3 mb-3">Announcements</h3>
       <Row className="justify-content-center">
         <Col sm={12} md={10} lg={8}>
           <ListGroup className="text-left md-8">

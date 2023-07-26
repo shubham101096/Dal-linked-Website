@@ -4,18 +4,58 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { Dropdown } from "react-bootstrap";
 import "../styles/NavigationBar.css";
 
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import "../styles/App.css";
 
 function NavigationBar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
+  const dropdownStyle = {
+    backgroundColor: "#F0F0F0",
+    color: "black",
+    border: "none",
+    borderRadius: "20px",
+    padding: "0.7rem",
+  };
+
   const handleClick = () => {
     logout();
   };
+
+  const adminNavLinks = [
+    { text: "Announcements", href: "/announcements" },
+    { text: "Employers", href: "/activeEmp" },
+    { text: "Job Sectors", href: "/jobSectors" },
+    { text: "Requests", href: "/pendingEmpReq" },
+  ];
+
+  const studentNavLinks = [
+    { text: "Announcements", href: "/announcements" },
+    { text: "Jobs", href: "/joblistings" },
+    { text: "Success Stories", href: "/mainStoryPage" },
+    { text: "Contact Us", href: "/contactUs" },
+    { text: "FAQ", href: "/faq" },
+  ];
+
+  const employerNavLinks = [
+    { text: "Create Job Post", href: "/CreateJobPost" },
+  ];
+
+  const userType = user ? user.userType : null;
+  let navLinks = [];
+
+  if (userType === "admin") {
+    navLinks = adminNavLinks;
+  } else if (userType === "student") {
+    navLinks = studentNavLinks;
+  } else if (userType === "employer") {
+    navLinks = [...studentNavLinks, ...employerNavLinks];
+  }
 
   return (
     <div className="navBarDiv">
@@ -40,21 +80,38 @@ function NavigationBar() {
                 <Nav.Link href="/" className="navigationBar">
                   Home
                 </Nav.Link>
-                <Nav.Link href="/joblistings" className="navigationBar">
-                  Job Listings
-                </Nav.Link>
-                <Nav.Link href="/contactUs" className="navigationBar">
-                  Contact Us
-                </Nav.Link>
-                <Nav.Link href="/faq" className="navigationBar">
-                  FAQ
-                </Nav.Link>
-                <Nav.Link href="/mainStoryPage" className="navigationBar">
-                  Success Stories
-                </Nav.Link>
-                <Nav.Link href="/savedJobs" className="navigationBar">
-                  Saved Jobs
-                </Nav.Link>
+                {navLinks.map((link) => (
+                  <Nav.Link
+                    key={link.href}
+                    href={link.href}
+                    className="navigationBar"
+                  >
+                    {link.text}
+                  </Nav.Link>
+                ))}
+                {user !== null && user.userType === "student" && (
+                  <Navbar.Text>
+                    <Dropdown className="text-start">
+                      <Dropdown.Toggle
+                        style={{
+                          backgroundColor: "inherit",
+                          border: "none",
+                          padding: "0",
+                        }}
+                      >
+                        Jobs
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu style={dropdownStyle}>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/jobListings">All Jobs</a>
+                        </Dropdown.Item>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/appliedJobs">Applied Jobs</a>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Navbar.Text>
+                )}
               </Nav>
               <Nav>
                 {!user && (

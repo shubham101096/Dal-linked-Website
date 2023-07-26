@@ -1,9 +1,15 @@
+require("dotenv").config();
+cors = require("cors");
+
+var createError = require("http-errors");
 var express = require("express");
+var path = require("path");
+var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-const cors = require("cors");
+// var indexRouter = require('./api/routes/index');
+
 var app = express();
-require("dotenv").config();
 
 const jobsRouter = require("./api/routes/jobs");
 const announcementsRouter = require("./api/routes/announcements");
@@ -15,12 +21,15 @@ const adminRegRouter = require("./api/routes/adminReg");
 const employerRegRouter = require("./api/routes/employerReg");
 const userRoutes = require("./api/routes/userAuth");
 const savedJobsRouter = require("./api/routes/savedJobs");
+const appliedJobsRouter = require("./api/routes/appliedJobs");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 app.use(cors());
 
+// app.use('/', indexRouter);
+app.use("/appliedJobs", appliedJobsRouter);
 app.use("/jobs", jobsRouter);
 app.use("/successStory", successStoryRouter);
 app.use("/contactUs", contactUsRouter);
