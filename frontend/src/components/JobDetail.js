@@ -15,7 +15,7 @@ function JobDetail(props) {
     const { user } = useAuthContext();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     // const location = useLocation();
-    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs } = props;
+    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage } = props;
     const styleProp = isMobile ? props.styleProp : {};
     const closeJobDetail = isMobile && props.closeJobDetail;
     const [isLoading, setIsLoading] = useState(false);
@@ -166,6 +166,12 @@ function JobDetail(props) {
                                 </div>
                             </div>
                         )
+                    }
+                    {
+                        (isEmployerPage && !isMobile) &&
+                        <div className="save-badge" onClick={handleCloseJobDetail}>
+                            <FontAwesomeIcon icon={faTimes} style={{ margin: "auto", fontSize: "20px" }} />
+                        </div>
                     }
                 </div>
                 <div className="row mx-md-6 px-md-5 mx-sm-5">
