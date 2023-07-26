@@ -16,6 +16,7 @@ function JobDetail(props) {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     // const location = useLocation();
     const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage } = props;
+    console.log(isEmployerPage);
     const styleProp = isMobile ? props.styleProp : {};
     const closeJobDetail = isMobile && props.closeJobDetail;
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,6 @@ function JobDetail(props) {
             "job": job
         }
         applyJob(appliedJob);
-        toast.success("You have successfully applied");
     }
 
     const handleSave = () => {
@@ -115,62 +115,71 @@ function JobDetail(props) {
                             <FontAwesomeIcon icon={faTimes} style={{ margin: "auto", fontSize: "20px" }} />
                         </div>
                     }
-                    {isLoading ?
+                    {
+                        !isEmployerPage &&
                         (
-                            <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                                <Spinner />
-                            </div>
-                        )
-                        :
-                        (
-                            isApplied ?
-                                <div className="col-6 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                                    <div className="applied-badge">
-                                        <p className="my-auto">
-                                            Applied
-                                        </p>
+                            isLoading ?
+                                (
+                                    <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                        <Spinner />
                                     </div>
-                                </div>
+                                )
                                 :
-                                <div onClick={handleApply} className="col-6 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                                    <div className="blue-badge">
-                                        <p className="my-auto">
-                                            Apply
-                                        </p>
-                                    </div>
-                                </div>
+                                (
+                                    isApplied ?
+                                        <div className="col-6 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                            <div className="applied-badge">
+                                                <p className="my-auto">
+                                                    Applied
+                                                </p>
+                                            </div>
+                                        </div>
+                                        :
+                                        <div onClick={handleApply} className="col-6 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                            <div className="blue-badge">
+                                                <p className="my-auto">
+                                                    Apply
+                                                </p>
+                                            </div>
+                                        </div>
+                                )
                         )
                     }
                     {
-                        isLoading ? 
+                        !isEmployerPage &&
                         (
-                            <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                                <Spinner />
-                            </div>
-                        )
-                        :
-                        (
-                            isSaved
-                            ?
-                            <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                                <div className="save-badge">
-                                    {/* https://icons8.com/icons/set/bookmark */}
-                                    <FontAwesomeIcon icon={faBookmark} style={{ margin: "auto", fontSize: "20px" }} />
-                                </div>
-                            </div>
-                            :
-                            <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
-                                <div className="save-badge">
-                                    {/* https://icons8.com/icons/set/bookmark */}
-                                    <FontAwesomeIcon icon={faBookmarkBordered} style={{ margin: "auto", fontSize: "20px" }} />
-                                </div>
-                            </div>
+                            isLoading ?
+                                (
+                                    <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                        <Spinner />
+                                    </div>
+                                )
+                                :
+                                (
+                                    isSaved
+                                        ?
+                                        <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                            <div className="save-badge">
+                                                {/* https://icons8.com/icons/set/bookmark */}
+                                                <FontAwesomeIcon icon={faBookmark} style={{ margin: "auto", fontSize: "20px" }} />
+                                            </div>
+                                        </div>
+                                        :
+                                        <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                                            <div className="save-badge">
+                                                {/* https://icons8.com/icons/set/bookmark */}
+                                                <FontAwesomeIcon icon={faBookmarkBordered} style={{ margin: "auto", fontSize: "20px" }} />
+                                            </div>
+                                        </div>
+                                )
                         )
                     }
                     {
                         (isEmployerPage && !isMobile) &&
-                        <div className="save-badge" onClick={handleCloseJobDetail}>
-                            <FontAwesomeIcon icon={faTimes} style={{ margin: "auto", fontSize: "20px" }} />
+                        <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                            <div className="save-badge" onClick={handleCloseJobDetail}>
+                                <FontAwesomeIcon icon={faTimes} style={{ margin: "auto", fontSize: "20px" }} />
+                            </div>
                         </div>
                     }
                 </div>

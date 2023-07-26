@@ -440,7 +440,7 @@ function JobListingsPage() {
               ?
               (
                 <div className="constainer vh-100">
-                  <JobDetail styleProp={{ position: "static", overflow: "visible" }} job={selectedJob} isApplied={isApplied} isSaved={isSaved} addToAppliedJobs={addToAppliedJobs} addToSavedJobs={addToSavedJobs} closeJobDetail={closeJobdetailForMobile} />
+                  <JobDetail styleProp={{ position: "static", overflow: "visible" }} job={selectedJob} isApplied={isApplied} isSaved={isSaved} addToAppliedJobs={addToAppliedJobs} addToSavedJobs={addToSavedJobs} closeJobDetail={closeJobdetailForMobile} isEmployerPage={false} />
                 </div>
               )
               :
@@ -464,7 +464,7 @@ function JobListingsPage() {
           {(!isMobile && jobList.length !== 0 && Object.keys(selectedJob).length !== 0 && (selectedFilter !== "" ? filteredJobList.length !== 0 : true))
             &&
             <div className="col-7 col-xl-6 col-lg-6 col-md-6">
-              <JobDetail job={selectedJob} isApplied={isApplied} isSaved={isSaved} addToAppliedJobs={addToAppliedJobs} addToSavedJobs={addToSavedJobs} />
+              <JobDetail job={selectedJob} isApplied={isApplied} isSaved={isSaved} addToAppliedJobs={addToAppliedJobs} addToSavedJobs={addToSavedJobs} isEmployerPage={false} />
             </div>
           }
         </div>
