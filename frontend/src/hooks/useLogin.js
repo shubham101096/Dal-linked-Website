@@ -16,16 +16,17 @@ export const useLogin = () => {
         };
 
         var userLoginURL;
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
         switch(userType) {
             case 'student':
-                userLoginURL = 'http://localhost:4001/user/loginStudent';
+                userLoginURL = `${backendUrl}/user/loginStudent`;
                 break;
             case 'employer':
-                userLoginURL = 'http://localhost:4001/user/loginEmployer';
+                userLoginURL = `${backendUrl}/user/loginEmployer`;
                 break;
             case 'admin':
-                userLoginURL = 'http://localhost:4001/user/loginAdmin';
+                userLoginURL = `${backendUrl}/user/loginAdmin`;
                 break;
             default:
                 break;

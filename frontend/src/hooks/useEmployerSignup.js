@@ -21,13 +21,14 @@ export const useEmployerSignup = () => {
         formData.append('websiteURL', websiteURL);
         formData.append('companyLogo', companyLogo);
 
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
         try {
-            const response = await axios.post('http://localhost:4001/user/registerEmployer', formData, {
+            const response = await axios.post(`${backendUrl}/user/registerEmployer`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
             setSuccess(true);
             setIsLoading(false);
         } catch (error) {

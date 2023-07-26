@@ -18,7 +18,9 @@ export const useStudentSignup = () => {
             password: password
         };
 
-        axios.post('http://localhost:4001/user/registerStudent', requestData)
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+        axios.post(`${backendUrl}/user/registerStudent`, requestData)
             .then((response) => {
                 console.log('success registering student')
                 setSuccess(true)

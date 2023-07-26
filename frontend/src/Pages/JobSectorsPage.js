@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ListGroup, Button, Col, Row, Form, Container, Modal, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import '../styles/JobSectors.css'
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function JobSectorsPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,17 +15,18 @@ function JobSectorsPage() {
   const [editedSectorName, setEditedSectorName] = useState('');
   const [jobSectors, setJobSectors] = useState([]);
   const [error, setError] = useState('');
+  const { user } = useAuthContext();
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const jobSectorsUrl = `${backendUrl}/jobSectors`;
 
-  useEffect(() => {
-    fetchJobSectors();
-  }, []);
-
-  const fetchJobSectors = async () => {
+  const fetchJobSectors = async (userToken) => {
     try {
-      const response = await axios.get(jobSectorsUrl);
+      const response = await axios.get(jobSectorsUrl, {
+        headers: {
+            Authorization: "Bearer " + userToken
+        }
+        });
       setJobSectors(response.data);
     } catch (error) {
       console.error('Error fetching job sectors:', error);
@@ -35,7 +37,7 @@ function JobSectorsPage() {
     try {
       const response = await axios.delete(`${jobSectorsUrl}/${_id}`);
       if (response.status === 200) {
-        fetchJobSectors();
+        fetchJobSectors(user.token);
         setShowDeleteModal(false);
       } else {
         console.error('Error deleting sector:', response.status);
@@ -52,7 +54,7 @@ function JobSectorsPage() {
       });
 
       if (response.status === 200) {
-        fetchJobSectors();
+        fetchJobSectors(user.token);
         setShowEditModal(false);
         setSectorToEdit(null);
         setEditedSectorName('');
@@ -79,7 +81,7 @@ function JobSectorsPage() {
         name,
       });
       if (response.status === 200) {
-        fetchJobSectors();
+        fetchJobSectors(user.token);
         setShowAddModal(false);
         setNewSector('');
         setError('');
@@ -140,9 +142,20 @@ function JobSectorsPage() {
     setError('');
   };
 
+  useEffect(() => {
+    if (user) {
+      fetchJobSectors(user.token);
+
+    }
+  }, [user]);
+
+  if (!user) {
+      return <p>Please signin to access this page.</p>;
+  }
+
   return (
-    <Container className="mb-3">
-      <h1 className="text-center">Job Sectors</h1>
+    <Container className="mb-3 mt-3">
+      <h3 className="text-center">Job Sectors</h3>
       <Row className="justify-content-center">
         <Col md={8} lg={6}>
           <Form className="mb-3">

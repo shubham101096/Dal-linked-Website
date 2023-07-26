@@ -13,4 +13,8 @@ router.post('/register', employerController.registerEmployer);
 
 router.delete('/email/:email', employerController.deleteEmployerByEmail);
 
+router.get('/status/:status', employerController.getEmployerByStatus);
+
+router.put('/status/:id', employerController.updateEmployerStatus);
+
 module.exports = router;

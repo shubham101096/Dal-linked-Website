@@ -4,7 +4,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const fetchDataFromApi = async (userToken) => {
     try {
-        const response = await axios.get('http://localhost:4001/studentReg', {
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
+        const response = await axios.get(`${backendUrl}/studentReg`, {
             headers: {
                 Authorization: "Bearer " + userToken
             }
