@@ -21,6 +21,7 @@ import LogInAdmin from "./Pages/Login/AdminLogin";
 
 import TestStudent from "./Pages/testStudentOnlyPage";
 import LoginSignUpPage from "./Pages/LoginSignUpPage";
+import StudentProfileDetails from "./Pages/StudentProfileDetailsPage";
 
 function App() {
     const { user } = useAuthContext()
@@ -55,6 +56,8 @@ function App() {
 
             {/* TEST ROUTES */}
             <Route path="/test-student" element={user ? <TestStudent /> : <Navigate to="/" />} />
+
+            <Route path="/student-profile" element={<StudentProfileDetails />} />
 
         </Routes>
       </Router>
