@@ -95,15 +95,18 @@ const updateStudentProfilePicture = async (req, res) => {
     const studentId = req.user._id; // Use the authenticated user's _id
     const profileImage = req.file;
 
+    var imageURL;
+
     try {
         // Handle profile image upload to S3
         if (profileImage) {
             const profileImageUrl = await uploadFileToS3(profileImage.buffer, studentId + "-profile-picture");
             // Update the profileImage field in the student profile
             await StudentProfile.findOneAndUpdate({ studentId }, { profileImage: profileImageUrl });
+            imageURL = profileImageUrl;
         }
 
-        res.json({ message: "Profile picture updated successfully" });
+        res.json({ profileImageUrl: imageURL });
     } catch (error) {
         console.log("Error updating profile picture", error);
         res.status(500).json({ error: "Internal server error" });

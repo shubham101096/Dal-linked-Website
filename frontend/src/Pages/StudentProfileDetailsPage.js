@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useLayoutEffect} from 'react';
-import { Container, Row, Col, Form, Button, Modal, Card } from 'react-bootstrap';
+import {Container, Row, Col, Form, Button, Modal, Card, Alert} from 'react-bootstrap';
 import placeholderImage from '../images/user-placeholder.jpg';
 import axios from 'axios';
 import '../styles/StudenProfile.css';
@@ -11,6 +11,8 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const StudentProfileDetails = () => {
     const [profileImage, setProfileImage] = useState(null);
+    const [previewProfileImage, setPreviewProfileImage] = useState(null);
+    const [isProfileImageChanged, setIsProfileImageChanged] = useState(false);
     const [resume, setResume] = useState(null);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -23,12 +25,15 @@ const StudentProfileDetails = () => {
     const [about, setAbout] = useState('');
     const [jobSectors, setJobSectors] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const { user } = useAuthContext();
 
     const handleProfilePictureChange = (event) => {
         const file = event.target.files[0];
         setProfileImage(file);
+        setPreviewProfileImage(URL.createObjectURL(file));
+        setIsProfileImageChanged(true);
     };
 
     const handleResumeFileChange = (event) => {
@@ -36,11 +41,10 @@ const StudentProfileDetails = () => {
         setResume(file);
     };
 
-
-    // Fetch data from MongoDB collection on initial component load
+    // on initial component load
     useLayoutEffect(() => {
         if(user) {
-            // Function to fetch user profile data from the backend (replace API_URL with your API endpoint)
+            // get user profile data
             const fetchUserProfile = async () => {
                 try {
                     const response = await axios.get(`${backendUrl}/studentProfile/`, {
@@ -48,11 +52,10 @@ const StudentProfileDetails = () => {
                             Authorization: "Bearer " + user.token
                         }
                     });
-                    const userData = response.data; // Assuming the API response is an object with user data
+                    const userData = response.data;
 
-                    // Update state variables with the fetched data
                     setProfileImage(userData.profileImage || placeholderImage);
-                    setResume(null); // Assuming the resume file URL will not be fetched here
+                    setResume(null);
                     setFirstName(userData.firstName);
                     setLastName(userData.lastName);
                     setContact(!userData.contact ? '' : userData.contact);
@@ -62,6 +65,7 @@ const StudentProfileDetails = () => {
                     setAbout(!userData.about ? '' : userData.about);
                     setJobSector(!userData.jobSector ? '' : userData.jobSector);
                     setWorkStyle(!userData.workStyle ? '' : userData.workStyle);
+
                 } catch (error) {
                     console.error('Error fetching user profile:', error);
                 }
@@ -73,7 +77,7 @@ const StudentProfileDetails = () => {
                             Authorization: "Bearer " + user.token
                         }
                     });
-                    const sectors = response.data; // Assuming the API response is an array of job sectors
+                    const sectors = response.data;
                     setJobSectors(sectors);
                 } catch (error) {
                     console.error('Error fetching job sectors:', error);
@@ -108,18 +112,29 @@ const StudentProfileDetails = () => {
         };
         const jsonData = { ...data };
         await saveProfile(jsonData);
+
+        if(isProfileImageChanged){
+            await saveProfilePicture(profileImage);
+            setIsProfileImageChanged(false);
+        }
         await saveProfilePicture(profileImage);
         await saveResume(resume);
+
+        setShowSuccessAlert(true);
+        setTimeout(() => {
+            setShowSuccessAlert(false);
+        }, 3000);
     };
 
     const saveProfile = async (jsonData) => {
         try {
-            const response = await axios.put(`${backendUrl}/studentProfile/update-details`, jsonData, {
+            const response = await axios.put(`${backendUrl}/studentProfile/update-details`,
+                jsonData, {
                 headers: {
                     Authorization: "Bearer " + user.token,
                 },
             });
-            console.log("Profile updated successfully:", response.data);
+            console.log("Profile updated successfully");
         } catch (error) {
             console.error("Error updating user profile:", error);
         }
@@ -129,13 +144,14 @@ const StudentProfileDetails = () => {
             const formData = new FormData();
             formData.append('profilePicture', profilePicture);
             try {
-                const response = await axios.put(`${backendUrl}/studentProfile/profile-picture`, formData, {
+                const response = await axios.put(`${backendUrl}/studentProfile/profile-picture`,
+                    formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: "Bearer " + user.token,
                     },
                 });
-                console.log("Profile picture updated successfully:", response.data);
+                setProfileImage(response.profileImageUrl)
             } catch (error) {
                 console.error("Error updating profile picture:", error);
             }
@@ -147,13 +163,13 @@ const StudentProfileDetails = () => {
             const formData = new FormData();
             formData.append('resume', resume);
             try {
-                const response = await axios.put(`${backendUrl}/studentProfile/resume`, formData, {
+                const response = await axios.put(`${backendUrl}/studentProfile/resume`,
+                    formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: "Bearer " + user.token,
                     },
                 });
-                console.log("Resume updated successfully:", response.data);
             } catch (error) {
                 console.error("Error updating resume:", error);
             }
@@ -162,21 +178,26 @@ const StudentProfileDetails = () => {
 
     return (
         <Container fluid className="mt-5 py-3">
+            {showSuccessAlert && (
+                <Alert variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
+                    Changes saved successfully!
+                </Alert>
+            )}
             <div className="my-3">
                 <Card bg="light" className="p-4 rounded profile-card" style={{ minHeight: '700px' }}>
                     <Row>
                         <Col md={4}>
                             <div className="text-center">
-                                {profileImage ? (
+                                {previewProfileImage ? (
                                     <img
-                                        src={profileImage}
+                                        src={previewProfileImage}
                                         alt="Profile"
                                         className="img-fluid mt-3 rounded-circle"
                                         style={{ maxHeight: '200px', maxWidth: '200px' }}
                                     />
                                 ) : (
                                     <img
-                                        src={placeholderImage}
+                                        src={profileImage || placeholderImage}
                                         alt="Placeholder"
                                         className="img-fluid mt-3 rounded-circle"
                                         style={{ maxHeight: '200px', maxWidth: '200px' }}
@@ -193,7 +214,8 @@ const StudentProfileDetails = () => {
                                 </Form.Group>
                                 <p></p>
                                 <Form.Group>
-                                    <Button variant="primary" type="submit" className="mt-3" onClick={handleSaveChanges}>
+                                    <Button variant="primary" type="submit" className="mt-3"
+                                            onClick={handleSaveChanges}>
                                         Save Changes
                                     </Button>
                                 </Form.Group>
@@ -264,7 +286,8 @@ const StudentProfileDetails = () => {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Job Sector</Form.Label>
-                                    <Form.Control as="select" value={jobSector} onChange={(e) => setJobSector(e.target.value)}>
+                                    <Form.Control as="select" value={jobSector} onChange={(e) =>
+                                        setJobSector(e.target.value)}>
                                         <option value="">Select Job Sector</option>
                                         {jobSectors.map((sector) => (
                                             <option key={sector._id} value={sector.name}>
