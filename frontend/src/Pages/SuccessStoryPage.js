@@ -9,7 +9,7 @@ function SuccessStoryPage(props) {
   const [jobSector, setJobSector] = useState("All Sectors");
   const [jobSectors, setJobSectors] = useState([]);
   const [filteredStories, setFilteredStories] = useState([]);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     if (props.stories.length > 0) {
       const jobsarray = ["All Sectors"];
@@ -70,11 +70,11 @@ function SuccessStoryPage(props) {
 
   const deleteData = async (id) => {
     Swal.fire("Deleted!", "Your post has been deleted.", "success");
-    await axios.delete(`${backendUrl}/successStory/${id}`);
+    await axios.delete(`http://localhost:3003/successStory/${id}`);
     handleStoryDeleteChange();
   };
   const handleStoryDeleteChange = () => {
-    axios.get(`${backendUrl}/successStory`).then((res) => {
+    axios.get("http://localhost:3003/successStory").then((res) => {
       setFilteredStories(res.data.data);
     });
   };

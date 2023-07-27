@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import "../styles/ContactUs.css";
-import Footer from "./../components/Footer";
+
 function ContactUs() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,39 +22,35 @@ function ContactUs() {
     setIsLoading(true);
 
     axios
-      .post("https://backend-5x1b.onrender.com/contactUs", formData)
-      .then((response) => {
-        console.log("Email sent:", response.data);
-        setIsSubmitted(true);
+        .post("https://backend-5x1b.onrender.com/contactUs", formData)
+        .then((response) => {
+          console.log("Email sent:", response.data);
+          setIsSubmitted(true);
 
-        setName("");
-        setEmail("");
-        setMessage("");
+          setName("");
+          setEmail("");
+          setMessage("");
 
-        // Hide success alert after 10 seconds
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 10000);
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+          // Hide success alert after 10 seconds
+          setTimeout(() => {
+            setIsSubmitted(false);
+          }, 10000);
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
   };
 
   return (
-    <>
       <div className="contact-us-container">
         {isSubmitted && (
-          <div className="alert alert-success" role="alert">
-            <h4 className="alert-heading">Success!</h4>
-            <p>
-              Your message has been sent! Our team will be in contact with you
-              soon.
-            </p>
-          </div>
+            <div className="alert alert-success" role="alert">
+              <h4 className="alert-heading">Success!</h4>
+              <p>Your message has been sent! Our team will be in contact with you soon.</p>
+            </div>
         )}
         <div className="container my-5 mx-auto">
           <div className="d-flex justify-content-center">
@@ -74,11 +70,11 @@ function ContactUs() {
                         Name: <span style={{ color: "red" }}>*</span>
                       </Form.Label>
                       <Form.Control
-                        type="text"
-                        value={name}
-                        placeholder="John Doe"
-                        onChange={(e) => setName(e.target.value)}
-                        required
+                          type="text"
+                          value={name}
+                          placeholder="John Doe"
+                          onChange={(e) => setName(e.target.value)}
+                          required
                       />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="emailInput">
@@ -86,11 +82,11 @@ function ContactUs() {
                         Email address: <span style={{ color: "red" }}>*</span>
                       </Form.Label>
                       <Form.Control
-                        type="email"
-                        value={email}
-                        placeholder="john.doe@example.com"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
+                          type="email"
+                          value={email}
+                          placeholder="john.doe@example.com"
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
                       />
                       <div className="d-flex justify-content-left">
                         <small id="emailHelp" className="form-text text-muted">
@@ -103,35 +99,31 @@ function ContactUs() {
                         Message: <span style={{ color: "red" }}>*</span>
                       </Form.Label>
                       <Form.Control
-                        as="textarea"
-                        value={message}
-                        rows={3}
-                        placeholder="Enter your message here"
-                        onChange={(e) => setMessage(e.target.value)}
-                        required
+                          as="textarea"
+                          value={message}
+                          rows={3}
+                          placeholder="Enter your message here"
+                          onChange={(e) => setMessage(e.target.value)}
+                          required
                       />
                     </Form.Group>
                     <div className="d-flex justify-content-center">
                       <Button
-                        type="submit"
-                        style={{
-                          backgroundColor: "#2c74b3",
-                          color: "white",
-                          border: "none",
-                        }}
-                        disabled={isLoading}
+                          type="submit"
+                          style={{
+                            backgroundColor: "#2c74b3",
+                            color: "white",
+                            border: "none",
+                          }}
+                          disabled={isLoading}
                       >
                         {isLoading ? (
-                          <>
-                            <Spinner
-                              animation="border"
-                              size="sm"
-                              role="status"
-                            />{" "}
-                            Submitting...
-                          </>
+                            <>
+                              <Spinner animation="border" size="sm" role="status" />{" "}
+                              Submitting...
+                            </>
                         ) : (
-                          "Submit"
+                            "Submit"
                         )}
                       </Button>{" "}
                     </div>
@@ -142,8 +134,6 @@ function ContactUs() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
   );
 }
 

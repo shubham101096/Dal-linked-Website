@@ -24,8 +24,6 @@ function NavigationBar() {
 
   const handleClick = () => {
     logout();
-
-    //reroute to logout
   };
 
   const adminNavLinks = [
@@ -41,12 +39,12 @@ function NavigationBar() {
     { text: "Success Stories", href: "/mainStoryPage" },
     { text: "Contact Us", href: "/contactUs" },
     { text: "FAQ", href: "/faq" },
-    { text: "Profile", href: "/student-profile" },
+    { text: "Profile", href: "/student-profile"}
   ];
 
   const employerNavLinks = [
     { text: "Create Job Post", href: "/CreateJobPost" },
-    { text: "Employer", href: "/EmployerPage" },
+    { text: "Employer Page", href: "/EmployerPage" },
   ];
 
   const userType = user ? user.userType : null;
@@ -64,11 +62,7 @@ function NavigationBar() {
     <div className="navBarDiv">
       <Navbar key="md" className="navigationBar" expand="md">
         <Container fluid>
-          <Navbar.Brand
-            href="/"
-            className="navigationBar"
-            style={{ color: "white" }}
-          >
+          <Navbar.Brand href="/" className="navigationBar">
             Dal Linked
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
@@ -78,28 +72,20 @@ function NavigationBar() {
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title
-                id={`offcanvasNavbarLabel-expand-md`}
-                style={{ color: "white" }}
-              >
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
                 Options
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-center flex-grow-1 pe-3">
-                {/* <Nav.Link
-                  href="/"
-                  className="navigationBar"
-                  style={{ color: "white" }}
-                >
+                <Nav.Link href="/" className="navigationBar">
                   Home
-                </Nav.Link> */}
+                </Nav.Link>
                 {navLinks.map((link) => (
                   <Nav.Link
                     key={link.href}
                     href={link.href}
                     className="navigationBar"
-                    style={{ color: "white" }}
                   >
                     {link.text}
                   </Nav.Link>
@@ -117,11 +103,7 @@ function NavigationBar() {
                         Jobs
                       </Dropdown.Toggle>
                       <Dropdown.Menu style={dropdownStyle}>
-                        <Dropdown.Item
-                          as="button"
-                          href="/jobListings"
-                          className="filter-dropdown"
-                        >
+                        <Dropdown.Item as="button" href="/jobListings" className="filter-dropdown">
                           <a href="/jobListings">All Jobs</a>
                         </Dropdown.Item>
                         <Dropdown.Item as="button" className="filter-dropdown">
@@ -137,20 +119,12 @@ function NavigationBar() {
               </Nav>
               <Nav>
                 {!user && (
-                  <Nav.Link
-                    href="/login-signup"
-                    className="navigationBar"
-                    style={{ color: "white" }}
-                  >
+                  <Nav.Link href="/login-signup" className="navigationBar">
                     SignIn / SignUp
                   </Nav.Link>
                 )}
                 {user && (
-                  <Nav.Link
-                    onClick={handleClick}
-                    className="navigationBar"
-                    style={{ color: "white" }}
-                  >
+                  <Nav.Link onClick={handleClick} className="navigationBar">
                     Logout
                   </Nav.Link>
                 )}

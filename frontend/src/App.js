@@ -2,7 +2,7 @@ import "./styles/App.css";
 //import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage/LandingPage.js";
 import NavigationBar from "./components/NavigationBar.js";
-
+import Footer from "./components/Footer.js";
 import {
   BrowserRouter as Router,
   Routes,
@@ -70,7 +70,7 @@ function App() {
           <Route
             path="/login-signup"
             element={
-              !user ? <LoginSignUpPage /> : <Navigate to="/" />
+              !user ? <LoginSignUpPage /> : <Navigate to="/test-student" />
             }
           />
           {/* REGISTRATION ROUTES */}
@@ -80,7 +80,7 @@ function App() {
               !user ? (
                 <RegistrationFormStudent />
               ) : (
-                <Navigate to="/" />
+                <Navigate to="/test-student" />
               )
             }
           />
@@ -92,7 +92,7 @@ function App() {
           {/* LOGIN ROUTES */}
           <Route
             path="/login-student"
-            element={!user ? <LogInStudent /> : <Navigate to="/" />}
+            element={!user ? <LogInStudent /> : <Navigate to="/test-student" />}
           />
           <Route
             path="/login-employer"
@@ -110,6 +110,7 @@ function App() {
           />
         </Routes>
       </Router>
+      <Footer />
     </div>
   );
 }

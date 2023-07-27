@@ -49,11 +49,11 @@
   justify-content: end;
 }
 .storyCard {
-  background-color: rgb(20, 51, 87);
+  background-color: silver;
   width: 80%;
-  border-radius: 1em;
+  border-radius: 2em;
   margin: 1em auto;
-  color: white;
+  color: black;
 }
 
 /* Mobile styles - use media queries for smaller screens */

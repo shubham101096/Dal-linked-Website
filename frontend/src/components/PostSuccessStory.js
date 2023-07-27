@@ -30,7 +30,6 @@ function PostSuccessStory(props) {
   const [jobSectorsPost, setJobSectorsPost] = useState([]);
   const [profileImage, setProfileImage] = useState([]);
   const { user } = useAuthContext();
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const handleJobSectorChange = (eventKey) => {
     console.log(eventKey);
     const selectedSector = jobSectorsPost.find((jsp) => jsp._id === eventKey);
@@ -54,7 +53,7 @@ function PostSuccessStory(props) {
 
   useEffect(() => {
     axios
-      .get(`${backendUrl}/jobSectors`, {
+      .get("http://localhost:3003/jobSectors", {
         headers: {
           Authorization: "Bearer " + user.userToken,
         },
@@ -81,7 +80,7 @@ function PostSuccessStory(props) {
       };
       console.log(newSuccessStory);
       await axios
-        .post(`${backendUrl}/successStory`, newSuccessStory, {
+        .post("http://localhost:3003/successStory", newSuccessStory, {
           headers: {
             Authorization: "Bearer " + user.userToken,
           },

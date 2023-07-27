@@ -230,7 +230,7 @@ function JobListingsPage() {
   const fetchJobList = () => {
     setIsLoading(true);
     axios
-      .get(`${backendUrl}/jobs/`, {
+      .get("http://localhost:3003/jobs/", {
         headers: {
             Authorization: "Bearer " + user.token
         }
@@ -250,7 +250,7 @@ function JobListingsPage() {
     setIsLoading(true);
     // const studentId = "ab12"
     axios
-      .get(`${backendUrl}/appliedJobs/getByStudent`, {
+      .get(`http://localhost:3003/appliedJobs/getByStudent`, {
         headers: {
             Authorization: "Bearer " + user.token
         }
@@ -270,7 +270,7 @@ function JobListingsPage() {
     setIsLoading(true);
     // const studentId = "ab12"
     axios
-      .get(`${backendUrl}/saveJobs/getByStudent/`, {
+      .get(`http://localhost:3003/saveJobs/getByStudent/`, {
         headers: {
             Authorization: "Bearer " + user.token
         }
@@ -289,7 +289,7 @@ function JobListingsPage() {
   const fetchJobSectors = () => {
     setIsLoading(true);
     axios
-      .get(`${backendUrl}/jobSectors/`, {
+      .get("http://localhost:3003/jobSectors/", {
         headers: {
             Authorization: "Bearer " + user.token
         }
