@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Login/AdminLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Login/AdminLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Login/EmployerLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Login/EmployerLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Login/StudentLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Login/StudentLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/LoginSignUpPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/LoginSignUpPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Registration/RegistrationEmployer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Registration/RegistrationEmployer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Registration/RegistrationStudent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Registration/RegistrationStudent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/StudentProfileDetailsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/StudentProfileDetailsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AuthContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useAuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuthContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useEmployerSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useEmployerSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useLogout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useLogout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useStudentSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useStudentSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/StudenProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/StudenProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/UserAuth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/UserAuth.css" afterDir="false" />
-    </list>
+    <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

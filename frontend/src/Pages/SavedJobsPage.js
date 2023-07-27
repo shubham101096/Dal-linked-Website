@@ -10,6 +10,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 function SavedJobsPage() {
     const { user }= useAuthContext();
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const [savedJobList, setAppliedJobList] = useState([]);
     const [selectedJob, setSelectedJob] = useState({});
@@ -19,7 +20,7 @@ function SavedJobsPage() {
     const fetchSavedJobList = () => {
         setIsLoading(true);
         axios
-            .get(`http://localhost:3003/saveJobs/getByStudent/`, {
+            .get(`${backendUrl}/saveJobs/getByStudent/`, {
                 headers: {
                     Authorization: "Bearer " + user.token
                 }
