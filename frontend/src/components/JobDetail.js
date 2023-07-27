@@ -18,7 +18,7 @@ function JobDetail(props) {
     const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage } = props;
     console.log(isEmployerPage);
     const styleProp = isMobile ? props.styleProp : {};
-    const closeJobDetail = (isMobile || isEmployerPage) && props.closeJobDetail;
+    const closeJobDetail = isMobile && props.closeJobDetail;
     const [isLoading, setIsLoading] = useState(false);
 
     const handleApply = () => {
@@ -176,10 +176,11 @@ function JobDetail(props) {
                     }
                     {
                         (isEmployerPage && !isMobile) &&
-                        
+                        <div onClick={handleSave} className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
                             <div className="save-badge" onClick={handleCloseJobDetail}>
                                 <FontAwesomeIcon icon={faTimes} style={{ margin: "auto", fontSize: "20px" }} />
                             </div>
+                        </div>
                     }
                 </div>
                 <div className="row mx-md-6 px-md-5 mx-sm-5">
