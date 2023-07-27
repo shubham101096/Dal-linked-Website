@@ -2,6 +2,7 @@
 
 // Importing necessary libraries and hooks
 
+
 import React, { useState, useEffect, useContext } from 'react';
 
 import DatePicker from 'react-datepicker';
@@ -25,8 +26,10 @@ import axios from 'axios';
 
 // Define the CreateJobPost component
 
-const CreateJobPost = () => {
+
     // Initialize states for various inputs and stages
+
+const CreateJobPost = () => {
 
     const [step, setStep] = useState(1);
 
@@ -328,9 +331,6 @@ const CreateJobPost = () => {
         setStep(1);
 
     };
-
-
-
 
     const renderStepContent = () => {
 

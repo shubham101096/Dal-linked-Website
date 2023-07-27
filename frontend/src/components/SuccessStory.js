@@ -1,3 +1,5 @@
+/* MADE BY PIYUSH AKOLIYA */
+
 import React, { useState, useEffect } from "react";
 import profilePhoto from "./../images/profile.jpg";
 import "./../styles/SuccessStory.css";
@@ -13,6 +15,7 @@ function SuccessStory(props) {
   const [userId, setUserId] = useState(props.studentId);
   const [likesArray, setLikesArray] = useState(props.likes ? props.likes : []);
   const { user } = useAuthContext();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     console.log(likesArray);
@@ -54,7 +57,7 @@ function SuccessStory(props) {
       //get userId from the session
 
       await axios
-        .put("http://localhost:3003/successStory/" + props.id, updatedData, {
+        .put(`${backendUrl}/successStory/` + props.id, updatedData, {
           headers: {
             Authorization: "Bearer " + user.userToken,
           },
@@ -72,15 +75,11 @@ function SuccessStory(props) {
       //get userId from the session
       const id = "";
       await axios
-        .put(
-          "http://localhost:3003/successStory/dislike/" + props.id,
-          updatedData,
-          {
-            headers: {
-              Authorization: "Bearer " + user.userToken,
-            },
-          }
-        )
+        .put(`${backendUrl}/successStory/dislike/` + props.id, updatedData, {
+          headers: {
+            Authorization: "Bearer " + user.userToken,
+          },
+        })
         .then((res) => {
           setLikesArray(res.data.likes);
           setLikeCount(res.data.likes.length);

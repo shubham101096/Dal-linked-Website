@@ -1,3 +1,5 @@
+/* MADE BY PIYUSH AKOLIYA AND ADRIANA SANCHEZ */
+
 import React, { useState } from "react";
 import "../../styles/SuccessStoryComponent.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,22 +12,22 @@ function SuccessStoryComponent() {
   const [stories, useStories] = useState([
     {
       story:
-        "This is one of the best portal. I would like to explain the interview process. The questions were 1. What is the deep and shallow copy? 2. Which is your strong programming language?",
+        "Interview Experience: Encouraging atmosphere, rapport with the interviewer, and well-structured questions. Demonstrated skills and eagerness for the role, left with positive anticipation.",
       user: "John Doe",
     },
     {
       story:
-        "This is one of the best portal. I would like to explain the interview process. The questions were 1. What is the deep and shallow copy? 2. Which is your strong programming language?",
+        "Interview Experience: Challenging technical questions, friendly panel, and interactive coding session. Highlighted problem-solving abilities and domain knowledge, felt confident about the prospects.",
       user: "Jane Doe",
     },
     {
       story:
-        "This is one of the best portal. I would like to explain the interview process. The questions were 1. What is the deep and shallow copy? 2. Which is your strong programming language?",
+        "Interview Encounter: Supportive environment, in-depth behavioral inquiries, and a focus on teamwork. Showcased leadership and adaptability skills, left with excitement for the opportunity.",
       user: "Harsh Shah",
     },
     {
       story:
-        "This is one of the best portal. I would like to explain the interview process. The questions were 1. What is the deep and shallow copy? 2. Which is your strong programming language?",
+        "Interview Event: Engaging conversation, comprehensive assessment, and warm welcome. Effectively presented accomplishments, impressed by values and dynamics. Positive and hopeful outcome.",
       user: "Lallan Chaurasia",
     },
   ]);
@@ -68,9 +70,7 @@ function SuccessStoryComponent() {
           return (
             <SwiperSlide className="storyCard">
               <div>
-                <p className="story">
-                  "{st.story}"<a href="#">...</a>
-                </p>
+                <p className="story">"{st.story}"</p>
                 <p className="person">- {st.user}</p>
               </div>
             </SwiperSlide>

@@ -2,7 +2,7 @@ import "./styles/App.css";
 //import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage/LandingPage.js";
 import NavigationBar from "./components/NavigationBar.js";
-import Footer from "./components/Footer.js";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,7 +20,7 @@ import AppliedJobsPage from "./Pages/AppliedJobsPage";
 import JobSectorsPage from "./Pages/JobSectorsPage";
 import PendingEmpReqPage from "./Pages/PendingEmpReqPage";
 import AnnouncementPage from "./Pages/Announcements";
-import ActiveEmpPage from "./Pages/ActiveEmpPage.js";
+import ActiveEmpPage from "./Pages/ActiveEmpPage";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import RegistrationFormStudent from "./Pages/Registration/RegistrationStudent";
@@ -70,7 +70,7 @@ function App() {
           <Route
             path="/login-signup"
             element={
-              !user ? <LoginSignUpPage /> : <Navigate to="/test-student" />
+              !user ? <LoginSignUpPage /> : <Navigate to="/" />
             }
           />
           {/* REGISTRATION ROUTES */}
@@ -80,7 +80,7 @@ function App() {
               !user ? (
                 <RegistrationFormStudent />
               ) : (
-                <Navigate to="/test-student" />
+                <Navigate to="/" />
               )
             }
           />
@@ -92,7 +92,7 @@ function App() {
           {/* LOGIN ROUTES */}
           <Route
             path="/login-student"
-            element={!user ? <LogInStudent /> : <Navigate to="/test-student" />}
+            element={!user ? <LogInStudent /> : <Navigate to="/" />}
           />
           <Route
             path="/login-employer"
@@ -110,7 +110,6 @@ function App() {
           />
         </Routes>
       </Router>
-      <Footer />
     </div>
   );
 }

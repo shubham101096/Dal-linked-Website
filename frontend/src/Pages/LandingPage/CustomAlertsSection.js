@@ -1,3 +1,5 @@
+/* MADE BY PIYUSH AKOLIYA AND ADRIANA SANCHEZ */
+
 import React from "react";
 import "../../styles/CustomAlertsComponent.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
