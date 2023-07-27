@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  ListGroup,
-  Pagination,
-  Modal,
-  Row,
-  Col,
-  Button,
-  Form,
-  Dropdown,
-} from "react-bootstrap";
+import {Container, ListGroup, Pagination, Modal, Row, Col, Button, Form, Dropdown} from "react-bootstrap";
 import NewAnnouncementForm from "../components/NewAnnouncementForm";
 import AnnouncementsList from "../components/AnnouncementsList";
 import "../styles/Announcements.css";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import Footer from "./../components/Footer";
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
@@ -27,7 +20,6 @@ function AnnouncementPage() {
   const { user } = useAuthContext();
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  // const backendUrl = "";
   const announcementsUrl = `${backendUrl}/announcements`;
 
   const fetchAnnouncements = async (userToken) => {
@@ -52,11 +44,14 @@ function AnnouncementPage() {
         );
         setAnnouncements(updatedAnnouncements);
         setShowDeleteModal(false);
+        toast.success("Announcement deleted successfully.");
       } else {
         console.error("Error deleting announcement:", response.status);
+        toast.error("Error in deleting announcement.");
       }
     } catch (error) {
       console.error("Error deleting announcement:", error);
+      toast.error("Error in deleting announcement.");
     }
   };
 
@@ -85,11 +80,14 @@ function AnnouncementPage() {
       if (response.status === 200) {
         fetchAnnouncements(user.token);
         setShowNewAnnouncementModal(false);
+        toast.success("Announcement posted successfully.");
       } else {
         console.error("Error creating announcement:", response.status);
+        toast.error("Error in posting announcement.");
       }
     } catch (error) {
       console.error("Error creating announcement:", error);
+      toast.error("Error in posting announcement.");
     }
   };
 
@@ -181,16 +179,18 @@ function AnnouncementPage() {
                     <Dropdown.Item eventKey="desc">Latest first</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                <Button
-                  style={{
-                    color: "green",
-                    backgroundColor: "rgba(200, 209, 214, 0.5)",
-                    borderRadius: "25px",
-                  }}
-                  onClick={handleNewAnnouncement}
-                >
-                  New
-                </Button>
+                {user.userType === "admin" && (
+                  <Button
+                    style={{
+                      color: "green",
+                      backgroundColor: "rgba(200, 209, 214, 0.5)",
+                      borderRadius: "25px",
+                    }}
+                    onClick={handleNewAnnouncement}
+                  >
+                    New
+                  </Button>
+                )}
               </ListGroup.Item>
               <AnnouncementsList
                 announcements={currentAnnouncements}
@@ -262,6 +262,7 @@ function AnnouncementPage() {
             <NewAnnouncementForm onSubmit={handleNewAnnouncementSubmit} />
           </Modal.Body>
         </Modal>
+        <ToastContainer />
       </Container>
       <Footer />
     </>
