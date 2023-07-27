@@ -24,6 +24,11 @@ const EmployerPage = () => {
     const [selectedJob, setSelectedJob] = useState(null);
     const [showJobDetail, setShowJobDetail] = useState(false);
 
+    const closeJobDetails = () => { console.log("closeJobDetails called")
+    setShowJobDetail(false);
+    }
+
+
     const handleJob = (job) => {
         setSelectedJob(job);
         setShowJobDetail(true);
@@ -66,7 +71,7 @@ const EmployerPage = () => {
                             <>
                                 <Card.Img
                                     variant="top"
-                                    src={"https://s3.amazonaws.com/www-inside-design/uploads/2019/05/woolmarkimagelogo-1024x576.png" || "default-photo-url"}
+                                    src={employer.companyLogo || "https://s3.amazonaws.com/www-inside-design/uploads/2019/05/woolmarkimagelogo-1024x576.png"}
                                 />
                                 <Card.Body>
                                     <Card.Title style={{ fontSize: '20px', color: '#333' }}>
@@ -110,7 +115,7 @@ const EmployerPage = () => {
                     {showJobDetail ? (
                         <div>
                             <Button variant="primary" onClick={handleBack} className="toggle-button">Back to Job Listings</Button>
-                            <JobDetail job={selectedJob} isEmployerPage={true} />
+                            <JobDetail job={selectedJob} isEmployerPage={true} closeJobDetail={closeJobDetails}/>
                         </div>
                     ) : (
                         <div>
