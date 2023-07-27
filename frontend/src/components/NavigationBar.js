@@ -35,7 +35,6 @@ function NavigationBar() {
 
   const studentNavLinks = [
     { text: "Announcements", href: "/announcements" },
-    { text: "Jobs", href: "/joblistings" },
     { text: "Success Stories", href: "/mainStoryPage" },
     { text: "Contact Us", href: "/contactUs" },
     { text: "FAQ", href: "/faq" },
@@ -98,6 +97,9 @@ function NavigationBar() {
                           backgroundColor: "inherit",
                           border: "none",
                           padding: "0",
+                          marginBottom: "8px",
+                          marginLeft: "5px",
+                          fontWeight: "normal"
                         }}
                       >
                         Jobs
