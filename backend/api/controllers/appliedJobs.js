@@ -1,7 +1,6 @@
 const AppliedJob = require("../models/appliedJobs");
 
 const saveJob = async (req, res) => {
-  console.log(req.user);
   req.body["studentId"] = req.user._id;
   const newSaveJob = new AppliedJob(req.body);
   try {

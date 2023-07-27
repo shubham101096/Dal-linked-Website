@@ -100,7 +100,8 @@ const updateStudentProfilePicture = async (req, res) => {
     try {
         // Handle profile image upload to S3
         if (profileImage) {
-            const profileImageUrl = await uploadFileToS3(profileImage.buffer, studentId + "-profile-picture");
+            const profileImageUrl = await uploadFileToS3(profileImage.buffer, studentId + "-profile-picture",
+                profileImage.buffer.mimeType);
             // Update the profileImage field in the student profile
             await StudentProfile.findOneAndUpdate({ studentId }, { profileImage: profileImageUrl });
             imageURL = profileImageUrl;
@@ -119,7 +120,7 @@ const updateStudentResume = async (req, res) => {
 
     try {
         if (resume) {
-            const resumeUrl = await uploadFileToS3(resume.buffer, studentId + "-resume");
+            const resumeUrl = await uploadFileToS3(resume.buffer, studentId + "-resume", "application/pdf");
             await StudentProfile.findOneAndUpdate({ studentId }, { resume: resumeUrl });
         }
 
@@ -131,7 +132,7 @@ const updateStudentResume = async (req, res) => {
 };
 
 
-const uploadFileToS3 = async (file, key) => {
+const uploadFileToS3 = async (file, key, contentType) => {
     const client = new S3Client({
         region: "us-east-1",
         credentials: {
@@ -144,9 +145,10 @@ const uploadFileToS3 = async (file, key) => {
         Bucket: "web-project-files",
         Key: key,
         Body: file.buffer,
-        ContentType: file.mimetype,
+        ContentType: contentType,
         ACL: "public-read",
     };
+    // file.mimetype
 
     try {
         const command = new PutObjectCommand(params);

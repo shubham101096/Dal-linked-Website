@@ -70,7 +70,7 @@ function App() {
           <Route
             path="/login-signup"
             element={
-              !user ? <LoginSignUpPage /> : <Navigate to="/test-student" />
+              !user ? <LoginSignUpPage /> : <Navigate to="/" />
             }
           />
           {/* REGISTRATION ROUTES */}
@@ -80,7 +80,7 @@ function App() {
               !user ? (
                 <RegistrationFormStudent />
               ) : (
-                <Navigate to="/test-student" />
+                <Navigate to="/" />
               )
             }
           />
@@ -92,7 +92,7 @@ function App() {
           {/* LOGIN ROUTES */}
           <Route
             path="/login-student"
-            element={!user ? <LogInStudent /> : <Navigate to="/test-student" />}
+            element={!user ? <LogInStudent /> : <Navigate to="/" />}
           />
           <Route
             path="/login-employer"

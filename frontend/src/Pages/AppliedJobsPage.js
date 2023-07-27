@@ -6,8 +6,11 @@ import { Button, Container, Dropdown, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function AppliedJobsPage() {
+  const { user } = useAuthContext();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const [appliedJobList, setAppliedJobList] = useState([]);
   const [selectedJob, setSelectedJob] = useState({});
@@ -16,10 +19,14 @@ function AppliedJobsPage() {
 
   const fetchAppliedJobList = () => {
     setIsLoading(true);
-    const studentId = "ab12";
     axios
-      .get(`http://localhost:3003/appliedJobs/getByStudent/${studentId}`)
+      .get(`${backendUrl}/appliedJobs/getByStudent/`, {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      })
       .then((response) => {
+        console.log(response.data.jobs);
         setAppliedJobList(response.data.jobs);
       })
       .catch((err) => {
@@ -31,8 +38,10 @@ function AppliedJobsPage() {
   };
 
   useEffect(() => {
-    fetchAppliedJobList();
-  }, []);
+    if (user) {
+      fetchAppliedJobList();
+    }
+  }, [user]);
 
   useEffect(() => {
     setSelectedJob(appliedJobList.length > 0 ? appliedJobList[0].job : {});
@@ -45,6 +54,10 @@ function AppliedJobsPage() {
       // navigate("/jobDetail", { state: { "job": job, "isApplied": isApplied } });
     }
   };
+
+  if (!user) {
+    return <p>Please signin to access this page.</p>;
+  }
 
   return (
     <div>

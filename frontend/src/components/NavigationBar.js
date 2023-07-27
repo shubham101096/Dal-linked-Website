@@ -41,10 +41,12 @@ function NavigationBar() {
     { text: "Success Stories", href: "/mainStoryPage" },
     { text: "Contact Us", href: "/contactUs" },
     { text: "FAQ", href: "/faq" },
+    { text: "Profile", href: "/student-profile" },
   ];
 
   const employerNavLinks = [
     { text: "Create Job Post", href: "/CreateJobPost" },
+    { text: "Employer", href: "/EmployerPage" },
   ];
 
   const userType = user ? user.userType : null;
@@ -115,11 +117,18 @@ function NavigationBar() {
                         Jobs
                       </Dropdown.Toggle>
                       <Dropdown.Menu style={dropdownStyle}>
-                        <Dropdown.Item as="button" className="filter-dropdown">
+                        <Dropdown.Item
+                          as="button"
+                          href="/jobListings"
+                          className="filter-dropdown"
+                        >
                           <a href="/jobListings">All Jobs</a>
                         </Dropdown.Item>
                         <Dropdown.Item as="button" className="filter-dropdown">
                           <a href="/appliedJobs">Applied Jobs</a>
+                        </Dropdown.Item>
+                        <Dropdown.Item as="button" className="filter-dropdown">
+                          <a href="/savedJobs">Saved Jobs</a>
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
