@@ -42,6 +42,7 @@ function JobDetail(props) {
     const closeJobDetail = (isMobile || isEmployerPage) && props.closeJobDetail;
 
     const [isLoading, setIsLoading] = useState(false);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 
 
@@ -100,7 +101,7 @@ function JobDetail(props) {
 
             axios
 
-                .post("http://localhost:3003/appliedJobs/save", job, {
+                .post(`${backendUrl}/appliedJobs/save`, job, {
 
                     headers: {
 
@@ -145,7 +146,7 @@ function JobDetail(props) {
 
             axios
 
-                .post("http://localhost:3003/saveJobs/save", job, {
+                .post(`${backendUrl}/saveJobs/save`, job, {
 
                     headers: {
 
