@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 import React, {useEffect, useState} from 'react';
 import '../../styles/UserAuth.css'
 import { useStudentSignup } from "../../hooks/useStudentSignup";

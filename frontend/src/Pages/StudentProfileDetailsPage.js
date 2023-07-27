@@ -1,3 +1,6 @@
+
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   Container,
@@ -13,6 +16,7 @@ import placeholderImage from "../images/user-placeholder.jpg";
 import axios from "axios";
 import "../styles/StudenProfile.css";
 import Footer from "./../components/Footer";
+
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
