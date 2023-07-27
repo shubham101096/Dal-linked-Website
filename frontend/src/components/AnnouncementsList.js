@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Button, ListGroup } from 'react-bootstrap';
 
+// Helper function to format a date string into a human-readable date
 function formatDateString(dateStr) {
   const date = new Date(dateStr);
 
@@ -16,6 +17,7 @@ function formatDateString(dateStr) {
   return date.toLocaleString('en-US', options);
 }
 
+// Component to display a list of announcements
 function AnnouncementsList({ announcements, userType, onDelete }) {
   return (
     <ListGroup className="text-left md-8">
