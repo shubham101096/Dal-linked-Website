@@ -2,7 +2,7 @@ import "./styles/App.css";
 //import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage/LandingPage.js";
 import NavigationBar from "./components/NavigationBar.js";
-import Footer from "./components/Footer.js";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -110,7 +110,6 @@ function App() {
           />
         </Routes>
       </Router>
-      <Footer />
     </div>
   );
 }
