@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/CreateJobPost.css';
+import { AuthContext } from "../context/AuthContext";
+import axios from 'axios';
+
 
 const CreateJobPost = () => {
     const [step, setStep] = useState(1);
@@ -26,6 +29,30 @@ const CreateJobPost = () => {
     const [deadline, setDeadline] = useState('');
     const [validationError, setValidationError] = useState('');
     const [jobPostData, setJobPostData] = useState(null);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const [imageUrl, setImageUrl] = useState('');
+    const [employer, setEmployer] = useState(null);
+    const [jobs, setJobs] = useState([]);
+    const [selectedJob, setSelectedJob] = useState(null);
+
+    const { user } = useContext(AuthContext);
+    useEffect(() => {
+        const getEmployerDetails = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/employerReg/email/${user.email}`);
+                setEmployer(response.data.employer);
+
+                const jobsResponse = await axios.get(`${backendUrl}/jobs/getByEmployerId/${response.data.employer._id}`);
+                setJobs(jobsResponse.data.job);
+                setSelectedJob(jobsResponse.data.job[0]);
+            } catch (error) {
+                console.error('Error getting employer details', error);
+            }
+        };
+        getEmployerDetails();
+    }, [user]);
+    console.log("user:", user);
+    console.log("emp:", employer)
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -84,10 +111,12 @@ const CreateJobPost = () => {
             benefits: benefits,
             postedDate: new Date(),
             endDate: deadline,
-            employeeId: "01" //it will be fetched from the logged in employee
+            employeeId: employer._id,
+            imageUrl: employer.companyLogo,
+
         };
 
-        fetch('http://localhost:3003/jobs/create', {
+        fetch(`${backendUrl}/jobs/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -123,7 +152,7 @@ const CreateJobPost = () => {
         setJobDesc('');
         setHrEmail('');
         setDeadline('');
-
+        setImageUrl('');
         setStep(1);
     };
 

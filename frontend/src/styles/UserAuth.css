@@ -1,48 +1,52 @@
-body {
-  background-color: white !important;
+
+body{
+    background-color: white !important;
 }
 
 .login {
-  /* margin: 300px auto; */
+    margin: 300px auto;
 }
 
-.form {
-  border-radius: 4px;
-  width: 550px;
-  margin: 80px auto;
-  padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background-color: #f0f0f0;
-  /*font-size: 20px;*/
+.form{
+
+    border-radius: 4px;
+    width: 550px;
+    margin: 80px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #F0F0F0;
+    /*font-size: 20px;*/
+
 }
 
-.user-card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.user-card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
-.form-body {
-  text-align: center;
-  padding: 20px 10px;
+.form-body{
+    text-align: center;
+    padding: 20px 10px;
 }
 
-.form-body > * {
-  padding: 5px;
-  margin: 80px auto;
+.form-body > *{
+    padding: 5px;
+    margin: 80px auto;
 }
 
-.form__label {
-  width: 80%;
+.form__label{
+    width: 80%;
 }
 
-.form_input {
-  width: 80%;
+.form_input{
+    width: 80%;
 }
 
-.footer {
-  text-align: center;
+.footer{
+    text-align: center;
 }
 :root {
-  --error: red;
+    --error: red;
 }
 
 .successAlert{
@@ -50,13 +54,13 @@ body {
 }
 
 div.error {
-  padding: 10px;
-  background: #ffefef;
-  border: 1px solid var(--error);
-  color: var(--error);
-  border-radius: 4px;
-  margin: 20px 0;
+    padding: 10px;
+    background: #ffefef;
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 4px;
+    margin: 20px 0;
 }
 input.error {
-  border: 1px solid var(--error);
+    border: 1px solid var(--error);
 }
