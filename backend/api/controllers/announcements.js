@@ -1,3 +1,5 @@
+/* MADE BY SHUBHAM MISHRA */
+
 const Announcement = require("../models/announcement");
 
 const getAllAnnouncements = async (req, res) => {

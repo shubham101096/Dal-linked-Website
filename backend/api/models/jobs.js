@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKUMAR PATEL & MAYANK PANDEY */
+
 const mongoose = require("mongoose");
 
 const jobSchema = new mongoose.Schema({

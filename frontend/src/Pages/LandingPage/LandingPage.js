@@ -1,3 +1,5 @@
+/* MADE BY PIYUSH AKOLIYA AND ADRIANA SANCHEZ */
+
 import React from "react";
 import HeroComponent from "./HeroSection.js";
 import SuccessStoryComponent from "./SuccessStorySection.js";

@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKUMAR PATEL */
+
 import '../styles/App.css';
 import JobCard from '../components/JobCard.js';
 import { Button, Container, Dropdown, Spinner } from 'react-bootstrap';

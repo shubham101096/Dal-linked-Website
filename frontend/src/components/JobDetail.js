@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKKUMAR PATEL */
+
 import React, { useEffect, useState } from "react";
 
 import "../styles/JobDetail.css";
