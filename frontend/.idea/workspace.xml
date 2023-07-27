@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/.idea/backend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/.idea/discord.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/.idea/vcs.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="71438c2f-4abc-42b8-8a87-aa8f6d933731" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
