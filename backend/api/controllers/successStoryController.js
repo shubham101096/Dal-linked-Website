@@ -1,3 +1,5 @@
+/* MADE BY PIYUSH AKOLIYA */
+
 const SuccessStory = require("./../models/successStory");
 
 exports.getAllSuccessStories = async (req, res) => {

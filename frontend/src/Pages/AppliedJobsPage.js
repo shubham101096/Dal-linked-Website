@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKUMAR PATEL */
+
 import React from "react";
 import "../styles/App.css";
 import JobCard from "../components/JobCard.js";

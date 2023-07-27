@@ -1,3 +1,5 @@
+/* MADE BY SHUBHAM MISHRA */
+
 const JobSector = require('../models/jobSector');
 
 const getAllJobSectors = async (req, res) => {

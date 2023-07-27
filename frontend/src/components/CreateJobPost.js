@@ -1,3 +1,6 @@
+/* MADE BY MAYANK PANDEY */
+
+
 import React, { useState, useEffect, useContext } from 'react';
 
 import DatePicker from 'react-datepicker';
@@ -258,25 +261,25 @@ const CreateJobPost = () => {
 
         })
 
-        .then((response) => response.json())
+            .then((response) => response.json())
 
-        .then((data) => {
+            .then((data) => {
 
-            toast.success('Form submitted successfully!');
+                toast.success('Form submitted successfully!');
 
-            setJobPostData(data.job);
+                setJobPostData(data.job);
 
-            resetFormFields();
+                resetFormFields();
 
-        })
+            })
 
-        .catch((error) => {
+            .catch((error) => {
 
-            toast.error('Error submitting form');
+                toast.error('Error submitting form');
 
-            console.error('Error:', error);
+                console.error('Error:', error);
 
-        });
+            });
 
     };
 

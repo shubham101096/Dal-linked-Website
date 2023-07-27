@@ -1,3 +1,5 @@
+/* MADE BY PIYUSH AKOLIYA AND ADRIANA SANCHEZ */
+
 import React, { useState } from "react";
 import "../../styles/SuccessStoryComponent.css";
 import { Swiper, SwiperSlide } from "swiper/react";

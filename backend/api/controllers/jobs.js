@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKUMAR PATEL & MAYANK PANDEY */
+
 const Job = require("../models/jobs");
 
 const getAllJobs = async (req, res) => {

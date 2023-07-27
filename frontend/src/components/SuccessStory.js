@@ -1,3 +1,5 @@
+/* MADE BY PIYUSH AKOLIYA */
+
 import React, { useState, useEffect } from "react";
 import profilePhoto from "./../images/profile.jpg";
 import "./../styles/SuccessStory.css";

@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKKUMAR PATEL */
+
 import React from "react";
 import "../styles/JobCard.css";
 import appleLogo from "../images/Apple Music.png";

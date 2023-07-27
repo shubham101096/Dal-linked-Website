@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKUMAR PATEL */
+
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import "../styles/FAQ.css";

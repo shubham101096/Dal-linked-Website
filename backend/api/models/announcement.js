@@ -1,3 +1,5 @@
+/* MADE BY SHUBHAM MISHRA */
+
 const mongoose = require('mongoose');
 
 const announcementSchema = new mongoose.Schema({
