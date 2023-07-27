@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 const mongoose = require("mongoose");
 
 const studentRegSchema = new mongoose.Schema({

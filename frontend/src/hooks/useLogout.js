@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 import { useAuthContext } from "./useAuthContext";
 export const useLogout = () => {
   const { dispatch } = useAuthContext();
