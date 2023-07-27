@@ -5,6 +5,8 @@ import AnnouncementsList from '../components/AnnouncementsList';
 import '../styles/Announcements.css';
 import axios from 'axios';
 import { useAuthContext } from "../hooks/useAuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
@@ -16,7 +18,6 @@ function AnnouncementPage() {
   const { user } = useAuthContext();
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  // const backendUrl = "";
   const announcementsUrl = `${backendUrl}/announcements`;
 
   const fetchAnnouncements = async (userToken) => {
@@ -41,11 +42,14 @@ function AnnouncementPage() {
         );
         setAnnouncements(updatedAnnouncements);
         setShowDeleteModal(false);
+        toast.success("Announcement deleted successfully.");
       } else {
         console.error("Error deleting announcement:", response.status);
+        toast.error("Error in deleting announcement.");
       }
     } catch (error) {
       console.error("Error deleting announcement:", error);
+      toast.error("Error in deleting announcement.");
     }
   };
 
@@ -74,11 +78,14 @@ function AnnouncementPage() {
       if (response.status === 200) {
         fetchAnnouncements(user.token);
         setShowNewAnnouncementModal(false);
+        toast.success("Announcement posted successfully.");
       } else {
         console.error("Error creating announcement:", response.status);
+        toast.error("Error in posting announcement.");
       }
     } catch (error) {
       console.error("Error creating announcement:", error);
+      toast.error("Error in posting announcement.");
     }
   };
 
@@ -225,6 +232,7 @@ function AnnouncementPage() {
           <NewAnnouncementForm onSubmit={handleNewAnnouncementSubmit} />
         </Modal.Body>
       </Modal>
+      <ToastContainer/>
     </Container>
   );
 }
