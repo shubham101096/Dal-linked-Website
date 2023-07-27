@@ -33,7 +33,7 @@ function JobDetail(props) {
 
     // const location = useLocation();
 
-    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage } = props;
+    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage, isListingsPage } = props;
 
     console.log(isEmployerPage);
 
@@ -243,7 +243,7 @@ function JobDetail(props) {
 
                     {
 
-                        !isEmployerPage &&
+                        (isListingsPage) &&
 
                         (
 
@@ -303,7 +303,7 @@ function JobDetail(props) {
 
                     {
 
-                        !isEmployerPage &&
+                        (isListingsPage) &&
 
                         (
 
