@@ -17,8 +17,8 @@ import axios from 'axios';
 const CreateJobPost = () => {
     const [step, setStep] = useState(1);
     const [companyName, setCompanyName] = useState('');
-    const [openPos, setOpenPos] = useState('');
     const [jobSector, setJobSector] = useState('');
+    const [openPos, setOpenPos] = useState('');
     const [jobTitle, setJobTitle] = useState('');
     const [jobLoc, setJobLoc] = useState('');
     const [jobType, setJobType] = useState('');
@@ -57,6 +57,19 @@ const CreateJobPost = () => {
     }, [user]);
     console.log("user:", user);
     console.log("emp:", employer)
+    const [jobSectors, setJobSectors] = useState([]);
+
+    useEffect(() => {
+        const fetchJobSectors = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/jobsectors`);
+                setJobSectors(response.data);
+            } catch (error) {
+                console.error('Failed to retrieve job sectors:', error);
+            }
+        };
+        fetchJobSectors();
+    }, [user]);    
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -192,23 +205,22 @@ const CreateJobPost = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="jobSector" className="block font-medium mb-1">
-                                    Job Sector: <span className="red-star">*</span>
-                                </label>
-                                <select
-                                    id="jobSector"
-                                    className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:border-blue-500"
-                                    value={jobSector}
-                                    onChange={(e) => setJobSector(e.target.value)}
-                                    required
-                                >
-                                    <option value="">Select the job sector</option>
-                                    <option value="1">IT Service</option>
-                                    <option value="2">IT Product</option>
-                                    <option value="3">Data Science</option>
-                                    <option value="4">Analytics</option>
-                                </select>
-                            </div>
+        <label htmlFor="jobSector" className="block font-medium mb-1">
+            Job Sector: <span className="red-star">*</span>
+        </label>
+        <select
+            id="jobSector"
+            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:border-blue-500"
+            value={jobSector}
+            onChange={(e) => setJobSector(e.target.value)}
+            required
+        >
+            <option value="">Select the job sector</option>
+            {jobSectors.map((sector, index) => (
+                <option key={index} value={sector._id}>{sector.name}</option>
+            ))}
+        </select>
+    </div>
                             <div className="mb-4">
                                 <label htmlFor="jobTitle" className="block font-medium mb-1">
                                     Job Title: <span className="red-star">*</span>

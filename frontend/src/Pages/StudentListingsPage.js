@@ -6,7 +6,7 @@ import "../styles/StudentListingsPage.css";
 import Footer from "./../components/Footer";
 import axios from 'axios';
 
-function StudentListingsPage({employerId}) {
+function StudentListingsPage({ employerId }) {
 
   const [students, setStudents] = useState([]);
 
@@ -14,7 +14,7 @@ function StudentListingsPage({employerId}) {
     const fetchStudents = async () => {
       try {
         const response = await axios.get(`http://localhost:3003/employeeJobs/getApplicantsByEmployeeid/${employerId}`);
-        setStudents(response.data); 
+        setStudents(response.data);
         console.log(response.data);
       } catch (error) {
         console.error('Error fetching students', error);

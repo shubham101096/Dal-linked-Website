@@ -27,8 +27,9 @@ const EmployerPage = () => {
 
     const [selectedJob, setSelectedJob] = useState(null);
     const [showJobDetail, setShowJobDetail] = useState(false);
-    const closeJobDetails = () => { console.log("closeJobDetails called")
-    setShowJobDetail(false);
+    const closeJobDetails = () => {
+        console.log("closeJobDetails called")
+        setShowJobDetail(false);
     }
 
     const handleJob = (job) => {
@@ -37,27 +38,27 @@ const EmployerPage = () => {
     };
     const [showModal, setShowModal] = useState(false);
 
-const handleDeleteAccount = async () => {
-    setShowModal(true);
-};
+    const handleDeleteAccount = async () => {
+        setShowModal(true);
+    };
 
-const confirmDeleteAccount = async () => {
-    try {
-        const response = await axios.delete(`${backendUrl}/employerReg/email/${user.email}`);
-        if (response.status === 200) {
-            window.location.href = "/";
+    const confirmDeleteAccount = async () => {
+        try {
+            const response = await axios.delete(`${backendUrl}/employerReg/email/${user.email}`);
+            if (response.status === 200) {
+                window.location.href = "/";
+            }
+        } catch (error) {
+            console.error('Error deleting account', error);
         }
-    } catch (error) {
-        console.error('Error deleting account', error);
-    }
-    setShowModal(false);
-};
+        setShowModal(false);
+    };
 
-const cancelDeleteAccount = () => {
-    setShowModal(false);
-};
-    
-    
+    const cancelDeleteAccount = () => {
+        setShowModal(false);
+    };
+
+
     const handleToggleDisplay = (showJobListings) => {
         setDisplayJobListings(showJobListings);
         if (showJobDetail) {
@@ -112,22 +113,22 @@ const cancelDeleteAccount = () => {
                                     </Card.Text>
                                     <Button variant="danger" className="mt-3" onClick={handleDeleteAccount}>Delete Account</Button>
 
-<Modal show={showModal} onHide={cancelDeleteAccount}>
-    <Modal.Header closeButton>
-        <Modal.Title>Confirm Account Deletion</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-        Are you sure you want to delete your account? This action cannot be undone.
-    </Modal.Body>
-    <Modal.Footer>
-        <Button variant="secondary" onClick={cancelDeleteAccount}>
-            Cancel
-        </Button>
-        <Button variant="danger" onClick={confirmDeleteAccount}>
-            Delete Account
-        </Button>
-    </Modal.Footer>
-</Modal>                                </Card.Body>
+                                    <Modal show={showModal} onHide={cancelDeleteAccount}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Confirm Account Deletion</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            Are you sure you want to delete your account? This action cannot be undone.
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={cancelDeleteAccount}>
+                                                Cancel
+                                            </Button>
+                                            <Button variant="danger" onClick={confirmDeleteAccount}>
+                                                Delete Account
+                                            </Button>
+                                        </Modal.Footer>
+                                    </Modal>                                </Card.Body>
                             </>
                         ) : (
                             'Loading...'
@@ -154,7 +155,7 @@ const cancelDeleteAccount = () => {
                     {showJobDetail ? (
                         <div>
                             <Button variant="primary" onClick={handleBack} className="toggle-button">Back to Job Listings</Button>
-                            <JobDetail job={selectedJob} isEmployerPage={true} closeJobDetail={closeJobDetails}/>
+                            <JobDetail job={selectedJob} isEmployerPage={true} closeJobDetail={closeJobDetails} />
                         </div>
                     ) : (
                         <div>
