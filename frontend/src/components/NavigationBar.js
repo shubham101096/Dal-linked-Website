@@ -149,7 +149,7 @@ function NavigationBar() {
                 )}
                 {user && (
                   <Nav.Link
-                    onClick={handleClick}
+                    href="/" onClick={handleClick}
                     className="navigationBar"
                     style={{ color: "white" }}
                   >
