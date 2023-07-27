@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 const jwt = require('jsonwebtoken')
 
 const Student = require('../api/models/studentReg')

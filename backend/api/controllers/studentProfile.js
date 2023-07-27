@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 const StudentProfile = require("../models/studentProfile");
 const studentRegController = require("./studentReg");
 const Student = require("../models/studentReg");
