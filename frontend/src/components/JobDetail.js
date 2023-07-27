@@ -14,9 +14,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 function JobDetail(props) {
     const { user } = useAuthContext();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     // const location = useLocation();
-    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage } = props;
-    console.log(isEmployerPage);
+    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage, isListingsPage } = props;
     const styleProp = isMobile ? props.styleProp : {};
     const closeJobDetail = isMobile && props.closeJobDetail;
     const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ function JobDetail(props) {
         setIsLoading(true);
         if (user) {
             axios
-                .post("http://localhost:3003/appliedJobs/save", job, {
+                .post(`${backendUrl}/appliedJobs/save`, job, {
                     headers: {
                         Authorization: "Bearer " + user.token
                     }
@@ -69,7 +69,7 @@ function JobDetail(props) {
         setIsLoading(true);
         if (user) {
             axios
-                .post("http://localhost:3003/saveJobs/save", job, {
+                .post(`${backendUrl}/saveJobs/save`, job, {
                     headers: {
                         Authorization: "Bearer " + user.token
                     }
@@ -116,7 +116,7 @@ function JobDetail(props) {
                         </div>
                     }
                     {
-                        !isEmployerPage &&
+                        (isListingsPage) &&
                         (
                             isLoading ?
                                 (
@@ -146,7 +146,7 @@ function JobDetail(props) {
                         )
                     }
                     {
-                        !isEmployerPage &&
+                        (isListingsPage) &&
                         (
                             isLoading ?
                                 (
