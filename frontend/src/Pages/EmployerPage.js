@@ -7,6 +7,8 @@ import JobDetail from '../components/JobDetail';
 import JobCard from "../components/JobCard";
 import { AuthContext } from "../context/AuthContext";
 import { Card } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+
 import axios from 'axios';
 
 const EmployerPage = () => {
@@ -33,7 +35,29 @@ const EmployerPage = () => {
         setSelectedJob(job);
         setShowJobDetail(true);
     };
+    const [showModal, setShowModal] = useState(false);
 
+const handleDeleteAccount = async () => {
+    setShowModal(true);
+};
+
+const confirmDeleteAccount = async () => {
+    try {
+        const response = await axios.delete(`${backendUrl}/employerReg/email/${user.email}`);
+        if (response.status === 200) {
+            window.location.href = "/";
+        }
+    } catch (error) {
+        console.error('Error deleting account', error);
+    }
+    setShowModal(false);
+};
+
+const cancelDeleteAccount = () => {
+    setShowModal(false);
+};
+    
+    
     const handleToggleDisplay = (showJobListings) => {
         setDisplayJobListings(showJobListings);
         if (showJobDetail) {
@@ -86,8 +110,24 @@ const EmployerPage = () => {
                                         Status: {employer.status} <br />
                                         Website: <a href={employer.websiteURL}>{employer.websiteURL}</a>
                                     </Card.Text>
-                                    <Button variant="danger" className="mt-3">Delete Account</Button>
-                                </Card.Body>
+                                    <Button variant="danger" className="mt-3" onClick={handleDeleteAccount}>Delete Account</Button>
+
+<Modal show={showModal} onHide={cancelDeleteAccount}>
+    <Modal.Header closeButton>
+        <Modal.Title>Confirm Account Deletion</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        Are you sure you want to delete your account? This action cannot be undone.
+    </Modal.Body>
+    <Modal.Footer>
+        <Button variant="secondary" onClick={cancelDeleteAccount}>
+            Cancel
+        </Button>
+        <Button variant="danger" onClick={confirmDeleteAccount}>
+            Delete Account
+        </Button>
+    </Modal.Footer>
+</Modal>                                </Card.Body>
                             </>
                         ) : (
                             'Loading...'
