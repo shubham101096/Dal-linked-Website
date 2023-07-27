@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Container, ListGroup, Pagination, Modal, Row, Col, Button, Form, Dropdown} from "react-bootstrap";
+import { Container, ListGroup, Pagination, Modal, Row, Col, Button, Form, Dropdown } from "react-bootstrap";
 import NewAnnouncementForm from "../components/NewAnnouncementForm";
 import AnnouncementsList from "../components/AnnouncementsList";
 import "../styles/Announcements.css";
@@ -9,19 +9,24 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Footer from "./../components/Footer";
+
 function AnnouncementPage() {
+  // State variables to manage the list of announcements and modal visibility
   const [announcements, setAnnouncements] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [announcementToDelete, setAnnouncementToDelete] = useState(null);
-  const [showNewAnnouncementModal, setShowNewAnnouncementModal] =
-    useState(false);
+  const [showNewAnnouncementModal, setShowNewAnnouncementModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
+
+  // Get the user information from the context
   const { user } = useAuthContext();
 
+  // Backend URL and announcements URL
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const announcementsUrl = `${backendUrl}/announcements`;
 
+  // Function to fetch the list of announcements from the server
   const fetchAnnouncements = async (userToken) => {
     try {
       const response = await axios.get(announcementsUrl, {
@@ -35,6 +40,7 @@ function AnnouncementPage() {
     }
   };
 
+  // Function to delete an announcement
   const deleteAnnouncement = async (_id) => {
     try {
       const response = await axios.delete(`${announcementsUrl}/${_id}`);
@@ -55,6 +61,7 @@ function AnnouncementPage() {
     }
   };
 
+  // Function to handle the "Delete" button click
   const handleDelete = (_id) => {
     const announcement = announcements.find(
       (announcement) => announcement._id === _id
@@ -63,14 +70,17 @@ function AnnouncementPage() {
     setShowDeleteModal(true);
   };
 
+  // Function to handle the "Delete" confirmation
   const handleDeleteConfirmation = () => {
     deleteAnnouncement(announcementToDelete._id);
   };
 
+  // Function to handle the "New Announcement" button click
   const handleNewAnnouncement = () => {
     setShowNewAnnouncementModal(true);
   };
 
+  // Function to handle the submission of the new announcement form
   const handleNewAnnouncementSubmit = async (title, body) => {
     try {
       const response = await axios.post(announcementsUrl, {
@@ -91,20 +101,24 @@ function AnnouncementPage() {
     }
   };
 
+  // Function to handle the search input change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  // Function to handle the sort order change
   const handleSortChange = (eventKey) => {
     setSortOrder(eventKey);
   };
 
+  // Function to filter announcements based on the search term
   const filteredAnnouncements = announcements.filter(
     (announcement) =>
       announcement.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       announcement.body.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Function to sort announcements based on the selected sort order
   const sortedAnnouncements = filteredAnnouncements.sort((a, b) => {
     const date1 = new Date(a.datePosted);
     const date2 = new Date(b.datePosted);
@@ -115,10 +129,9 @@ function AnnouncementPage() {
     }
   });
 
+  // Pagination setup
   const announcementsPerPage = 5;
-  const totalPages = Math.ceil(
-    sortedAnnouncements.length / announcementsPerPage
-  );
+  const totalPages = Math.ceil(sortedAnnouncements.length / announcementsPerPage);
   const [activePage, setActivePage] = useState(1);
 
   const handlePageChange = (pageNumber) => {
@@ -130,21 +143,22 @@ function AnnouncementPage() {
   }, [totalPages]);
 
   const indexOfLastAnnouncement = activePage * announcementsPerPage;
-  const indexOfFirstAnnouncement =
-    indexOfLastAnnouncement - announcementsPerPage;
+  const indexOfFirstAnnouncement = indexOfLastAnnouncement - announcementsPerPage;
   const currentAnnouncements = sortedAnnouncements.slice(
     indexOfFirstAnnouncement,
     indexOfLastAnnouncement
   );
 
+  // Fetch announcements when the user information changes
   useEffect(() => {
     if (user) {
       fetchAnnouncements(user.token);
     }
   }, [user]);
 
+  // Check if the user is logged in
   if (!user) {
-    return <p>Please signin to access this page.</p>;
+    return <p>Please sign in to access this page.</p>;
   }
 
   return (
@@ -154,6 +168,7 @@ function AnnouncementPage() {
         <Row className="justify-content-center">
           <Col sm={12} md={10} lg={8}>
             <ListGroup className="text-left md-8">
+              {/* Search and Sort Bar */}
               <ListGroup.Item className="d-flex justify-content-between align-items-center p-0 mb-3 border-0">
                 <div className="d-flex flex-grow-1 me-2">
                   <Form.Control
@@ -179,6 +194,7 @@ function AnnouncementPage() {
                     <Dropdown.Item eventKey="desc">Latest first</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
+                {/* Show "New" button for admin users */}
                 {user.userType === "admin" && (
                   <Button
                     style={{
@@ -192,6 +208,7 @@ function AnnouncementPage() {
                   </Button>
                 )}
               </ListGroup.Item>
+              {/* List of Announcements */}
               <AnnouncementsList
                 announcements={currentAnnouncements}
                 userType={user.userType}
@@ -200,6 +217,7 @@ function AnnouncementPage() {
             </ListGroup>
           </Col>
         </Row>
+        {/* Pagination */}
         {filteredAnnouncements.length > announcementsPerPage && (
           <div className="d-flex justify-content-center mt-4">
             <Pagination>
@@ -215,6 +233,7 @@ function AnnouncementPage() {
             </Pagination>
           </div>
         )}
+        {/* Delete Modal */}
         <Modal
           show={showDeleteModal}
           onHide={() => setShowDeleteModal(false)}
@@ -224,8 +243,7 @@ function AnnouncementPage() {
             <Modal.Title>Confirm Deletion</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Are you sure you want to delete "{announcementToDelete?.title}"
-            announcement?
+            Are you sure you want to delete "{announcementToDelete?.title}" announcement?
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -250,6 +268,7 @@ function AnnouncementPage() {
             </Button>
           </Modal.Footer>
         </Modal>
+        {/* New Announcement Modal */}
         <Modal
           show={showNewAnnouncementModal}
           onHide={() => setShowNewAnnouncementModal(false)}
@@ -262,6 +281,7 @@ function AnnouncementPage() {
             <NewAnnouncementForm onSubmit={handleNewAnnouncementSubmit} />
           </Modal.Body>
         </Modal>
+        {/* Toast Container for notifications */}
         <ToastContainer />
       </Container>
       <Footer />
