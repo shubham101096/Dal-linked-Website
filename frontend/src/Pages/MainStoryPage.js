@@ -5,6 +5,8 @@ import axios from "axios";
 import "./../styles/MainStoryPage.css";
 import { useAuthContext } from "../hooks/useAuthContext";
 import placeholderImage from "../images/user-placeholder.jpg";
+import Footer from "./../components/Footer";
+
 function MainStoryPage() {
   const [stories, setStories] = useState([]);
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -31,7 +33,6 @@ function MainStoryPage() {
         },
       });
       const userData = response.data;
-      console.log("123213123123");
       console.log(userData);
       setProfileImage(userData.profileImage || placeholderImage);
       setFirstName(userData.firstName);
@@ -56,17 +57,20 @@ function MainStoryPage() {
     return <p>Please signin to access this page.</p>;
   }
   return (
-    <div className="mainStory">
-      <PostSuccessStory
-        onStoryUpdate={handleStoryChange}
-        profileImage={profileImage}
-        userId={studentId}
-        firstName={firstName}
-        lastName={lastName}
-      />
-      <hr></hr>
-      <SuccessStoryPage stories={stories} userId={studentId} />
-    </div>
+    <>
+      <div className="mainStory">
+        <PostSuccessStory
+          onStoryUpdate={handleStoryChange}
+          profileImage={profileImage}
+          userId={studentId}
+          firstName={firstName}
+          lastName={lastName}
+        />
+        <hr></hr>
+        <SuccessStoryPage stories={stories} userId={studentId} />
+      </div>
+      <Footer />
+    </>
   );
 }
 

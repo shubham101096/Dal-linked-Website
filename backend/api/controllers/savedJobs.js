@@ -1,6 +1,7 @@
 const SavedJobs = require("../models/savedJobs");
 
 const saveJob = async (req, res) => {
+  req.body["studentId"] = req.user._id;
   const newSaveJob = new SavedJobs(req.body);
   try {
     await newSaveJob.save();
@@ -18,7 +19,7 @@ const saveJob = async (req, res) => {
 
 const getByStudent = async (req, res) => {
   try {
-    const studentJobs = await SavedJobs.find({ studentId: req.params.id });
+    const studentJobs = await SavedJobs.find({ studentId: req.user._id });
     res.status(200).json({
       jobs: studentJobs,
     });
