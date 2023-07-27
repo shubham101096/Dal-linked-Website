@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {Container, Row, Col, Form, Button, Modal, Card, Alert} from 'react-bootstrap';
 import placeholderImage from '../images/user-placeholder.jpg';
