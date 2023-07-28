@@ -1,7 +1,7 @@
 
 /* MADE BY ADRIANA SANCHEZ GOMEZ */
 
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, {useState, useEffect, useLayoutEffect, useRef} from "react";
 import {
   Container,
   Row,
@@ -23,8 +23,6 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const StudentProfileDetails = () => {
   const [profileImage, setProfileImage] = useState(null);
-  const [previewProfileImage, setPreviewProfileImage] = useState(null);
-  const [isProfileImageChanged, setIsProfileImageChanged] = useState(false);
   const [resume, setResume] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -36,25 +34,33 @@ const StudentProfileDetails = () => {
   const [workStyle, setWorkStyle] = useState("");
   const [about, setAbout] = useState("");
   const [jobSectors, setJobSectors] = useState([]);
+  const profilePictureInputRef = useRef(null);
+  const resumeInputRef = useRef(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const { user } = useAuthContext();
 
   const handleProfilePictureChange = (event) => {
-    const file = event.target.files[0];
-    setProfileImage(file);
-    setPreviewProfileImage(URL.createObjectURL(file));
-    setIsProfileImageChanged(true);
+      const file = event.target.files[0];
+      //setProfileImage(file);
+      if(file) {
+        saveProfilePicture(file);
+      }
+      profilePictureInputRef.current.value = '';
   };
 
   const handleResumeFileChange = (event) => {
     const file = event.target.files[0];
-    setResume(file);
+    // setResume(file);
+    if(file){
+      saveResume(file);
+    }
+    resumeInputRef.current.value = '';
   };
 
   // on initial component load
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (user) {
       // get user profile data
       const fetchUserProfile = async () => {
@@ -67,7 +73,7 @@ const StudentProfileDetails = () => {
           const userData = response.data;
 
           setProfileImage(userData.profileImage || placeholderImage);
-          setResume(null);
+          setResume(userData.resume || '');
           setFirstName(userData.firstName);
           setLastName(userData.lastName);
           setContact(!userData.contact ? "" : userData.contact);
@@ -129,13 +135,6 @@ const StudentProfileDetails = () => {
     const jsonData = { ...data };
     await saveProfile(jsonData);
 
-    if (isProfileImageChanged) {
-      await saveProfilePicture(profileImage);
-      setIsProfileImageChanged(false);
-    }
-    await saveProfilePicture(profileImage);
-    await saveResume(resume);
-
     setShowSuccessAlert(true);
     setTimeout(() => {
       setShowSuccessAlert(false);
@@ -158,10 +157,9 @@ const StudentProfileDetails = () => {
       console.error("Error updating user profile:", error);
     }
   };
-  const saveProfilePicture = async (profilePicture) => {
-    if (profilePicture) {
+  const saveProfilePicture = async (img) => {
       const formData = new FormData();
-      formData.append("profilePicture", profilePicture);
+      formData.append("profilePicture", img);
       try {
         const response = await axios.put(
           `${backendUrl}/studentProfile/profile-picture`,
@@ -173,15 +171,16 @@ const StudentProfileDetails = () => {
             },
           }
         );
-        setProfileImage(response.profileImageUrl);
+        console.log(response.data)
+        console.log('profile picture uploaded')
+        setProfileImage(response.data.profileImageUrl);
       } catch (error) {
         console.error("Error updating profile picture:", error);
       }
-    }
+
   };
 
   const saveResume = async (resume) => {
-    if (resume) {
       const formData = new FormData();
       formData.append("resume", resume);
       try {
@@ -195,10 +194,11 @@ const StudentProfileDetails = () => {
             },
           }
         );
+        setResume(response.data.resumeUrl)
+        console.log("Success uploading resume")
       } catch (error) {
         console.error("Error updating resume:", error);
       }
-    }
   };
 
   return (
@@ -223,25 +223,17 @@ const StudentProfileDetails = () => {
             <Row>
               <Col md={4}>
                 <div className="text-center">
-                  {previewProfileImage ? (
-                    <img
-                      src={previewProfileImage}
-                      alt="Profile"
-                      className="img-fluid mt-3 rounded-circle"
-                      style={{ maxHeight: "200px", maxWidth: "200px" }}
-                    />
-                  ) : (
                     <img
                       src={profileImage || placeholderImage}
                       alt="Placeholder"
                       className="img-fluid mt-3 rounded-circle"
                       style={{ maxHeight: "200px", maxWidth: "200px" }}
                     />
-                  )}
                   <Form.Group>
                     <Form.Label>Upload Profile Picture</Form.Label>
                     <Form.Control
                       type="file"
+                      ref={profilePictureInputRef}
                       onChange={handleProfilePictureChange}
                     />
                   </Form.Group>
@@ -250,10 +242,12 @@ const StudentProfileDetails = () => {
                     <Form.Label>Upload Resume</Form.Label>
                     <Form.Control
                       type="file"
+                      ref={resumeInputRef}
                       onChange={handleResumeFileChange}
                     />
                   </Form.Group>
                   <p></p>
+                  {resume && <p><a href={resume}>Resume</a></p>}
                   <Form.Group>
                     <Button
                       variant="primary"
