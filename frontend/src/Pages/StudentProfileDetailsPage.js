@@ -1,7 +1,7 @@
 
 /* MADE BY ADRIANA SANCHEZ GOMEZ */
 
-import React, {useState, useEffect, useLayoutEffect, useRef} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
   Container,
   Row,
@@ -18,6 +18,8 @@ import "../styles/StudenProfile.css";
 import Footer from "./../components/Footer";
 
 import { useAuthContext } from "../hooks/useAuthContext";
+import {useLogout} from "../hooks/useLogout";
+import {useNavigate} from "react-router-dom";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -40,6 +42,8 @@ const StudentProfileDetails = () => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const { user } = useAuthContext();
+  const { logout } = useLogout();
+  const navigate = useNavigate();
 
   const handleProfilePictureChange = (event) => {
       const file = event.target.files[0];
@@ -57,6 +61,12 @@ const StudentProfileDetails = () => {
       saveResume(file);
     }
     resumeInputRef.current.value = '';
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    const input = e.target.value;
+    const numericInput = input.replace(/\D/g, '');
+    setContact(numericInput);
   };
 
   // on initial component load
@@ -114,9 +124,22 @@ const StudentProfileDetails = () => {
     return <p>Please sign-in to access this page.</p>;
   }
 
-  const handleDeleteAccount = () => {
-    // account deletion request
-    setShowDeleteModal(false); // Close the modal after deleting the account
+  const handleDeleteAccount = async () => {
+    try {
+      const response = await axios.delete(
+          `${backendUrl}/studentProfile/delete-account`,
+          {
+            headers: {
+              Authorization: "Bearer " + user.token,
+            },
+          }
+      );
+        logout();
+        navigate('/');
+
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
   };
 
   const handleSaveChanges = async (event) => {
@@ -247,7 +270,7 @@ const StudentProfileDetails = () => {
                     />
                   </Form.Group>
                   <p></p>
-                  {resume && <p><a href={resume}>Resume</a></p>}
+                  {resume && <p><a href={resume}>My Resume</a></p>}
                   <Form.Group>
                     <Button
                       variant="primary"
@@ -298,7 +321,7 @@ const StudentProfileDetails = () => {
                     <Form.Control
                       type="text"
                       value={contact}
-                      onChange={(e) => setContact(e.target.value)}
+                      onChange={handlePhoneNumberChange}
                     />
                   </Form.Group>
 

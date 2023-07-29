@@ -5,6 +5,7 @@ const studentRegController = require("./studentReg");
 const Student = require("../models/studentReg");
 
 const {S3Client, PutObjectCommand} = require("@aws-sdk/client-s3");
+const StudentReg = require("../models/studentReg");
 
 const BUCKET_URL = 'https://web-project-files.s3.amazonaws.com/'
 
@@ -63,8 +64,7 @@ const deleteStudentProfileByStudentId = async (req, res) => {
     try {
         await StudentProfile.deleteOne({ studentId });
 
-        // Also delete the student from StudentReg collection
-        await studentRegController.deleteStudentById(req, res);
+        await StudentReg.findByIdAndDelete(studentId);
 
         res.json({ message: "Student profile deleted successfully" });
     } catch (error) {
