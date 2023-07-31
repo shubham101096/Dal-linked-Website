@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 const bcrypt = require('bcrypt');
 const validator = require('validator')
 const EmployerReg = require('../models/employerReg');

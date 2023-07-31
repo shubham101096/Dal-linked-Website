@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKUMAR PATEL */
+
 const AppliedJob = require("../models/appliedJobs");
 const StudentProfile = require("../models/studentProfile");
 const nodeMailer = require("nodemailer");

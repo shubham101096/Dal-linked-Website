@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 import { createContext, useReducer } from 'react'
 import { useEffect } from "react";
 

@@ -1,19 +1,13 @@
+/* MADE BY SHUBHAM MISHRA */
+
 import { useState, useEffect } from "react";
-import {
-  ListGroup,
-  Button,
-  Container,
-  Row,
-  Col,
-  Card,
-  Modal,
-  Form,
-  Pagination,
-} from "react-bootstrap";
+import {ListGroup, Button, Container, Row, Col, Card, Modal, Form, Pagination} from "react-bootstrap";
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import Footer from "./../components/Footer.js";
+
 function ActiveEmpPage() {
+  // State variables
   const [activeEmployers, setEmployerRequests] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showRevokeModal, setShowRevokeModal] = useState(false);
@@ -22,6 +16,7 @@ function ActiveEmpPage() {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const { user } = useAuthContext();
 
+  // Function to fetch the list of active employers
   const fetchActiveEmployers = async (userToken) => {
     try {
       const empActiveUrl = `${backendUrl}/employerReg/status/active`;
@@ -36,6 +31,7 @@ function ActiveEmpPage() {
     }
   };
 
+  // Function to update the status of an employer request
   const updateEmpStatus = async (userToken, updatedStatus) => {
     try {
       const empStatusUpdateUrl = `${backendUrl}/employerReg/status/${curReq._id}`;
@@ -73,6 +69,7 @@ function ActiveEmpPage() {
     updateEmpStatus(user.token, "inactive");
   };
 
+  // Function to filter the active employers based on the search term
   const filteredEmployers = () => {
     return activeEmployers.filter((employer) => {
       return employer.employerName
@@ -81,6 +78,7 @@ function ActiveEmpPage() {
     });
   };
 
+  // Pagination setup
   const employersPerPage = 5;
   const totalPages = Math.ceil(filteredEmployers().length / employersPerPage);
   const [activePage, setActivePage] = useState(1);
@@ -100,6 +98,7 @@ function ActiveEmpPage() {
     indexOfLastEmployer
   );
 
+  // Fetch active employers when the user information changes
   useEffect(() => {
     if (user) {
       fetchActiveEmployers(user.token);

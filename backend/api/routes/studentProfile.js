@@ -1,3 +1,5 @@
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 const express = require('express');
 const router = express.Router();
 
@@ -26,5 +28,7 @@ router.put('/profile-picture', upload.single('profilePicture'),studentProfileCon
     .updateStudentProfilePicture)
 
 router.put('/resume', upload.single('resume'),studentProfileController.updateStudentResume)
+
+router.delete('/delete-account', studentProfileController.deleteStudentProfileByStudentId)
 
 module.exports = router;

@@ -1,3 +1,6 @@
+
+/* MADE BY ADRIANA SANCHEZ GOMEZ */
+
 import React from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,6 +9,7 @@ import adminImg from "../images/admin-card.jpg";
 import studentImg from "../images/student-card.jpg";
 import "../styles/UserAuth.css";
 import Footer from "./../components/Footer";
+
 const cardStyle = {
   width: "100%", // Adjust the width to 100% for responsiveness
   height: "50rem",

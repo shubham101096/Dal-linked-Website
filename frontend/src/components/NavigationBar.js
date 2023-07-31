@@ -1,3 +1,5 @@
+/* MADE BY GROUP */
+
 import Container from "react-bootstrap/Container";
 
 import Nav from "react-bootstrap/Nav";
@@ -149,7 +151,7 @@ function NavigationBar() {
                 )}
                 {user && (
                   <Nav.Link
-                    onClick={handleClick}
+                    href="/" onClick={handleClick}
                     className="navigationBar"
                     style={{ color: "white" }}
                   >

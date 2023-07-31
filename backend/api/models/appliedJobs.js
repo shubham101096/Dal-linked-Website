@@ -1,3 +1,5 @@
+/* MADE BY MAYANKKUMAR PATEL */
+
 const mongoose = require("mongoose");
 
 const Job = require("../models/jobs");
