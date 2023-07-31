@@ -2,6 +2,7 @@
 
 const AppliedJob = require("../models/appliedJobs");
 const StudentProfile = require("../models/studentProfile");
+const Studentreg = require("../models/studentReg");
 const nodeMailer = require("nodemailer");
 
 const emailId = process.env.EMAIL_ID;
@@ -9,8 +10,12 @@ const emailPass = process.env.EMAIL_PASSWORD;
 
 const saveJob = async (req, res) => {
   req.body["studentId"] = req.user._id;
-  const student = await StudentProfile.findOne({ studentId: req.user._id });
-  req.body["student"] = student;
+  const studentDetail = await StudentProfile.findOne({ studentId: req.user._id });
+  const student = await Studentreg.findById(req.user._id);
+  req.body["student"] = studentDetail;
+  req.body["firstName"] = student.firstName;
+  req.body["lastName"] = student.lastName;
+  req.body["email"] = student.email;
   const newSaveJob = new AppliedJob(req.body);
   try {
     await newSaveJob.save();
