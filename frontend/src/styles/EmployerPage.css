@@ -1,58 +1,95 @@
-/* MADE BY MAYANK PANDEY */
-
-.employer-page {
+/* Card styling */
+.card {
     background-color: #fafafa;
-    padding: 2rem;
     border-radius: 1rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 100%;
+    overflow: hidden;
 }
 
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
+/* Card Image */
+.card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
 }
 
-.toggle-button {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.2s ease-in-out;
+/* Card Body */
+.card-body {
+    padding: 1.5rem;
 }
 
-.toggle-button:hover {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.mb-4 {
-    margin-bottom: 1.5rem !important;
-}
-
-.student-card {
-    border: 0;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.student-card:hover {
-    box-shadow: 0 0.8rem 1.5rem 0 rgba(0, 0, 0, 0.2);
-}
-
-.student-card img {
-    border-radius: 50%;
-    height: 80px;
-    width: 80px;
-}
-
-.student-card .card-title {
+/* Card Title */
+.card-title {
     font-size: 1.5rem;
-    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 500;
 }
 
-.student-card .card-text {
+/* Card Text */
+.card-text {
     font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
 }
 
-.student-card button {
-    border-radius: 0.5rem;
+.card-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.card-text a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Button */
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.btn-danger:hover {
+    color: #fff;
+    background-color: #bd2130;
+    border-color: #bd2130;
+}
+
+/* Modal */
+.modal-content {
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 0.3rem;
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    justify-content: center;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    color: #212529;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #5a6268;
+    border-color: #545b62;
 }
