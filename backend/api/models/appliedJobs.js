@@ -29,6 +29,15 @@ const appliedJobsSchema = new mongoose.Schema({
   student: {
     required: true,
     type: StudentProfile.schema,
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  email: {
+    type: String
   }
 });
 
