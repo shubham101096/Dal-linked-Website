@@ -97,7 +97,17 @@ function StudentListingsPage({ employerId }) {
                     <Card.Text>Contact: {student.student.contact}</Card.Text>
 
                     <Button href={student.student.resume} variant="outline-primary" className="mr-2">Download Resume</Button>
-                    <Button variant="outline-secondary">View Applied Jobs</Button>
+                    <Dropdown>
+    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+        Employee Action
+    </Dropdown.Toggle>
+
+    <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
+    </Dropdown.Menu>
+</Dropdown>
                   </div>
                 </Collapse>
                 <Row>
