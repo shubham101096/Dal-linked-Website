@@ -8,7 +8,8 @@ import JobCard from "../components/JobCard";
 import { AuthContext } from "../context/AuthContext";
 import { Card } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
-
+import { Pagination } from 'react-bootstrap';
+import '../styles/EmployerPage.css';
 import axios from 'axios';
 
 const EmployerPage = () => {
@@ -24,7 +25,7 @@ const EmployerPage = () => {
         borderRadius: "20px",
         padding: "0.7rem"
     };
-
+    const [activePage, setActivePage] = useState(1);
     const [selectedJob, setSelectedJob] = useState(null);
     const [showJobDetail, setShowJobDetail] = useState(false);
     const closeJobDetails = () => {
@@ -88,12 +89,27 @@ const EmployerPage = () => {
     console.log("user:", user);
     console.log("emp:", employer)
 
+    const jobsPerPage = 3;
+    const totalPages = Math.ceil(jobs.length / jobsPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setActivePage(pageNumber);
+    };
+
+    const indexOfLastJob = activePage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+
+    useEffect(() => {
+        setActivePage(1); // Reset page when the total number of pages changes
+    }, [totalPages]);
+
     return (
-        <Container className="employer-page">
-            <Row>
-                <Col xs={12} md={4}>
-                    {/* <EmployerProfileCard /> */}
-                    <Card style={{ width: '100%', backgroundColor: '#F0F0F0' }}>
+        <Container className="p-3 employer-page">
+    <Row>
+        <Col xs={12} md={4}>
+            {/* <EmployerProfileCard /> */}
+            <Card style={{ width: '100%', backgroundColor: '#F0F0F0' }}>
                         {employer ? (
                             <>
                                 <Card.Img
@@ -101,10 +117,10 @@ const EmployerPage = () => {
                                     src={employer.companyLogo || "https://s3.amazonaws.com/www-inside-design/uploads/2019/05/woolmarkimagelogo-1024x576.png"}
                                 />
                                 <Card.Body>
-                                    <Card.Title style={{ fontSize: '20px', color: '#333' }}>
+                                <Card.Title style={{ fontSize: '20px', color: '#000000', fontFamily: 'Arial' }}>
                                         {employer.employerName}
                                     </Card.Title>
-                                    <Card.Text style={{ fontSize: '16px', color: '#555' }}>
+                                    <Card.Text style={{ fontSize: '16px', color: '#000000', fontFamily: 'Arial'}}>
                                         Company Name: {employer.companyName} <br />
                                         Email: {employer.email} <br />
                                         Contact Number: {employer.contactNumber} <br />
@@ -128,7 +144,8 @@ const EmployerPage = () => {
                                                 Delete Account
                                             </Button>
                                         </Modal.Footer>
-                                    </Modal>                                </Card.Body>
+                                    </Modal>
+                                </Card.Body>
                             </>
                         ) : (
                             'Loading...'
@@ -151,10 +168,14 @@ const EmployerPage = () => {
                         </Button>
                     </div>
                 </Col>
+                {/* <Col md={1}></Col> */}
+                
+                <Col xs={8} md={7}>
                 <Col>
+                <Col className="right-col">
                     {showJobDetail ? (
                         <div>
-                            <Button variant="primary" onClick={handleBack} className="toggle-button">Back to Job Listings</Button>
+                            {/* <Button variant="primary" onClick={handleBack} className="toggle-button">Back to Job Listings</Button> */}
                             <JobDetail job={selectedJob} isEmployerPage={true} closeJobDetail={closeJobDetails} />
                         </div>
                     ) : (
@@ -164,7 +185,23 @@ const EmployerPage = () => {
                             <Col xs={12} md={8}>
                                 {displayJobListings ? (
                                     <div>
-                                        {jobs.length === 0 ? (<div><h3>No jobs available currently.</h3></div>) : (jobs.map((job) => (<div key={job.id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
+                                        {currentJobs.length === 0 ? (<div><h3>No jobs available currently.</h3></div>) : (currentJobs.map((job) => (<div key={job.id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
+                                        {/* Pagination */}
+                                        {jobs.length > jobsPerPage && (
+                                            <div className="d-flex justify-content-center mt-4">
+                                                <Pagination>
+                                                    {Array.from({ length: totalPages }, (_, index) => (
+                                                        <Pagination.Item
+                                                            key={index + 1}
+                                                            active={index + 1 === activePage}
+                                                            onClick={() => handlePageChange(index + 1)}
+                                                        >
+                                                            {index + 1}
+                                                        </Pagination.Item>
+                                                    ))}
+                                                </Pagination>
+                                            </div>
+                                        )}
                                     </div>
                                 ) : (
                                     <StudentListingsPage employerId={employer._id} />
@@ -172,6 +209,8 @@ const EmployerPage = () => {
                             </Col>
                         </div>
                     )}
+                    </Col>
+                </Col>
                 </Col>
             </Row>
         </Container>
