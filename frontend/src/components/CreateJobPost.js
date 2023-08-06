@@ -69,7 +69,7 @@ const CreateJobPost = () => {
             }
         };
         fetchJobSectors();
-    }, [user]);    
+    }, [user]);
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -204,23 +204,20 @@ const CreateJobPost = () => {
                                     required
                                 />
                             </div>
-                            <div className="mb-4">
-        <label htmlFor="jobSector" className="block font-medium mb-1">
-            Job Sector: <span className="red-star">*</span>
-        </label>
-        <select
-            id="jobSector"
-            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:border-blue-500"
-            value={jobSector}
-            onChange={(e) => setJobSector(e.target.value)}
-            required
-        >
-            <option value="">Select the job sector</option>
-            {jobSectors.map((sector, index) => (
-                <option key={index} value={sector._id}>{sector.name}</option>
-            ))}
-        </select>
-    </div>
+                            <select
+                                id="jobSector"
+                                className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:border-blue-500"
+                                value={jobSector}
+                                onChange={(e) => setJobSector(e.target.value)}
+                                required
+                            >
+                                <option value="">Select the job sector</option>
+                                {jobSectors.map((sector) => (
+                                    <option key={sector._id} value={sector.name}>
+                                        {sector.name}
+                                    </option>
+                                ))}
+                            </select>
                             <div className="mb-4">
                                 <label htmlFor="jobTitle" className="block font-medium mb-1">
                                     Job Title: <span className="red-star">*</span>
@@ -267,9 +264,9 @@ const CreateJobPost = () => {
                                     required
                                 >
                                     <option value="">Select the job type</option>
-                                    <option value="1">Full-Time</option>
-                                    <option value="2">Part-Time</option>
-                                    <option value="3">COOP</option>
+                                    <option value="Full-Time">Full-Time</option>
+                                    <option value="Part-Time">Part-Time</option>
+                                    <option value="COOP">COOP</option>
                                 </select>
                             </div>
                             <div className="mb-4">
