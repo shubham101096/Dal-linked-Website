@@ -41,7 +41,6 @@ function StudentListingsPage({ employerId }) {
     }
   }
 
-  // Pagination setup
   const studentsPerPage = 3;
   const totalPages = Math.ceil(students.length / studentsPerPage);
 
@@ -53,10 +52,10 @@ function StudentListingsPage({ employerId }) {
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
   const currentStudents = students.slice(indexOfFirstStudent, indexOfLastStudent);
 
-  // Toggle card expand/collapse
-  const toggleExpand = (id) => {
-    setExpandedCards(prev => ({ ...prev, [id]: !prev[id] }));
+  const toggleExpand = (index) => {
+    setExpandedCards(prev => ({ ...prev, [index]: !prev[index] }));
   };
+
 
   return (
     <Container>
@@ -81,13 +80,13 @@ function StudentListingsPage({ employerId }) {
                     <Card.Text>Title: {student.job.title}</Card.Text>
                   </Col>
                   <Col xs="auto">
-                    <Button variant="link" onClick={() => toggleExpand(student.studentId)}>
-                      {expandedCards[student.studentId] ? <ChevronUp /> : <ChevronDown />}
+                    <Button variant="link" onClick={() => toggleExpand(idx)}>
+                      {expandedCards[idx] ? <ChevronUp /> : <ChevronDown />}
                     </Button>
                   </Col>
                 </Row>
 
-                <Collapse in={expandedCards[student.studentId]}>
+                <Collapse in={expandedCards[idx]}>
                   <div>
                     <Card.Text>Work Experience: {student.student.workExperience}</Card.Text>
                     <Card.Text>Education: {student.student.education}</Card.Text>
@@ -98,16 +97,16 @@ function StudentListingsPage({ employerId }) {
 
                     <Button href={student.student.resume} variant="outline-primary" className="mr-2">Download Resume</Button>
                     <Dropdown>
-    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-        Employee Action
-    </Dropdown.Toggle>
+                      <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                        Employee Action
+                      </Dropdown.Toggle>
 
-    <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
-    </Dropdown.Menu>
-</Dropdown>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </div>
                 </Collapse>
                 <Row>
