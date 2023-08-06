@@ -85,7 +85,6 @@ function StudentListingsPage({ employerId }) {
                     </Button>
                   </Col>
                 </Row>
-
                 <Collapse in={expandedCards[idx]}>
                   <div>
                     <Card.Text>Work Experience: {student.student.workExperience}</Card.Text>
@@ -94,19 +93,6 @@ function StudentListingsPage({ employerId }) {
                     <Card.Text>About: {student.student.about}</Card.Text>
                     <Card.Text>Work Style: {student.student.workStyle}</Card.Text>
                     <Card.Text>Contact: {student.student.contact}</Card.Text>
-
-                    <Button href={student.student.resume} variant="outline-primary" className="mr-2">Download Resume</Button>
-                    <Dropdown>
-                      <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                        Employee Action
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
                   </div>
                 </Collapse>
                 <Row>
@@ -114,6 +100,21 @@ function StudentListingsPage({ employerId }) {
                   </Col>
                 </Row>
               </Col>
+              <div className="button-container">
+                <Button href={student.student.resume} variant="outline-primary" className="mr-2">Download Resume</Button>
+                <div className="dropdown-button">
+                  <Dropdown>
+                    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                      Employee Action
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="Interview Schedules">Interview</Dropdown.Item>
+                      <Dropdown.Item href="Accepted">Accepted</Dropdown.Item>
+                      <Dropdown.Item href="Rejected">Rejected</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
+              </div>
             </Row>
           </Card.Body>
         </Card>

@@ -10,7 +10,21 @@
     background-color: #fff; /* Setting a white background */
     /* overflow: auto; */
 }
-
+.dropdown-button {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the value to increase or decrease the gap */
+    position: relative;
+  }
+  
+  
+  
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the value to increase or decrease the gap */
+  }
+  
 .student-card:hover {
     box-shadow: 0 0.8rem 1.5rem 0 rgba(0, 0, 0, 0.2);
     transform: scale(1.01); /* Adding slight scale to hover effect */
