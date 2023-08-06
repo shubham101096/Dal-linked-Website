@@ -3,10 +3,12 @@ import { Card, Button, Container, Row, Col, Dropdown, Pagination, Collapse } fro
 import { ChevronDown, ChevronUp } from 'react-bootstrap-icons';
 import "../styles/StudentListingsPage.css";
 import axios from 'axios';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function StudentListingsPage({ employerId }) {
 
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);  
+  const { user } = useAuthContext();
   const [selectedStatus, setSelectedStatus] = useState({}); // an object to store statuses for each student
   const [activePage, setActivePage] = useState(1); // New state for pagination
   const [expandedCards, setExpandedCards] = useState({}); // New state for expandable cards
@@ -16,9 +18,12 @@ function StudentListingsPage({ employerId }) {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/employeeJobs/getApplicantsByEmployeeid/${employerId}`);
+        const response = await axios.get(`${backendUrl}/employeeJobs/getApplicantsByEmployeeid/${employerId}`, {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        })
         setStudents(response.data);
-        // initialize status for each student as 'Applied'
         const initialStatus = response.data.reduce((acc, curr) => ({ ...acc, [curr.studentId]: 'Applied' }), {});
         setSelectedStatus(initialStatus);
       } catch (error) {
@@ -28,18 +33,41 @@ function StudentListingsPage({ employerId }) {
     fetchStudents();
   }, [employerId]);
 
-  const handleStatusChange = async (studentId, status) => {
+  const handleStatusUpdate = async (_id, newStatus, studentEmail) => {
     try {
-      await axios.patch(`${backendUrl}/employeeJobs/updateStatus/${studentId}`, { status });
-      // update the local state with new status
-      setSelectedStatus(prevStatus => ({
-        ...prevStatus,
-        [studentId]: status
-      }));
+      await axios.patch(
+        `${backendUrl}/appliedJobs/updateStatusById/${_id}`,
+        {
+          id: _id,
+          status: newStatus,
+          studentEmail: studentEmail
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      );
+  
+      setStudents(prevStudents => {
+        return prevStudents.map(student => {
+          if (student._id === _id) {
+            return { ...student, status: newStatus };
+          }
+          return student;
+        });
+      });
+  
+      console.log('Status updated successfully!');
     } catch (error) {
-      console.error('Error updating status', error);
+      console.error('Error updating status:', error);
+      console.log('An error occurred while updating the status.');
     }
-  }
+  };
+  
+
+  
+  
 
   const studentsPerPage = 3;
   const totalPages = Math.ceil(students.length / studentsPerPage);
@@ -105,12 +133,12 @@ function StudentListingsPage({ employerId }) {
                 <div className="dropdown-button">
                   <Dropdown>
                     <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                      Employee Action
+                    {student.status}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item href="Interview Schedules">Interview</Dropdown.Item>
-                      <Dropdown.Item href="Accepted">Accepted</Dropdown.Item>
-                      <Dropdown.Item href="Rejected">Rejected</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleStatusUpdate(student._id, 'InterviewScheduled', student.email)}>InterviewScheduled</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleStatusUpdate(student._id, 'Accepted', student.email)}>Accepted</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleStatusUpdate(student._id, 'Rejected', student.email)}>Rejected</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>

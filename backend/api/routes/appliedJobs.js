@@ -15,6 +15,6 @@ router.get("/getByStudent/", appliedJobsController.getByStudent);
 
 router.get("/getByJobId/", appliedJobsController.getByJobId);
 
-router.post("/updateStatusById", appliedJobsController.updateStatusById);
+router.patch("/updateStatusById/:id", appliedJobsController.updateStatusById);
 
 module.exports = router;
