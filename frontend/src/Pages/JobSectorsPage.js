@@ -1,21 +1,16 @@
 /* MADE BY SHUBHAM MISHRA */
 
 import { useState, useEffect } from "react";
-import {
-  ListGroup,
-  Button,
-  Col,
-  Row,
-  Form,
-  Container,
-  Modal,
-  Alert,
-} from "react-bootstrap";
+import {ListGroup, Button, Col, Row, Form, Container, Modal, Alert} from "react-bootstrap";
 import axios from "axios";
 import "../styles/JobSectors.css";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Footer from "./../components/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 function JobSectorsPage() {
+  // State variables for managing various UI states
   const [searchTerm, setSearchTerm] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [newSector, setNewSector] = useState("");
@@ -28,9 +23,11 @@ function JobSectorsPage() {
   const [error, setError] = useState("");
   const { user } = useAuthContext();
 
+  // Backend URL and job sectors URL
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const jobSectorsUrl = `${backendUrl}/jobSectors`;
 
+  // Function to fetch job sectors from the server
   const fetchJobSectors = async (userToken) => {
     try {
       const response = await axios.get(jobSectorsUrl, {
@@ -44,20 +41,25 @@ function JobSectorsPage() {
     }
   };
 
+  // Function to delete a job sector
   const deleteJobSector = async (_id) => {
     try {
       const response = await axios.delete(`${jobSectorsUrl}/${_id}`);
       if (response.status === 200) {
         fetchJobSectors(user.token);
         setShowDeleteModal(false);
+        toast.success("Job sector deleted successfully.");
       } else {
+        toast.success("Error in deleting job sector.");
         console.error("Error deleting sector:", response.status);
       }
     } catch (error) {
+      toast.success("Error in deleting job sector.");
       console.error("Error deleting sector:", error);
     }
   };
 
+  // Function to update a job sector
   const updateJobSector = async (_id, name) => {
     try {
       const response = await axios.put(`${jobSectorsUrl}/${_id}`, {
@@ -69,14 +71,18 @@ function JobSectorsPage() {
         setShowEditModal(false);
         setSectorToEdit(null);
         setEditedSectorName("");
+        toast.success("Job sector updated successfully.");
       } else {
+        toast.success("Error in updating job sector.");
         console.error("Error updating sector:", response.status);
       }
     } catch (error) {
+      toast.success("Error in updating job sector.");
       console.error("Error updating sector:", error);
     }
   };
 
+  // Function to handle new job sector submission
   const handleNewJobSectorSubmit = async (name) => {
     try {
       const existingSector = jobSectors.find(
@@ -98,10 +104,13 @@ function JobSectorsPage() {
         setShowAddModal(false);
         setNewSector("");
         setError("");
+        toast.success("Job sector created successfully.");
       } else {
+        toast.success("Error in creating job sector.");
         console.error("Error creating job sector:", response.status);
       }
     } catch (error) {
+      toast.success("Error in creating job sector.");
       console.error("Error creating job sector:", error);
     }
   };
@@ -155,12 +164,14 @@ function JobSectorsPage() {
     setError("");
   };
 
+  // Effect to fetch job sectors when the user context changes
   useEffect(() => {
     if (user) {
       fetchJobSectors(user.token);
     }
   }, [user]);
 
+  // Return UI components based on user authentication
   if (!user) {
     return <p>Please signin to access this page.</p>;
   }
@@ -344,6 +355,8 @@ function JobSectorsPage() {
           </Modal.Footer>
         </Modal>
       </Container>
+      {/* Toast Container for notifications */}
+      <ToastContainer />
       <Footer />
     </>
   );

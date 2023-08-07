@@ -1,7 +1,9 @@
 /* MADE BY SHUBHAM MISHRA */
 
+// Import the JobSector model
 const JobSector = require('../models/jobSector');
 
+// Get all job sectors
 const getAllJobSectors = async (req, res) => {
   try {
     const jobSectors = await JobSector.find();
@@ -11,6 +13,7 @@ const getAllJobSectors = async (req, res) => {
   }
 };
 
+// Get job sector by ID
 const getJobSectorById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -24,6 +27,7 @@ const getJobSectorById = async (req, res) => {
   }
 };
 
+// Create a new job sector
 const createJobSector = async (req, res) => {
   const { name } = req.body;
   try {
@@ -35,6 +39,7 @@ const createJobSector = async (req, res) => {
   }
 };
 
+// Update job sector by ID
 const updateJobSectorById = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
@@ -49,6 +54,7 @@ const updateJobSectorById = async (req, res) => {
   }
 };
 
+// Delete job sector by ID
 const deleteJobSectorById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -62,6 +68,7 @@ const deleteJobSectorById = async (req, res) => {
   }
 };
 
+// Export the functions for use in other modules
 module.exports = {
   getAllJobSectors,
   getJobSectorById,

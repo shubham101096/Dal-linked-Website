@@ -158,7 +158,7 @@ function AnnouncementPage() {
     }
   }, [user]);
 
-  // Check if the user is logged in
+  // Return UI components based on user authentication
   if (!user) {
     return <p>Please sign in to access this page.</p>;
   }
@@ -169,9 +169,11 @@ function AnnouncementPage() {
         <h3 className="text-center mt-3 mb-3">Announcements</h3>
         <Row className="justify-content-center">
           <Col sm={12} md={10} lg={8}>
+            {/* Announcements List */}
             <ListGroup className="text-left md-8">
               {/* Search and Sort Bar */}
               <ListGroup.Item className="d-flex justify-content-between align-items-center p-0 mb-3 border-0">
+                {/* Search Input */}
                 <div className="d-flex flex-grow-1 me-2">
                   <Form.Control
                     type="text"
@@ -181,6 +183,7 @@ function AnnouncementPage() {
                     style={{ width: "100%" }}
                   />
                 </div>
+                {/* Sort Dropdown */}
                 <Dropdown onSelect={handleSortChange} className="me-2">
                   <Dropdown.Toggle
                     style={{
@@ -196,7 +199,7 @@ function AnnouncementPage() {
                     <Dropdown.Item eventKey="desc">Latest first</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                {/* Show "New" button for admin users */}
+                {/* "New" Button for Admins */}
                 {user.userType === "admin" && (
                   <Button
                     style={{

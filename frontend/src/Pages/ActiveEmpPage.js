@@ -1,17 +1,18 @@
 /* MADE BY SHUBHAM MISHRA */
 
 import { useState, useEffect } from "react";
-import {ListGroup, Button, Container, Row, Col, Card, Modal, Form, Pagination} from "react-bootstrap";
+import { ListGroup, Button, Container, Row, Col, Card, Modal, Form, Pagination } from "react-bootstrap";
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import Footer from "./../components/Footer.js";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function ActiveEmpPage() {
-  // State variables
+  // State variables to manage active employers and other UI elements
   const [activeEmployers, setEmployerRequests] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showRevokeModal, setShowRevokeModal] = useState(false);
-  const [showApproveModal, setShowApproveModal] = useState(false);
   const [curReq, setCurReq] = useState(null);
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const { user } = useAuthContext();
@@ -46,21 +47,25 @@ function ActiveEmpPage() {
       );
       if (response.status === 200) {
         fetchActiveEmployers(userToken);
+        toast.success("Employer access revoked successfully.");
       } else {
-        console.error("Error deleting sector:", response.status);
+        toast.error("Error in revoking employer access.");
+        console.error("Error in revoking employer access:", response.status);
       }
-      setShowApproveModal(false);
       setShowRevokeModal(false);
     } catch (error) {
-      console.error("Error fetching  employers:", error);
+      toast.error("Error in revoking employer access.");
+      console.error("Error in revoking employer access:", error);
     }
   };
 
+  // Function to handle revoke action
   const handleRevoke = (request) => {
     setCurReq(request);
     setShowRevokeModal(true);
   };
 
+  // Function to handle search input change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -105,6 +110,7 @@ function ActiveEmpPage() {
     }
   }, [user]);
 
+  // Return UI components based on user authentication
   if (!user) {
     return <p>Please signin to access this page.</p>;
   }
@@ -183,6 +189,7 @@ function ActiveEmpPage() {
             </Pagination>
           </div>
         )}
+        {/* Revoke Modal */}
         <Modal
           show={showRevokeModal}
           onHide={() => setShowRevokeModal(false)}
@@ -219,6 +226,9 @@ function ActiveEmpPage() {
           </Modal.Footer>
         </Modal>
       </Container>
+      {/* Toast Container for notifications */}
+      <ToastContainer />
+      {/* Footer component */}
       <Footer />
     </>
   );
