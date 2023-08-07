@@ -46,6 +46,8 @@ function NavigationBar() {
   ];
 
   const employerNavLinks = [
+    { text: "Contact Us", href: "/contactUs" },
+    { text: "FAQ", href: "/faq" },
     { text: "Create Job Post", href: "/CreateJobPost" },
     { text: "Employer", href: "/EmployerPage" },
   ];
@@ -58,7 +60,7 @@ function NavigationBar() {
   } else if (userType === "student") {
     navLinks = studentNavLinks;
   } else if (userType === "employer") {
-    navLinks = [...studentNavLinks, ...employerNavLinks];
+    navLinks = employerNavLinks;
   }
 
   return (

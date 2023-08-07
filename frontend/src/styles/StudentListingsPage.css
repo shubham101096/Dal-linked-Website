@@ -1,58 +1,36 @@
-/** MADE BY SHUBHAM MISHRA */
-
-.employer-page {
-    background-color: #fafafa;
-    padding: 2rem;
-    border-radius: 1rem;
-}
-
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-}
-
-.toggle-button {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.2s ease-in-out;
-}
-
-.toggle-button:hover {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.mb-4 {
-    margin-bottom: 1.5rem !important;
-}
-
 .student-card {
-    border: 0;
+    border: 1px solid #ddd;  /* Adding light border */
     border-radius: 0.5rem;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out;
+    min-width: 800px; 
+    width: 100%; 
+    margin: 2rem auto; /* Adding margin around the cards for some breathing space */
+    padding: 1rem; /* Adding padding to the card content */
+    background-color: #fff; /* Setting a white background */
+    /* overflow: auto; */
 }
 
 .student-card:hover {
     box-shadow: 0 0.8rem 1.5rem 0 rgba(0, 0, 0, 0.2);
-}
-
-.student-card img {
-    border-radius: 50%;
-    height: 80px;
-    width: 80px;
+    transform: scale(1.01); /* Adding slight scale to hover effect */
 }
 
 .student-card .card-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Increase font size */
     font-weight: bold;
+    color: #000000; /* Set text color */
 }
 
 .student-card .card-text {
-    font-size: 1rem;
+    font-size: 1.1rem; /* Increase font size */
+    color: #000000; /* Set text color */
+    margin-bottom: 0.5rem; /* Add some bottom margin to separate the texts */
 }
 
-.student-card button {
-    border-radius: 0.5rem;
+.student-card img {
+    border-radius: 100%;
+    max-height: 120px; /* Slightly increase the size of the profile image */
+    max-width: 120px; 
+    object-fit: cover; /* Ensure the aspect ratio of images are maintained */
 }
