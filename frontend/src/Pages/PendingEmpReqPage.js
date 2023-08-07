@@ -1,22 +1,31 @@
 /* MADE BY SHUBHAM MISHRA */
 
 import { useState, useEffect } from "react";
-import {ListGroup, Button, Container, Row, Col, Card, Modal} from "react-bootstrap";
+import { ListGroup, Button, Container, Row, Col, Card, Modal } from "react-bootstrap";
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import Footer from "./../components/Footer";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function PendingEmpReqPage() {
+  // State for employer requests
   const [employerRequests, setEmployerRequests] = useState([]);
 
+  // State for Reject and Approve Modals
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [showApproveModal, setShowApproveModal] = useState(false);
+
+  // State for current request being processed
   const [curReq, setCurReq] = useState(null);
+
+  // Backend URL
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+  // Auth context
   const { user } = useAuthContext();
 
+  // Fetch pending employer registration requests
   const fetchEmpReg = async (userToken) => {
     try {
       const empPendingUrl = `${backendUrl}/employerReg/status/pending`;
@@ -31,6 +40,7 @@ function PendingEmpReqPage() {
     }
   };
 
+  // Update employer registration request status
   const updateEmpStatus = async (userToken, updatedStatus) => {
     try {
       const empStatusUpdateUrl = `${backendUrl}/employerReg/status/${curReq._id}`;
@@ -45,47 +55,56 @@ function PendingEmpReqPage() {
       );
       if (response.status === 200) {
         fetchEmpReg(userToken);
-        if (updatedStatus==="active") {
+        if (updatedStatus === "active") {
           toast.success("Employer's request approved.");
         } else {
           toast.success("Employer's request rejected.");
         }
       } else {
-        console.error("Error upadting request status:", response.status);
+        toast.error("Error updating request status.");
+        console.error("Error updating request status:", response.status);
       }
+      // Close modals after action
       setShowApproveModal(false);
       setShowRejectModal(false);
     } catch (error) {
+      toast.error("Error updating request status.");
       console.error("Error updating request status:", error);
     }
   };
 
+  // Handle Approve button click
   const handleApprove = (request) => {
     setCurReq(request);
     setShowApproveModal(true);
   };
 
+  // Handle Reject button click
   const handleReject = (request) => {
     setCurReq(request);
     setShowRejectModal(true);
   };
 
+  // Handle Approve confirmation
   const handleApproveConfirm = () => {
     updateEmpStatus(user.token, "active");
   };
 
+  // Handle Reject confirmation
   const handleRejectConfirm = () => {
     updateEmpStatus(user.token, "inactive");
   };
 
+  // Fetch employer registration requests when user changes
   useEffect(() => {
     if (user) {
       fetchEmpReg(user.token);
     }
   }, [user]);
 
+  // Return UI components based on user authentication
   if (!user) {
-    return <p>Please signin to access this page.</p>;
+    return <p>Please sign in to access this page.</p>;
   }
 
   return (
@@ -145,6 +164,7 @@ function PendingEmpReqPage() {
             </ListGroup>
           </Col>
         </Row>
+        {/* Rejction Modal */}
         <Modal
           show={showRejectModal}
           onHide={() => setShowRejectModal(false)}
@@ -180,6 +200,7 @@ function PendingEmpReqPage() {
             </Button>
           </Modal.Footer>
         </Modal>
+        {/* Approval Modal */}
         <Modal
           show={showApproveModal}
           onHide={() => setShowApproveModal(false)}

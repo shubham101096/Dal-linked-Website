@@ -5,7 +5,7 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import '../styles/Announcements.css';
 
 function NewAnnouncementForm({ onSubmit }) {
-  // State variables
+  // State variables to manage form inputs and messages
   const [newAnnouncementTitle, setNewAnnouncementTitle] = useState('');
   const [newAnnouncementBody, setNewAnnouncementBody] = useState('');
   const [error, setError] = useState('');
@@ -31,12 +31,16 @@ function NewAnnouncementForm({ onSubmit }) {
       return;
     }
 
+    // If validation passes, show post confirmation button
     setConfirmPost(true);
   };
 
   // Function to handle post confirmation
   const handlePostConfirmation = () => {
+    // Call the provided onSubmit function to post the announcement
     onSubmit(newAnnouncementTitle, newAnnouncementBody);
+
+    // Clear form inputs and error message
     setNewAnnouncementTitle('');
     setNewAnnouncementBody('');
     setError('');
@@ -81,4 +85,5 @@ function NewAnnouncementForm({ onSubmit }) {
   );
 }
 
+// Export the NewAnnouncementForm component
 export default NewAnnouncementForm;

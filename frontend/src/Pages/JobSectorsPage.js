@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function JobSectorsPage() {
+  // State variables for managing various UI states
   const [searchTerm, setSearchTerm] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [newSector, setNewSector] = useState("");
@@ -22,9 +23,11 @@ function JobSectorsPage() {
   const [error, setError] = useState("");
   const { user } = useAuthContext();
 
+  // Backend URL and job sectors URL
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const jobSectorsUrl = `${backendUrl}/jobSectors`;
 
+  // Function to fetch job sectors from the server
   const fetchJobSectors = async (userToken) => {
     try {
       const response = await axios.get(jobSectorsUrl, {
@@ -38,6 +41,7 @@ function JobSectorsPage() {
     }
   };
 
+  // Function to delete a job sector
   const deleteJobSector = async (_id) => {
     try {
       const response = await axios.delete(`${jobSectorsUrl}/${_id}`);
@@ -55,6 +59,7 @@ function JobSectorsPage() {
     }
   };
 
+  // Function to update a job sector
   const updateJobSector = async (_id, name) => {
     try {
       const response = await axios.put(`${jobSectorsUrl}/${_id}`, {
@@ -77,6 +82,7 @@ function JobSectorsPage() {
     }
   };
 
+  // Function to handle new job sector submission
   const handleNewJobSectorSubmit = async (name) => {
     try {
       const existingSector = jobSectors.find(
@@ -158,12 +164,14 @@ function JobSectorsPage() {
     setError("");
   };
 
+  // Effect to fetch job sectors when the user context changes
   useEffect(() => {
     if (user) {
       fetchJobSectors(user.token);
     }
   }, [user]);
 
+  // Return UI components based on user authentication
   if (!user) {
     return <p>Please signin to access this page.</p>;
   }

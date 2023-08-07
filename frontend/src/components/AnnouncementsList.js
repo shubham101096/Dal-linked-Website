@@ -7,6 +7,7 @@ import { Card, Button, ListGroup } from 'react-bootstrap';
 function formatDateString(dateStr) {
   const date = new Date(dateStr);
 
+  // Define options for date formatting
   const options = {
     day: 'numeric',
     month: 'long',
@@ -16,6 +17,7 @@ function formatDateString(dateStr) {
     hour12: true,
   };
 
+  // Format the date using the specified options
   return date.toLocaleString('en-US', options);
 }
 
@@ -25,9 +27,11 @@ function AnnouncementsList({ announcements, userType, onDelete }) {
     <ListGroup className="text-left md-8">
       {announcements.map((announcement) => (
         <ListGroup.Item key={announcement._id} className="p-0 mb-3 border-0">
+          {/* Display announcement details in a Card */}
           <Card>
             <Card.Header className="d-flex justify-content-between align-items-center">
               <h5>{announcement.title}</h5>
+              {/* Render delete button for admin users */}
               {userType === 'admin' && (
                 <Button
                   style={{color:'red', backgroundColor:'rgba(200, 209, 214, 0.5)', borderRadius:'25px' }}
@@ -39,6 +43,7 @@ function AnnouncementsList({ announcements, userType, onDelete }) {
               )}
             </Card.Header>
             <Card.Body>
+              {/* Display announcement date and text */}
               <Card.Subtitle className="mb-2 text-muted">
                 Posted on: {formatDateString(announcement.datePosted)}
               </Card.Subtitle>
@@ -51,4 +56,5 @@ function AnnouncementsList({ announcements, userType, onDelete }) {
   );
 }
 
+// Export the AnnouncementsList component
 export default AnnouncementsList;
