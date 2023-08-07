@@ -5,6 +5,8 @@ import {ListGroup, Button, Container, Row, Col, Card, Modal, Form, Pagination} f
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import Footer from "./../components/Footer.js";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function ActiveEmpPage() {
   // State variables
@@ -46,13 +48,16 @@ function ActiveEmpPage() {
       );
       if (response.status === 200) {
         fetchActiveEmployers(userToken);
+        toast.success("Employer access revoked successfully.");
       } else {
-        console.error("Error deleting sector:", response.status);
+        toast.error("Error in revoking employer access.");
+        console.error("Error in revoking employer access:", response.status);
       }
       setShowApproveModal(false);
       setShowRevokeModal(false);
     } catch (error) {
-      console.error("Error fetching  employers:", error);
+      toast.error("Error in revoking employer access.");
+      console.error("Error in revoking employer access:", error);
     }
   };
 
@@ -219,6 +224,8 @@ function ActiveEmpPage() {
           </Modal.Footer>
         </Modal>
       </Container>
+      {/* Toast Container for notifications */}
+      <ToastContainer />
       <Footer />
     </>
   );

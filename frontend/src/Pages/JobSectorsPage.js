@@ -1,20 +1,14 @@
 /* MADE BY SHUBHAM MISHRA */
 
 import { useState, useEffect } from "react";
-import {
-  ListGroup,
-  Button,
-  Col,
-  Row,
-  Form,
-  Container,
-  Modal,
-  Alert,
-} from "react-bootstrap";
+import {ListGroup, Button, Col, Row, Form, Container, Modal, Alert} from "react-bootstrap";
 import axios from "axios";
 import "../styles/JobSectors.css";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Footer from "./../components/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 function JobSectorsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
@@ -50,10 +44,13 @@ function JobSectorsPage() {
       if (response.status === 200) {
         fetchJobSectors(user.token);
         setShowDeleteModal(false);
+        toast.success("Job sector deleted successfully.");
       } else {
+        toast.success("Error in deleting job sector.");
         console.error("Error deleting sector:", response.status);
       }
     } catch (error) {
+      toast.success("Error in deleting job sector.");
       console.error("Error deleting sector:", error);
     }
   };
@@ -69,10 +66,13 @@ function JobSectorsPage() {
         setShowEditModal(false);
         setSectorToEdit(null);
         setEditedSectorName("");
+        toast.success("Job sector updated successfully.");
       } else {
+        toast.success("Error in updating job sector.");
         console.error("Error updating sector:", response.status);
       }
     } catch (error) {
+      toast.success("Error in updating job sector.");
       console.error("Error updating sector:", error);
     }
   };
@@ -98,10 +98,13 @@ function JobSectorsPage() {
         setShowAddModal(false);
         setNewSector("");
         setError("");
+        toast.success("Job sector created successfully.");
       } else {
+        toast.success("Error in creating job sector.");
         console.error("Error creating job sector:", response.status);
       }
     } catch (error) {
+      toast.success("Error in creating job sector.");
       console.error("Error creating job sector:", error);
     }
   };
@@ -344,6 +347,8 @@ function JobSectorsPage() {
           </Modal.Footer>
         </Modal>
       </Container>
+      {/* Toast Container for notifications */}
+      <ToastContainer />
       <Footer />
     </>
   );

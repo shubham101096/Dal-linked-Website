@@ -1,18 +1,13 @@
 /* MADE BY SHUBHAM MISHRA */
 
 import { useState, useEffect } from "react";
-import {
-  ListGroup,
-  Button,
-  Container,
-  Row,
-  Col,
-  Card,
-  Modal,
-} from "react-bootstrap";
+import {ListGroup, Button, Container, Row, Col, Card, Modal} from "react-bootstrap";
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import Footer from "./../components/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 function PendingEmpReqPage() {
   const [employerRequests, setEmployerRequests] = useState([]);
 
@@ -50,13 +45,18 @@ function PendingEmpReqPage() {
       );
       if (response.status === 200) {
         fetchEmpReg(userToken);
+        if (updatedStatus==="active") {
+          toast.success("Employer's request approved.");
+        } else {
+          toast.success("Employer's request rejected.");
+        }
       } else {
-        console.error("Error deleting sector:", response.status);
+        console.error("Error upadting request status:", response.status);
       }
       setShowApproveModal(false);
       setShowRejectModal(false);
     } catch (error) {
-      console.error("Error fetching employers:", error);
+      console.error("Error updating request status:", error);
     }
   };
 
@@ -216,6 +216,8 @@ function PendingEmpReqPage() {
           </Modal.Footer>
         </Modal>
       </Container>
+      {/* Toast Container for notifications */}
+      <ToastContainer />
       <Footer />
     </>
   );
