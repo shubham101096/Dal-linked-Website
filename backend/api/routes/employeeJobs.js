@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const appliedJobsController = require('../controllers/employeeJobs');
+const employeeJobsController = require('../controllers/employeeJobs');
 
-router.get('/getApplicantsByEmployeeid/:id', appliedJobsController.getApplicantsByEmployeeId);
+const requireAuth = require('../../middleware/requireAuth')
+// This ensures that all these routes are authenticated
+router.use(requireAuth)
+router.get('/getApplicantsByEmployeeid/:id', employeeJobsController.getApplicantsByEmployeeId);
 
 module.exports = router;

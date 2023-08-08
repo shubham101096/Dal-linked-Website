@@ -3,10 +3,12 @@ import { Card, Button, Container, Row, Col, Dropdown, Pagination, Collapse } fro
 import { ChevronDown, ChevronUp } from 'react-bootstrap-icons';
 import "../styles/StudentListingsPage.css";
 import axios from 'axios';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function StudentListingsPage({ employerId }) {
 
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);  
+  const { user } = useAuthContext();
   const [selectedStatus, setSelectedStatus] = useState({}); // an object to store statuses for each student
   const [activePage, setActivePage] = useState(1); // New state for pagination
   const [expandedCards, setExpandedCards] = useState({}); // New state for expandable cards
@@ -16,9 +18,12 @@ function StudentListingsPage({ employerId }) {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/employeeJobs/getApplicantsByEmployeeid/${employerId}`);
+        const response = await axios.get(`${backendUrl}/employeeJobs/getApplicantsByEmployeeid/${employerId}`, {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        })
         setStudents(response.data);
-        // initialize status for each student as 'Applied'
         const initialStatus = response.data.reduce((acc, curr) => ({ ...acc, [curr.studentId]: 'Applied' }), {});
         setSelectedStatus(initialStatus);
       } catch (error) {
@@ -28,20 +33,42 @@ function StudentListingsPage({ employerId }) {
     fetchStudents();
   }, [employerId]);
 
-  const handleStatusChange = async (studentId, status) => {
+  const handleStatusUpdate = async (_id, newStatus, studentEmail) => {
     try {
-      await axios.patch(`${backendUrl}/employeeJobs/updateStatus/${studentId}`, { status });
-      // update the local state with new status
-      setSelectedStatus(prevStatus => ({
-        ...prevStatus,
-        [studentId]: status
-      }));
+      await axios.patch(
+        `${backendUrl}/appliedJobs/updateStatusById/${_id}`,
+        {
+          id: _id,
+          status: newStatus,
+          studentEmail: studentEmail
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      );
+  
+      setStudents(prevStudents => {
+        return prevStudents.map(student => {
+          if (student._id === _id) {
+            return { ...student, status: newStatus };
+          }
+          return student;
+        });
+      });
+  
+      console.log('Status updated successfully!');
     } catch (error) {
-      console.error('Error updating status', error);
+      console.error('Error updating status:', error);
+      console.log('An error occurred while updating the status.');
     }
-  }
+  };
+  
 
-  // Pagination setup
+  
+  
+
   const studentsPerPage = 3;
   const totalPages = Math.ceil(students.length / studentsPerPage);
 
@@ -53,10 +80,10 @@ function StudentListingsPage({ employerId }) {
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
   const currentStudents = students.slice(indexOfFirstStudent, indexOfLastStudent);
 
-  // Toggle card expand/collapse
-  const toggleExpand = (id) => {
-    setExpandedCards(prev => ({ ...prev, [id]: !prev[id] }));
+  const toggleExpand = (index) => {
+    setExpandedCards(prev => ({ ...prev, [index]: !prev[index] }));
   };
+
 
   return (
     <Container>
@@ -81,13 +108,12 @@ function StudentListingsPage({ employerId }) {
                     <Card.Text>Title: {student.job.title}</Card.Text>
                   </Col>
                   <Col xs="auto">
-                    <Button variant="link" onClick={() => toggleExpand(student.studentId)}>
-                      {expandedCards[student.studentId] ? <ChevronUp /> : <ChevronDown />}
+                    <Button variant="link" onClick={() => toggleExpand(idx)}>
+                      {expandedCards[idx] ? <ChevronUp /> : <ChevronDown />}
                     </Button>
                   </Col>
                 </Row>
-
-                <Collapse in={expandedCards[student.studentId]}>
+                <Collapse in={expandedCards[idx]}>
                   <div>
                     <Card.Text>Work Experience: {student.student.workExperience}</Card.Text>
                     <Card.Text>Education: {student.student.education}</Card.Text>
@@ -95,19 +121,6 @@ function StudentListingsPage({ employerId }) {
                     <Card.Text>About: {student.student.about}</Card.Text>
                     <Card.Text>Work Style: {student.student.workStyle}</Card.Text>
                     <Card.Text>Contact: {student.student.contact}</Card.Text>
-
-                    <Button href={student.student.resume} variant="outline-primary" className="mr-2">Download Resume</Button>
-                    <Dropdown>
-    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-        Employee Action
-    </Dropdown.Toggle>
-
-    <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
-    </Dropdown.Menu>
-</Dropdown>
                   </div>
                 </Collapse>
                 <Row>
@@ -115,6 +128,21 @@ function StudentListingsPage({ employerId }) {
                   </Col>
                 </Row>
               </Col>
+              <div className="button-container">
+                <Button href={student.student.resume} variant="outline-primary" className="mr-2">Download Resume</Button>
+                <div className="dropdown-button">
+                  <Dropdown>
+                    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                    {student.status}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => handleStatusUpdate(student._id, 'InterviewScheduled', student.email)}>InterviewScheduled</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleStatusUpdate(student._id, 'Accepted', student.email)}>Accepted</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleStatusUpdate(student._id, 'Rejected', student.email)}>Rejected</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
+              </div>
             </Row>
           </Card.Body>
         </Card>
