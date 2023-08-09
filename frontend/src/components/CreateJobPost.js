@@ -1,6 +1,8 @@
 /* MADE BY MAYANK PANDEY */
 
-// Importing necessary libraries and hooks
+/* This React component represents a multi-step form for creating a new job post. It collects various job details
+   such as company name, job sector, location, start date, skills required, job description, and more. The form
+   includes validation and submission, along with dynamic rendering of each step's content. */
 
 import React, { useState, useEffect, useContext } from 'react';
 import DatePicker from 'react-datepicker';
@@ -11,8 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/CreateJobPost.css';
 import { AuthContext } from "../context/AuthContext";
 import axios from 'axios';
-// Define the CreateJobPost component
-// Initialize states for various inputs and stages
 
 const CreateJobPost = () => {
     const [step, setStep] = useState(1);
@@ -104,7 +104,6 @@ const CreateJobPost = () => {
             setValidationError('Please fill in all fields');
             return;
         }
-        // Reset validation error
         setValidationError('');
 
         const formData = {
@@ -419,10 +418,6 @@ const CreateJobPost = () => {
                 return null;
         }
     };
-
-
-    // Render the form with conditional rendering logic for steps and their respective content
-
     return (
         <div className="bg-gray-100 text-gray-900 h-screen tracking-wider leading-normal">
             <ToastContainer />
