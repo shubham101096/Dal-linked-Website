@@ -72,7 +72,7 @@ function SavedJobsPage() {
                             ?
                             (
                                 <div className="constainer vh-100">
-                                    <JobDetail styleProp={{ position: "static", overflow: "visible" }} job={selectedJob} isEmployerPage={false} isListingsPage={false} />
+                                    <JobDetail styleProp={{ position: "static", overflow: "visible" }} job={selectedJob} isEmployerPage={false} isListingsPage={false} isSavedPage={true} />
                                 </div>
                             )
                             :
@@ -86,7 +86,7 @@ function SavedJobsPage() {
                     {(!isMobile && savedJobList.length !== 0 && Object.keys(selectedJob).length !== 0)
                         &&
                         <div className="col-7 col-xl-6 col-lg-6 col-md-6">
-                            <JobDetail job={selectedJob} isApplied={true} isEmployerPage={false} isListingsPage={false} />
+                            <JobDetail job={selectedJob} isApplied={true} isEmployerPage={false} isListingsPage={false} isSavedPage={true} />
                         </div>
                     }
                 </div>
