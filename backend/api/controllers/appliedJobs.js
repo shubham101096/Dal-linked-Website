@@ -67,15 +67,16 @@ const updateStatusById = async (req, res) => {
     },
   });
 
-  const mailStudent = {
-    from: emailId,
-    to: studentEmail,
-    subject: "DalLinked: Application Status Updated",
-    text: "Hello, your application status has been updated. Please login to our website to check your status.",
-  };
-
   try {
     await AppliedJob.updateOne({ _id: id }, { $set: { status: status } });
+    const job = await AppliedJob.findById(id);
+
+    const mailStudent = {
+      from: emailId,
+      to: studentEmail,
+      subject: "DalLinked: Application Status Updated",
+      text: `Hello, your application status has been changed to ${status} for ${job.job.title} at ${job.job.companyName}`,
+    };
 
     transporter.sendMail(mailStudent, (error, info) => {
       if (error) {

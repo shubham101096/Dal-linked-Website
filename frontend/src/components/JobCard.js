@@ -10,7 +10,7 @@ function JobCard(props) {
     return (
         <div className="job-card mx-4 my-4">
             <div className="row">
-                <div className="col-2 col-sm-2 col-lg-4 col-md-4 m-2">
+                <div className="col-3 col-sm-2 col-lg-4 col-md-4 m-2">
                     <img src={job.imageUrl} alt="company-logo" />
                 </div>
                 <div className="col col-sm-6 m-2 col-lg-6 col-md-4 mx-sm-auto mx-md-auto pl-sm-5 p-md-0">

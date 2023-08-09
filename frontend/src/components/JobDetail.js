@@ -16,7 +16,7 @@ function JobDetail(props) {
     const { user } = useAuthContext();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     // const location = useLocation();
-    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage, isListingsPage } = props;
+    const { job, isApplied, isSaved, addToAppliedJobs, addToSavedJobs, isEmployerPage, isListingsPage, isSavedPage } = props;
     const styleProp = isMobile ? props.styleProp : {};
     const closeJobDetail = (isMobile || isEmployerPage) && props.closeJobDetail;
     const [isLoading, setIsLoading] = useState(false);
@@ -174,6 +174,15 @@ function JobDetail(props) {
                                         </div>
                                 )
                         )
+                    }
+                    {
+                        isSavedPage &&
+                        <div className="col-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 m-3">
+                            <div className="save-badge" style={{ cursor: "default" }}>
+                                {/* https://icons8.com/icons/set/bookmark */}
+                                <FontAwesomeIcon icon={faBookmark} style={{ margin: "auto", fontSize: "20px" }} />
+                            </div>
+                        </div>
                     }
                     {
                         (isEmployerPage && !isMobile) &&
