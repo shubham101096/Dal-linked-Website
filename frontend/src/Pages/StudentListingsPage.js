@@ -87,8 +87,10 @@ function StudentListingsPage({ employerId }) {
 
   return (
     <Container>
-      {currentStudents.map((student, idx) => (
-        <Card key={idx} className="mb-4 student-card p-3">
+      <Row>
+        {currentStudents.map((student, idx) => (
+          <Col key={idx} xs={12}>
+            <Card className="mb-4 student-card p-3">
           <Card.Body>
             <Row className="align-items-center">
               <Col xs={12} sm={3} md={2}>
@@ -146,10 +148,12 @@ function StudentListingsPage({ employerId }) {
             </Row>
           </Card.Body>
         </Card>
-      ))}
+        </Col>
+        ))}
+      </Row>
       {students.length > studentsPerPage && (
         <div className="d-flex justify-content-center mt-4">
-          <Pagination>
+                    <Pagination>
             {Array.from({ length: totalPages }, (_, index) => (
               <Pagination.Item
                 key={index + 1}

@@ -1,19 +1,18 @@
 .student-card {
-    border: 1px solid #ddd;  /* Adding light border */
+    border: 1px solid #ddd; 
     border-radius: 0.5rem;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out;
     min-width: 800px; 
     width: 100%; 
-    margin: 2rem auto; /* Adding margin around the cards for some breathing space */
-    padding: 1rem; /* Adding padding to the card content */
-    background-color: #fff; /* Setting a white background */
-    /* overflow: auto; */
-}
+    margin: 2rem auto;  
+    padding: 1rem;  
+    background-color: #fff;  
+ }
 .dropdown-button {
     display: flex;
     align-items: center;
-    gap: 10px; /* Adjust the value to increase or decrease the gap */
+    gap: 10px;  
     position: relative;
   }
   
@@ -22,29 +21,53 @@
 .button-container {
     display: flex;
     align-items: center;
-    gap: 10px; /* Adjust the value to increase or decrease the gap */
+    gap: 10px;  
   }
   
 .student-card:hover {
     box-shadow: 0 0.8rem 1.5rem 0 rgba(0, 0, 0, 0.2);
-    transform: scale(1.01); /* Adding slight scale to hover effect */
+    transform: scale(1.01);  
 }
 
 .student-card .card-title {
-    font-size: 1.5rem; /* Increase font size */
+    font-size: 1.5rem;  
     font-weight: bold;
-    color: #000000; /* Set text color */
+    color: #000000;  
 }
 
 .student-card .card-text {
-    font-size: 1.1rem; /* Increase font size */
-    color: #000000; /* Set text color */
-    margin-bottom: 0.5rem; /* Add some bottom margin to separate the texts */
+    font-size: 1.1rem;  
+    color: #000000;  
+    margin-bottom: 0.5rem;  
 }
 
 .student-card img {
     border-radius: 100%;
-    max-height: 120px; /* Slightly increase the size of the profile image */
+    max-height: 120px;  
     max-width: 120px; 
-    object-fit: cover; /* Ensure the aspect ratio of images are maintained */
+    object-fit: cover;  
 }
+@media (max-width: 768px) {
+    .student-card {
+      min-width: auto;
+      margin: 1rem auto; 
+      padding: 0.5rem; 
+    }
+    
+    .student-card img {
+      max-height: 80px; 
+      max-width: 80px;
+    }
+    
+    .card-title {
+      font-size: 1.2rem; 
+    }
+    
+    .card-text {
+      font-size: 1rem;
+    }
+    
+    .button-container {
+      gap: 5px; 
+    }
+  }
