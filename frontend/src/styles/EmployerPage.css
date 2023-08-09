@@ -1,26 +1,24 @@
-/* Card styling */
+/* MADE BY MAYANK PANDEY */
+
 .card {
     background-color: #fafafa;
     border-radius: 1rem;
     border: 1px solid #ddd;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     overflow: hidden;
 }
 
-/* Card Image */
 .card-img-top {
     width: 100%;
     height: 300px;
     object-fit: cover;
 }
 
-/* Card Body */
 .card-body {
     padding: 1.5rem;
 }
 
-/* Card Title */
 .card-title {
     font-size: 1.5rem;
     color: #333;
@@ -28,7 +26,6 @@
     font-weight: 500;
 }
 
-/* Card Text */
 .card-text {
     font-size: 1rem;
     color: #555;
@@ -46,7 +43,6 @@
     text-decoration: underline;
 }
 
-/* Button */
 .btn-danger {
     color: #fff;
     background-color: #dc3545;
@@ -60,7 +56,6 @@
     border-color: #bd2130;
 }
 
-/* Modal */
 .modal-content {
     background-color: #f8f9fa;
     border: none;

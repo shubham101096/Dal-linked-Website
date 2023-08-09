@@ -1,5 +1,9 @@
 /* MADE BY MAYANK PANDEY */
 
+/* This React component represents the employer dashboard page, where employers can view their profile details,
+   manage job listings, and interact with student applicants. It includes job and applicant listings with pagination,
+   the ability to view job details, and a confirmation modal for account deletion. */
+
 import React, { useState, useContext, useEffect } from 'react';
 import { Container, Row, Col, Button, Dropdown } from 'react-bootstrap';
 import StudentListingsPage from './StudentListingsPage';
@@ -106,10 +110,10 @@ const EmployerPage = () => {
 
     return (
         <Container className="p-3 employer-page">
-    <Row>
-        <Col xs={12} md={4}>
-            {/* <EmployerProfileCard /> */}
-            <Card style={{ width: '100%', backgroundColor: '#F0F0F0' }}>
+            <Row>
+                <Col xs={12} md={4}>
+                    {/* <EmployerProfileCard /> */}
+                    <Card style={{ width: '100%', backgroundColor: '#F0F0F0' }}>
                         {employer ? (
                             <>
                                 <Card.Img
@@ -117,10 +121,10 @@ const EmployerPage = () => {
                                     src={employer.companyLogo || "https://s3.amazonaws.com/www-inside-design/uploads/2019/05/woolmarkimagelogo-1024x576.png"}
                                 />
                                 <Card.Body>
-                                <Card.Title style={{ fontSize: '20px', color: '#000000', fontFamily: 'Arial' }}>
+                                    <Card.Title style={{ fontSize: '20px', color: '#000000', fontFamily: 'Arial' }}>
                                         {employer.employerName}
                                     </Card.Title>
-                                    <Card.Text style={{ fontSize: '16px', color: '#000000', fontFamily: 'Arial'}}>
+                                    <Card.Text style={{ fontSize: '16px', color: '#000000', fontFamily: 'Arial' }}>
                                         Company Name: {employer.companyName} <br />
                                         Email: {employer.email} <br />
                                         Contact Number: {employer.contactNumber} <br />
@@ -169,48 +173,48 @@ const EmployerPage = () => {
                     </div>
                 </Col>
                 {/* <Col md={1}></Col> */}
-                
+
                 <Col xs={8} md={7}>
-                <Col>
-                <Col className="right-col">
-                    {showJobDetail ? (
-                        <div>
-                            {/* <Button variant="primary" onClick={handleBack} className="toggle-button">Back to Job Listings</Button> */}
-                            <JobDetail job={selectedJob} isEmployerPage={true} closeJobDetail={closeJobDetails} />
-                        </div>
-                    ) : (
-                        <div>
-                            <div className="row m-2">
-                            </div>
-                            <Col xs={12} md={8}>
-                                {displayJobListings ? (
-                                    <div>
-                                        {currentJobs.length === 0 ? (<div><h3>No jobs available currently.</h3></div>) : (currentJobs.map((job) => (<div key={job.id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
-                                        {/* Pagination */}
-                                        {jobs.length > jobsPerPage && (
-                                            <div className="d-flex justify-content-center mt-4">
-                                                <Pagination>
-                                                    {Array.from({ length: totalPages }, (_, index) => (
-                                                        <Pagination.Item
-                                                            key={index + 1}
-                                                            active={index + 1 === activePage}
-                                                            onClick={() => handlePageChange(index + 1)}
-                                                        >
-                                                            {index + 1}
-                                                        </Pagination.Item>
-                                                    ))}
-                                                </Pagination>
-                                            </div>
-                                        )}
+                    <Col>
+                        <Col className="right-col">
+                            {showJobDetail ? (
+                                <div>
+                                    {/* <Button variant="primary" onClick={handleBack} className="toggle-button">Back to Job Listings</Button> */}
+                                    <JobDetail job={selectedJob} isEmployerPage={true} closeJobDetail={closeJobDetails} />
+                                </div>
+                            ) : (
+                                <div>
+                                    <div className="row m-2">
                                     </div>
-                                ) : (
-                                    <StudentListingsPage employerId={employer._id} />
-                                )}
-                            </Col>
-                        </div>
-                    )}
+                                    <Col xs={12} md={8}>
+                                        {displayJobListings ? (
+                                            <div>
+                                                {currentJobs.length === 0 ? (<div><h3>No jobs available currently.</h3></div>) : (currentJobs.map((job) => (<div key={job.id} onClick={() => handleJob(job)}><JobCard job={job} /></div>)))}
+                                                {/* Pagination */}
+                                                {jobs.length > jobsPerPage && (
+                                                    <div className="d-flex justify-content-center mt-4">
+                                                        <Pagination>
+                                                            {Array.from({ length: totalPages }, (_, index) => (
+                                                                <Pagination.Item
+                                                                    key={index + 1}
+                                                                    active={index + 1 === activePage}
+                                                                    onClick={() => handlePageChange(index + 1)}
+                                                                >
+                                                                    {index + 1}
+                                                                </Pagination.Item>
+                                                            ))}
+                                                        </Pagination>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <StudentListingsPage employerId={employer._id} />
+                                        )}
+                                    </Col>
+                                </div>
+                            )}
+                        </Col>
                     </Col>
-                </Col>
                 </Col>
             </Row>
         </Container>
